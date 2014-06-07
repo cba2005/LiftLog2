@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:cba_2005GPSCam="http://schemas.android.com/apk/res-auto"
+        >
+
+
+
+    <item
+            android:id="@+id/addEvent"
+            android:orderInCategory="1"
+            android:title="@string/addEvent"
+            android:icon="@android:drawable/ic_menu_add"
+            cba_2005GPSCam:showAsAction="ifRoom|withText"/>
+
+    <item
+            android:id="@+id/settings"
+            android:orderInCategory="2"
+            android:title="@string/settings"
+            cba_2005GPSCam:showAsAction="ifRoom|withText"/>
+
+    <item
+            android:id="@+id/help"
+            android:orderInCategory="100"
+            android:title="@string/help"
+            cba_2005GPSCam:showAsAction="ifRoom|withText"/>
+
+
+</menu>

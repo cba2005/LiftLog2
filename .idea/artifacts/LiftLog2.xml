@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="apk" name="LiftLog2">
+    <output-path>$PROJECT_DIR$/bin</output-path>
+    <properties id="android-properties">
+      <options>
+        <option name="keyAlias" value="myKey" />
+        <option name="keyPassword" value="cm9iZXJ0Nw==" />
+        <option name="keyStorePassword" value="cm9iZXJ0Nw==" />
+        <option name="keyStoreUrl" value="file://$USER_HOME$/Documents/keyStore.jks" />
+        <option name="proGuardCfgFiles">
+          <list>
+            <option value="file://%MODULE_SDK_HOME%/tools/proguard/proguard-android.txt" />
+          </list>
+        </option>
+        <option name="signingMode" value="RELEASE_SIGNED" />
+      </options>
+    </properties>
+    <root id="archive" name="LiftLog2.apk">
+      <element id="android-final-package" facet="LiftLog2/android/Android" />
+    </root>
+  </artifact>
+</component>
