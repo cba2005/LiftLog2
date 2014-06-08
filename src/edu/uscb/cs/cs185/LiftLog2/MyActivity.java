@@ -15,8 +15,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +25,8 @@ public class MyActivity extends ActionBarActivity {
     MyCalendarView calendar;
     File saveFolder;
     Uri outputFileUri;
+    ListView list;
+    MyAdapter adapter;
     SharedPreferences pref;
     int imgNum = 0;
     boolean vicSelfie = true;
@@ -38,40 +39,31 @@ public class MyActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        setupSelfies();
+
         calendar = (MyCalendarView) findViewById(R.id.calendarView);
 
 
-        boolean sdCardExists = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+        //ListView Stuff
+        list=(ListView)findViewById(R.id.listView);
 
-        if (sdCardExists) {
-            saveFolder = new File(Environment.getExternalStorageDirectory(), "/YouCSMe/VictorySelfies");
-        } else {
-            saveFolder = getBaseContext().getDir("/YouCSMe/VictorySelfies", Context.MODE_PRIVATE);
-        }
+        // Getting adapter by passing xml data ArrayList
+        adapter = new MyAdapter(this);//, songsList);
+        list.setAdapter(adapter);
 
-        if (!saveFolder.exists())
-            saveFolder.mkdirs();
+        // Click event for single list row
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        pref = getPreferences(MODE_PRIVATE);
-        if (!pref.contains("imgNum"))
-        {
-            pref.edit().putInt("imgNum", imgNum);
-            pref.edit().commit();
-        }
-        else
-            imgNum = pref.getInt("imgNum",imgNum);
-        if(!pref.contains("vicSelfie"))
-        {
-            pref.edit().putBoolean("vicSelfie", vicSelfie);
-            pref.edit().commit();
-        }
-        else
-            vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
 
 
 
 
-       /* Button photoButton = (Button) findViewById(R.id.photoButton);
+        Button photoButton = (Button) findViewById(R.id.photoButton);
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,5 +195,33 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
+    public void setupSelfies()
+    {
+        boolean sdCardExists = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 
+        if (sdCardExists) {
+            saveFolder = new File(Environment.getExternalStorageDirectory(), "/YouCSMe/VictorySelfies");
+        } else {
+            saveFolder = getBaseContext().getDir("/YouCSMe/VictorySelfies", Context.MODE_PRIVATE);
+        }
+
+        if (!saveFolder.exists())
+            saveFolder.mkdirs();
+
+        pref = getPreferences(MODE_PRIVATE);
+        if (!pref.contains("imgNum"))
+        {
+            pref.edit().putInt("imgNum", imgNum);
+            pref.edit().commit();
+        }
+        else
+            imgNum = pref.getInt("imgNum",imgNum);
+        if(!pref.contains("vicSelfie"))
+        {
+            pref.edit().putBoolean("vicSelfie", vicSelfie);
+            pref.edit().commit();
+        }
+        else
+            vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
+    }
 }
