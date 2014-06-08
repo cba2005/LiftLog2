@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class ClassManager {
 	
+	// minor change
 	public static final String TAG = "CLASS_MANAGER";
 	
 	private ArrayList<Class> classes;
