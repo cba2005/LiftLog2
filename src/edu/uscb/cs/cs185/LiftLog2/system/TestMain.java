@@ -13,7 +13,7 @@ public class TestMain {
 	}
 	
 	public static void main(String[] args) {
-		debug("test started...");	
+		debug("test started...yes this is dog");	
 	}
 	
 	public static void debug(String msg) {
