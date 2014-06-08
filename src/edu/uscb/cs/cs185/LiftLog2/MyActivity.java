@@ -50,7 +50,7 @@ public class MyActivity extends ActionBarActivity {
 
 
 
-        Button photoButton = (Button) findViewById(R.id.photoButton);
+       /* Button photoButton = (Button) findViewById(R.id.photoButton);
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +125,6 @@ public class MyActivity extends ActionBarActivity {
                 })
                 .show();
     }
-    //woeifjwoiejf
 
     public void addEventDialog()
     {
@@ -159,6 +158,11 @@ public class MyActivity extends ActionBarActivity {
         {
             e.printStackTrace();
         }
+
+    }
+
+    void addEvent()
+    {
 
     }
 

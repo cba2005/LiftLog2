@@ -1,13 +1,14 @@
-import android.app.*;
-import android.content.DialogInterface;
+package edu.uscb.cs.cs185.LiftLog2;
+
+import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import edu.uscb.cs.cs185.LiftLog2.R;
+
 
 /**
  * Created by Caressa on 6/6/2014.
@@ -21,9 +22,9 @@ public class AddEventDialog extends Activity {
 
         //Button button = (Button) findViewById(R.id.);
         //button.setOnClickListener(new View.OnClickListener() {
-          //  public void onClick(View v) {
-            //    showDialog();
-            //}
+        //  public void onClick(View v) {
+        //    showDialog();
+        //}
         //});
     }
 
@@ -33,9 +34,12 @@ public class AddEventDialog extends Activity {
     }
 
     void showDialog() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DialogFragment newFragment = MyDialogFragment.newInstance();
         newFragment.show(ft, "dialog");
+    }
+
+    public void show(FragmentManager supportFragmentManager, String newEvent) {
     }
 
     public static class MyDialogFragment extends DialogFragment {
