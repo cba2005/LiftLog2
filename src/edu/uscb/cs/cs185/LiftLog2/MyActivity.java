@@ -119,8 +119,8 @@ public class MyActivity extends ActionBarActivity {
 
     public void takePhoto()
     {
-        vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
-        if(vicSelfie) {
+        if(vicSelfie)
+        {
             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, 100);
         }
@@ -130,20 +130,19 @@ public class MyActivity extends ActionBarActivity {
     {
         View checkBoxView = View.inflate(this, R.layout.checkbox_layout, null);
         CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
-        vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
 
         checkBox.setChecked(vicSelfie);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                pref.edit().putBoolean("vicSelfie", !vicSelfie);
+                vicSelfie = !vicSelfie;
+                pref.edit().putBoolean("vicSelfie", vicSelfie);
                 pref.edit().commit();
             }
         });
 
-        checkBox.setText("Victory Selfie: ");
+        checkBox.setText("Victory Selfie");
 
         new AlertDialog.Builder(this)
                 .setTitle("Much Setting. Such wow")
