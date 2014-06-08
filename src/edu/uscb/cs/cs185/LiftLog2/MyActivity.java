@@ -30,6 +30,7 @@ public class MyActivity extends ActionBarActivity {
 	// omg caressa use private and public variables
 	// yeah learn how to code omg
     // WOW can't believe u can't code
+	// get with it
     private MyCalendarView calendar;
     private File saveFolder;
     private Uri outputFileUri;
