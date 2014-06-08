@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
  */
 public class DayListView extends ListActivity
         implements LoaderCallbacks<Cursor> {
-
+//gggg
     // This is the Adapter being used to display the list's data
     SimpleCursorAdapter mAdapter;
     LoaderCallbacks<Cursor> manager = this;
