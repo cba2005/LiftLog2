@@ -8,3 +8,4 @@ gen/
 bin/
 out/
 local.properties
+project.properties
