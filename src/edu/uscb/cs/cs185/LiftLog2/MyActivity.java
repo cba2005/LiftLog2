@@ -130,6 +130,7 @@ public class MyActivity extends ActionBarActivity {
     {
         View checkBoxView = View.inflate(this, R.layout.checkbox_layout, null);
         CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+        vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
 
         checkBox.setChecked(vicSelfie);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
