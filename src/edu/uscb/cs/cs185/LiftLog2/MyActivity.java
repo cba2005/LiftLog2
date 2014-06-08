@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
+import android.util.*;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,8 +23,11 @@ import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 
 public class MyActivity extends ActionBarActivity {
-
-    // omg caressa use private and public variables smh
+	public static final String TAG = "MAIN_ACTIVITY";
+	public static final boolean DEBUG_MODE = true;
+	
+	// omg caressa use private and public variables
+	// yeah learn how to code omg
     private MyCalendarView calendar;
     private File saveFolder;
     private Uri outputFileUri;
@@ -38,6 +42,7 @@ public class MyActivity extends ActionBarActivity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+		debug("starting main activity...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -143,9 +148,9 @@ public class MyActivity extends ActionBarActivity {
                 .setView(checkBoxView)
                 //.setMessage("Poop....No Settings")
                 .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				})
                 .show();
     }
 
@@ -226,4 +231,9 @@ public class MyActivity extends ActionBarActivity {
         else
             vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
     }
+	
+	public static void debug(String msg) {
+		if (DEBUG_MODE)
+			Log.i("log", TAG+": "+msg);
+	}
 }

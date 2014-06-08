@@ -5,6 +5,10 @@ package edu.uscb.cs.cs185.LiftLog2.system;
  */
 public class Assignment {
 	
+	public Assignment() {
+		
+	}
+	
 	
 	
 }
