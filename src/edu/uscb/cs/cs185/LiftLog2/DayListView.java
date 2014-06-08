@@ -13,13 +13,13 @@ import android.widget.ListView;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.widget.ProgressBar;
 
+
 /**
  * Created by Caressa on 5/30/2014.
  */
 public class DayListView extends ListActivity
         implements LoaderCallbacks<Cursor> {
-//gggg
-    ///hhhh
+
     // This is the Adapter being used to display the list's data
     SimpleCursorAdapter mAdapter;
     LoaderCallbacks<Cursor> manager = this;

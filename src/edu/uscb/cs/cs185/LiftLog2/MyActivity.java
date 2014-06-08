@@ -1,7 +1,7 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,27 +12,23 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
-import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.TextView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
-import java.util.Calendar;
 
 public class MyActivity extends ActionBarActivity {
     MyCalendarView calendar;
     File saveFolder;
-    TextView tv;
     Uri outputFileUri;
     SharedPreferences pref;
     int imgNum = 0;
+    boolean vicSelfie = true;
 
     /**
      * Called when the activity is first created.
@@ -43,19 +39,35 @@ public class MyActivity extends ActionBarActivity {
         setContentView(R.layout.main);
 
         calendar = (MyCalendarView) findViewById(R.id.calendarView);
-        tv = (TextView) findViewById(R.id.textView);
-        String delegate ="EEEE, MMMM dd, yyyy";
-        java.util.Date noteTS = Calendar.getInstance().getTime();
-        tv.setText(DateFormat.format(delegate, noteTS)+ " Events");
-               // tv.setText(DateUtils.formatDateTime(this, System.currentTimeMillis(),DateUtils.FORMAT_SHOW_DATE ));
 
-        saveFolder = new File(Environment.getExternalStorageDirectory(), "/YouCSMe/");
-        if(!saveFolder.exists())
-            saveFolder.mkdir();
+
+        boolean sdCardExists = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+
+        if (sdCardExists) {
+            saveFolder = new File(Environment.getExternalStorageDirectory(), "/YouCSMe/VictorySelfies");
+        } else {
+            saveFolder = getBaseContext().getDir("/YouCSMe/VictorySelfies", Context.MODE_PRIVATE);
+        }
+
+        if (!saveFolder.exists())
+            saveFolder.mkdirs();
 
         pref = getPreferences(MODE_PRIVATE);
-        pref.edit().putInt("imgNum", imgNum);
-        pref.edit().commit();
+        if (!pref.contains("imgNum"))
+        {
+            pref.edit().putInt("imgNum", imgNum);
+            pref.edit().commit();
+        }
+        else
+            imgNum = pref.getInt("imgNum",imgNum);
+        if(!pref.contains("vicSelfie"))
+        {
+            pref.edit().putBoolean("vicSelfie", vicSelfie);
+            pref.edit().commit();
+        }
+        else
+            vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
+
 
 
 
@@ -107,15 +119,35 @@ public class MyActivity extends ActionBarActivity {
 
     public void takePhoto()
     {
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, 100);
+        vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
+        if(vicSelfie) {
+            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, 100);
+        }
     }
 
     public void settingsDialog()
     {
+        View checkBoxView = View.inflate(this, R.layout.checkbox_layout, null);
+        CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+
+        checkBox.setChecked(vicSelfie);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                pref.edit().putBoolean("vicSelfie", !vicSelfie);
+                pref.edit().commit();
+            }
+        });
+
+        checkBox.setText("Victory Selfie: ");
+
         new AlertDialog.Builder(this)
                 .setTitle("Much Setting. Such wow")
-                .setMessage("Poop....No Settings")
+                .setView(checkBoxView)
+                //.setMessage("Poop....No Settings")
                 .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
@@ -135,11 +167,12 @@ public class MyActivity extends ActionBarActivity {
                 .show();
     }
 
-    public void addEventDialog()
+    public void addEvent()
     {
         AddEventDialog newEvent = new AddEventDialog();
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         imgNum = pref.getInt("imgNum",imgNum) + 1;
@@ -167,11 +200,6 @@ public class MyActivity extends ActionBarActivity {
         {
             e.printStackTrace();
         }
-
-    }
-
-    void addEvent()
-    {
 
     }
 
