@@ -13,6 +13,7 @@ public class ClassManager {
 	private int numClasses;
 	
 	public ClassManager() {
+		debug("initiated class manager...");
 		classes = new ArrayList<Class>();
 		numClasses = 0;	
 	}
