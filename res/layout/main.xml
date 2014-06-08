@@ -6,12 +6,12 @@
               android:layout_height="fill_parent"
         >
 
-    <ImageView
+  <!--  <ImageView
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:id="@+id/imageView"
             android:src="@drawable/ucsbwave_144"
-            />
+            /> -->
     <view
             class="edu.uscb.cs.cs185.LiftLog2.MyCalendarView"
             android:layout_width="match_parent"

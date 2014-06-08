@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,10 +43,12 @@ public class MyActivity extends ActionBarActivity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-		debug("starting main activity...");
+		//debug("starting main activity...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        Drawable background = getResources().getDrawable(R.drawable.ucsbwave_144);
+        getSupportActionBar().setBackgroundDrawable(background);
         setupSelfies();
 
         calendar = (MyCalendarView) findViewById(R.id.calendarView);
@@ -231,9 +234,9 @@ public class MyActivity extends ActionBarActivity {
         else
             vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
     }
-	
+	/*
 	public static void debug(String msg) {
 		if (DEBUG_MODE)
 			Log.i("log", TAG+": "+msg);
-	}
+	}*/
 }
