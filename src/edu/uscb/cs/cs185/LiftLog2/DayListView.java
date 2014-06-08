@@ -13,13 +13,6 @@ import android.widget.ListView;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.widget.ProgressBar;
 
-
-/*<Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Victory Selfie!!"
-        android:onClick="takePhoto"
-        android:id="@+id/photoButton"/>*/
 /**
  * Created by Caressa on 5/30/2014.
  */
