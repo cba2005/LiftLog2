@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:background="#FFFFCC"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
 
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/ucsbwave_144"
+            />
     <view
             class="edu.uscb.cs.cs185.LiftLog2.MyCalendarView"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="291dp"
             android:id="@+id/calendarView">
             </view>
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="404dp"
+            android:layout_height="54dp"
+            android:textColor="#000FFF"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/events"
             android:id="@+id/textView"/>
     <ListView
             android:layout_width="match_parent"
