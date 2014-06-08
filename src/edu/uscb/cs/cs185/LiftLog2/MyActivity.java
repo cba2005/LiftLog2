@@ -22,14 +22,16 @@ import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 
 public class MyActivity extends ActionBarActivity {
-    MyCalendarView calendar;
-    File saveFolder;
-    Uri outputFileUri;
-    ListView list;
-    MyAdapter adapter;
-    SharedPreferences pref;
-    int imgNum = 0;
-    boolean vicSelfie = true;
+
+    // omg caressa use private and public variables smh
+    private MyCalendarView calendar;
+    private File saveFolder;
+    private Uri outputFileUri;
+    private ListView list;
+    private MyAdapter adapter;
+    private SharedPreferences pref;
+    private int imgNum = 0;
+    private boolean vicSelfie = true;
 
     /**
      * Called when the activity is first created.
