@@ -6,6 +6,6 @@
     <string name="help">Help</string>
     <string name="done">Done</string>
     <string name="edit">Edit</string>
-    <string name="events">Today's Events</string>
+    <string name="events">Today\'s Events</string>
 
 </resources>

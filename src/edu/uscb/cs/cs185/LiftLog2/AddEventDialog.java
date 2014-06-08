@@ -34,9 +34,9 @@ public class AddEventDialog extends Activity {
     }
 
     void showDialog() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+/*        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DialogFragment newFragment = MyDialogFragment.newInstance();
-        newFragment.show(ft, "dialog");
+        newFragment.show(ft, "dialog");*/
     }
 
     public void show(FragmentManager supportFragmentManager, String newEvent) {
