@@ -1,0 +1,9 @@
+*.class
+.idea/
+*.iml
+*~
+*.dex
+*.dx
+gen/
+bin/
+out/
