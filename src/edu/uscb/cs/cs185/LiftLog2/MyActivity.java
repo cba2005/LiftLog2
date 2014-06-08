@@ -12,19 +12,24 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 public class MyActivity extends ActionBarActivity {
     MyCalendarView calendar;
     File saveFolder;
+    TextView tv;
     Uri outputFileUri;
     SharedPreferences pref;
     int imgNum = 0;
@@ -38,7 +43,11 @@ public class MyActivity extends ActionBarActivity {
         setContentView(R.layout.main);
 
         calendar = (MyCalendarView) findViewById(R.id.calendarView);
-
+        tv = (TextView) findViewById(R.id.textView);
+        String delegate ="EEEE, MMMM dd, yyyy";
+        java.util.Date noteTS = Calendar.getInstance().getTime();
+        tv.setText(DateFormat.format(delegate, noteTS)+ " Events");
+               // tv.setText(DateUtils.formatDateTime(this, System.currentTimeMillis(),DateUtils.FORMAT_SHOW_DATE ));
 
         saveFolder = new File(Environment.getExternalStorageDirectory(), "/YouCSMe/");
         if(!saveFolder.exists())
