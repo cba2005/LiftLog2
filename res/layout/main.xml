@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:background="#FFFFCC"
+              android:background="#E6F1F5"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
@@ -22,7 +22,8 @@
     <TextView
             android:layout_width="404dp"
             android:layout_height="54dp"
-            android:textColor="#000FFF"
+            android:textStyle="bold"
+            android:fontFamily="Arial,Helvetica,sans-serif"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView"/>
     <ListView
