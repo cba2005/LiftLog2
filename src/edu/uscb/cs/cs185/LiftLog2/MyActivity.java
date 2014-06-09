@@ -34,6 +34,7 @@ public class MyActivity extends ActionBarActivity {
     private SharedPreferences pref;
     private int imgNum = 0;
     private boolean vicSelfie = true;
+    private SharedPreferences.Editor editor;
 
     /**
      * Called when the activity is first created.
@@ -141,8 +142,8 @@ public class MyActivity extends ActionBarActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 vicSelfie = !vicSelfie;
-                pref.edit().putBoolean("vicSelfie", vicSelfie);
-                pref.edit().commit();
+                editor.putBoolean("vicSelfie", vicSelfie);
+                editor.commit();
             }
         });
 
@@ -213,32 +214,31 @@ public class MyActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        imgNum = pref.getInt("imgNum",imgNum) + 1;
-        pref.edit().putInt("imgNum", imgNum);
-        pref.edit().commit();
-        String fileImgNum = new DecimalFormat("000").format(imgNum);
-        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            imgNum = pref.getInt("imgNum", imgNum) + 1;
+            editor.putInt("imgNum", imgNum);
+            editor.commit();
+            String fileImgNum = new DecimalFormat("000").format(imgNum);
+            super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap photo = (Bitmap) data.getExtras().get("data");
-        getSupportActionBar().setIcon(new BitmapDrawable(photo));
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            getSupportActionBar().setIcon(new BitmapDrawable(photo));
 
 
-        File file = new File(saveFolder, "selfie_" + fileImgNum + ".jpg");
-        outputFileUri = null;
-        outputFileUri = Uri.fromFile(file);
-        data.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+            File file = new File(saveFolder, "selfie_" + fileImgNum + ".jpg");
+            outputFileUri = null;
+            outputFileUri = Uri.fromFile(file);
+            data.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            photo.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
+            try {
+                FileOutputStream out = new FileOutputStream(file);
+                photo.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                out.flush();
+                out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
     }
 
     public void setupSelfies()
@@ -254,18 +254,21 @@ public class MyActivity extends ActionBarActivity {
         if (!saveFolder.exists())
             saveFolder.mkdirs();
 
-        pref = getPreferences(MODE_PRIVATE);
+
+        pref =  this.getPreferences(Context.MODE_PRIVATE);
+        //pref = getPreferences(MODE_PRIVATE);
+        editor = pref.edit();
         if (!pref.contains("imgNum"))
         {
-            pref.edit().putInt("imgNum", imgNum);
-            pref.edit().commit();
+            editor.putInt("imgNum", imgNum);
+            editor.commit();
         }
         else
             imgNum = pref.getInt("imgNum",imgNum);
         if(!pref.contains("vicSelfie"))
         {
-            pref.edit().putBoolean("vicSelfie", vicSelfie);
-            pref.edit().commit();
+            editor.putBoolean("vicSelfie", vicSelfie);
+            editor.commit();
         }
         else
             vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
