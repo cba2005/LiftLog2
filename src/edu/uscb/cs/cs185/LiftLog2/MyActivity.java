@@ -131,8 +131,9 @@ public class MyActivity extends ActionBarActivity {
 
     public void openCalendar()
     {
-        CalendarDialog newEvent = new CalendarDialog();
+        CalendarDialog newEvent = new CalendarDialog(this);
         newEvent.show(getSupportFragmentManager(), "newEvent");
+
     }
 
     public void settingsDialog()
@@ -222,6 +223,12 @@ public class MyActivity extends ActionBarActivity {
     {
         EditEventDialog newEvent = new EditEventDialog();
         newEvent.show(getSupportFragmentManager(), "newEvent");
+    }
+
+    public void openDayViewDialog(int month, int day, int year){
+        DayViewDialog newEvent = new DayViewDialog(month, day, year);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+
     }
 
     @Override

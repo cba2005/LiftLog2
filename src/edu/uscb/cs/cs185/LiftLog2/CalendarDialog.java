@@ -19,12 +19,35 @@ import android.widget.Toast;
  * Created by bronhuston on 6/8/14.
  */
 public class CalendarDialog extends DialogFragment {
+    private MyActivity activity;
 
-    private int mYear;
-    private int mMonth;
-    private int mDay;
-    public CalendarDialog() {}
+    private int mYear = 0;
+    private int mMonth = 0;
+    private int mDay = 0;
+    int done = 0;
+    public CalendarDialog(MyActivity activity) {
+        this.activity = activity;
+    }
 
+    public int getmYear()
+    {
+        return mYear;
+    }
+
+    public int getmMonth()
+    {
+        return mMonth;
+    }
+
+    public int getmDay()
+    {
+        return mDay;
+    }
+
+    public int getDone()
+    {
+        return done;
+    }
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
@@ -47,12 +70,23 @@ public class CalendarDialog extends DialogFragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
-                // TODO Auto-generated method stub
 
-                Toast.makeText(dialog.getContext(), "Selected Date is\n\n"
-                                + dayOfMonth + " : " + month + " : " + year,
+
+
+                done = 1;
+                mMonth = month;
+                mYear = year;
+                mDay = dayOfMonth;
+
+              /*  Toast.makeText(dialog.getContext(), "Selected Date is\n\n"
+                                + getmDay() + " : " + getmMonth() + " : " + getmYear() + " done?:" + done,
                         Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
+
+                 */
+                //newEvent.getDialog().show();
+                //newEvent.getDialog().dismiss();
+                dialog.dismiss();
+                activity.openDayViewDialog(mMonth, mDay, mYear);
             }
         });
 
