@@ -24,9 +24,18 @@
             android:text="Selfie Tester"
             android:id="@+id/photoButton"/>-->
     <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Calendar"
+            android:text="@string/calendar"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:background="@drawable/btn_blue_glossy"
+            android:textColor="@color/lightblue"
             android:id="@+id/calendarButton"/>
 
 

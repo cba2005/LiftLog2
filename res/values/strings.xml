@@ -8,6 +8,7 @@
     <string name="help">Help</string>
     <string name="done">Done</string>
     <string name="edit">Edit</string>
+    <string name = "calendar">Calendar</string>
     <string name="eventName">Event Name : </string>
     <string name="setDate">Set Date    </string>
     <string name="setTime">Set Time</string>
