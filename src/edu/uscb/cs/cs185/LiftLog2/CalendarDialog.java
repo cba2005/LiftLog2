@@ -52,7 +52,7 @@ public class CalendarDialog extends DialogFragment {
                 Toast.makeText(dialog.getContext(), "Selected Date is\n\n"
                                 + dayOfMonth + " : " + month + " : " + year,
                         Toast.LENGTH_LONG).show();
-
+                        dialog.dismiss();
             }
         });
 
