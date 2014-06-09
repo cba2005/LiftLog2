@@ -136,8 +136,7 @@ public class MyActivity extends ActionBarActivity {
     {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog);
-        View checkBoxView = View.inflate(this, R.layout.custom_dialog, null);
-        CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+        CheckBox checkBox = (CheckBox) dialog.findViewById(R.id.checkbox);
 
         checkBox.setChecked(vicSelfie);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
