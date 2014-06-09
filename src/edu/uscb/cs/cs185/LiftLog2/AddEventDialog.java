@@ -28,6 +28,7 @@ public class AddEventDialog extends DialogFragment{
     private MyActivity activity;
     private Button timeButton, dateButton;
     private TextView timeTextView, dateTextView;
+    private AutoCompleteTextView className;
     public static final String[] MONTHS ={"January","February","March","April","May","June","July","August","September","October","November","December"};
 
         public AddEventDialog(MyActivity activity)
@@ -42,7 +43,9 @@ public class AddEventDialog extends DialogFragment{
     @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
-            classesArray = getResources().getStringArray(R.array.classList);
+           // classesArray = getResources().getStringArray(R.array.classList);
+
+
 
             // creating the fullscreen dialog
             final Dialog dialog = new Dialog(getActivity());
@@ -53,6 +56,7 @@ public class AddEventDialog extends DialogFragment{
             dateButton = (Button) dialog.findViewById(R.id.dateButton);
             timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
             dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
+            className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
 
 
             final Calendar c = Calendar.getInstance();
@@ -83,10 +87,16 @@ public class AddEventDialog extends DialogFragment{
                 }
             });
 
+            startAutoComplete();
 
             return dialog;
         }
 
+         public void startAutoComplete() {
+            //make autocomplere adapter
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.classList));
+            className.setAdapter(adapter);
 
+        }
 
 }
