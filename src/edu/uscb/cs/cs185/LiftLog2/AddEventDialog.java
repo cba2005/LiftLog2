@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
 
+import java.util.Calendar;
+
 
 /**
  * Created by Caressa on 6/6/2014.
@@ -23,9 +25,11 @@ public class AddEventDialog extends DialogFragment{
     private MyActivity activity;
     private Button timeButton, dateButton;
     private TextView timeTextView, dateTextView;
+    public static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
 
-        public AddEventDialog(MyActivity activity)
+
+    public AddEventDialog(MyActivity activity)
         {
             this.activity = activity;
         }
@@ -45,6 +49,22 @@ public class AddEventDialog extends DialogFragment{
             dateButton = (Button) dialog.findViewById(R.id.dateButton);
             timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
             dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
+
+
+
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        String date = "";
+        date = MONTHS[month];
+        date += " " + String.valueOf(day);
+        date += ", " + year;
+        dateTextView.setText(date);
+
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        String time = hour + ":" + "00";
+        timeTextView.setText(time);
 
             dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
