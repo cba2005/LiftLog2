@@ -3,13 +3,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:background="@color/marshmallow"
+              android:background="@color/lightblue"
               android:layout_height="match_parent">
 
         <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:textColor="@color/navy"
+                android:textColor="#00688B"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -47,46 +47,59 @@
             android:layout_gravity="center_horizontal"/>
 
     <Button
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/setDate"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@color/navy"
-            android:textColor="@color/lightyellow"
-            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:background="@drawable/btn_blue_glossy"
+            android:textColor="@color/lightblue"
+            android:textStyle="bold"
+            android:gravity="center_vertical|left"
+
             android:id="@+id/dateButton"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/setDate"
             android:textColor="@color/navy"
-            android:layout_gravity="center_horizontal"
+            android:paddingBottom="15dp"
+            android:paddingRight="5dp"
+            android:layout_gravity="right|center_vertical"
             android:id="@+id/eventDate"/>
 
 
 
     <Button
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/setTime"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@color/blue"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:background="@drawable/btn_blue_glossy"
             android:clickable="true"
             android:textColor="@color/lightyellow"
-            android:gravity="center"
+            android:textStyle="bold"
+            android:gravity="center_vertical|left"
             android:id="@+id/timeButton"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/setTime"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="right|center_vertical"
             android:textColor="@color/navy"
+            android:paddingBottom="15dp"
+            android:paddingRight="5dp"
             android:id="@+id/eventTime"/>
 
     <Button
@@ -95,9 +108,14 @@
             android:text="@string/addEvent"
             android:id="@+id/addEventButton"
             android:textStyle="bold"
-            android:textColor="@color/red"
+            android:textColor="@color/lightblue"
+            android:background="@drawable/btn_blue_glossy"
             android:layout_gravity="end"
-            />
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:clickable="true"
+            android:focusable="true"/>
 
 
 

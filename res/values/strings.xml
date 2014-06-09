@@ -8,95 +8,95 @@
     <string name="help">Help</string>
     <string name="done">Done</string>
     <string name="edit">Edit</string>
-    <string name="eventName">Event Name</string>
-    <string name="setDate">Set Date</string>
+    <string name="eventName">Event Name : </string>
+    <string name="setDate">Set Date    </string>
     <string name="setTime">Set Time</string>
     <string name="events">Today\'s Events</string>
 
     <string-array name="classList">
-        <item>CS 1</item>
-        <item>CS 8</item>
-        <item>CS 16</item>
-        <item>CS 24</item>
-        <item>32</item>
-        <item>40</item>
-        <item>48</item>
-        <item>56</item>
-        <item>64</item>
-        <item>99</item>
-        <item>111</item>
-        <item>130A</item>
-        <item>130B</item>
-        <item>138</item>
-        <item>140</item>
-        <item>153A</item>
-        <item>154</item>
-        <item>160</item>
-        <item>162</item>
-        <item>165A</item>
-        <item>165B</item>
-        <item>167</item>
-        <item>170</item>
-        <item>171</item>
-        <item>172</item>
-        <item>174A</item>
-        <item>174B</item>
-        <item>176A</item>
-        <item>176B</item>
-        <item>176C</item>
-        <item>177</item>
-        <item>178</item>
-        <item>180</item>
-        <item>181B</item>
-        <item>182</item>
-        <item>185</item>
-        <item>186</item>
-        <item>189A</item>
-        <item>189B</item>
-        <item>192</item>
-        <item>193</item>
-        <item>196</item>
-        <item>199</item>
-        <item>209</item>
-        <item>211A</item>
-        <item>211B</item>
-        <item>211C</item>
-        <item>211D</item>
-        <item>216</item>
-        <item>219</item>
-        <item>220</item>
-        <item>225</item>
-        <item>230</item>
-        <item>231</item>
-        <item>235</item>
-        <item>240A</item>
-        <item>240B</item>
-        <item>254</item>
-        <item>260</item>
-        <item>263</item>
-        <item>266</item>
-        <item>267</item>
-        <item>270</item>
-        <item>271</item>
-        <item>272</item>
-        <item>273</item>
-        <item>274</item>
-        <item>276</item>
-        <item>279</item>
-        <item>280</item>
-        <item>281B</item>
-        <item>284</item>
-        <item>290</item>
-        <item>501</item>
-        <item>502</item>
-        <item>592</item>
-        <item>593</item>
-        <item>594</item>
-        <item>595</item>
-        <item>596</item>
-        <item>597</item>
-        <item>598</item>
-        <item>599</item>
+        <item>CMPSC 1</item>
+        <item>CMPSC 8</item>
+        <item>CMPSC 16</item>
+        <item>CMPSC 24</item>
+        <item>CMPSC 32</item>
+        <item>CMPSC 40</item>
+        <item>CMPSC 48</item>
+        <item>CMPSC 56</item>
+        <item>CMPSC 64</item>
+        <item>CMPSC 99</item>
+        <item>CMPSC 111</item>
+        <item>CMPSC 130A</item>
+        <item>CMPSC 130B</item>
+        <item>CMPSC 138</item>
+        <item>CMPSC 140</item>
+        <item>CMPSC 153A</item>
+        <item>CMPSC 154</item>
+        <item>CMPSC 160</item>
+        <item>CMPSC 162</item>
+        <item>CMPSC 165A</item>
+        <item>CMPSC 165B</item>
+        <item>CMPSC 167</item>
+        <item>CMPSC 170</item>
+        <item>CMPSC 171</item>
+        <item>CMPSC 172</item>
+        <item>CMPSC 174A</item>
+        <item>CMPSC 174B</item>
+        <item>CMPSC 176A</item>
+        <item>CMPSC 176B</item>
+        <item>CMPSC 176C</item>
+        <item>CMPSC 177</item>
+        <item>CMPSC 178</item>
+        <item>CMPSC 180</item>
+        <item>CMPSC 181B</item>
+        <item>CMPSC 182</item>
+        <item>CMPSC 185</item>
+        <item>CMPSC 186</item>
+        <item>CMPSC 189A</item>
+        <item>CMPSC 189B</item>
+        <item>CMPSC 192</item>
+        <item>CMPSC 193</item>
+        <item>CMPSC 196</item>
+        <item>CMPSC 199</item>
+        <item>CMPSC 209</item>
+        <item>CMPSC 211A</item>
+        <item>CMPSC 211B</item>
+        <item>CMPSC 211C</item>
+        <item>CMPSC 211D</item>
+        <item>CMPSC 216</item>
+        <item>CMPSC 219</item>
+        <item>CMPSC 220</item>
+        <item>CMPSC 225</item>
+        <item>CMPSC 230</item>
+        <item>CMPSC 231</item>
+        <item>CMPSC 235</item>
+        <item>CMPSC 240A</item>
+        <item>CMPSC 240B</item>
+        <item>CMPSC 254</item>
+        <item>CMPSC 260</item>
+        <item>CMPSC 263</item>
+        <item>CMPSC 266</item>
+        <item>CMPSC 267</item>
+        <item>CMPSC 270</item>
+        <item>CMPSC 271</item>
+        <item>CMPSC 272</item>
+        <item>CMPSC 273</item>
+        <item>CMPSC 274</item>
+        <item>CMPSC 276</item>
+        <item>CMPSC 279</item>
+        <item>CMPSC 280</item>
+        <item>CMPSC 281B</item>
+        <item>CMPSC 284</item>
+        <item>CMPSC 290</item>
+        <item>CMPSC 501</item>
+        <item>CMPSC 502</item>
+        <item>CMPSC 592</item>
+        <item>CMPSC 593</item>
+        <item>CMPSC 594</item>
+        <item>CMPSC 595</item>
+        <item>CMPSC 596</item>
+        <item>CMPSC 597</item>
+        <item>CMPSC 598</item>
+        <item>CMPSC 599</item>
     </string-array>
 
 </resources>

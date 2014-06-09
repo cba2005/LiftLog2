@@ -13,7 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Calendar;
 
 
 /**
@@ -31,6 +36,9 @@ public class AddEventDialog extends DialogFragment{
         }
 
     private static String[] classesArray;
+    TextView eventDate;
+    TextView eventTime;
+
     @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
@@ -45,6 +53,7 @@ public class AddEventDialog extends DialogFragment{
             dateButton = (Button) dialog.findViewById(R.id.dateButton);
             timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
             dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
+
 
             dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
