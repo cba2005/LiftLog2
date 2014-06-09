@@ -15,6 +15,17 @@
     <string name="events">Today\'s Events</string>
     <string name="editEvent">Edit Event</string>
 
+    <string-array name="eventType">
+        <item>Homework</item>
+        <item>Project</item>
+        <item>Exam</item>
+        <item>Quiz</item>
+        <item>Midterm</item>
+        <item>Final</item>
+        <item>Presentation</item>
+        <item>Lab</item>
+        <item>Other</item>
+    </string-array>
 
     <string-array name="classList">
         <item>CMPSC 1</item>
