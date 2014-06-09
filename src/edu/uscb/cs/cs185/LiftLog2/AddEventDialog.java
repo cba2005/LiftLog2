@@ -57,6 +57,7 @@ public class AddEventDialog extends DialogFragment{
             timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
             dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
             className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
+            className.setThreshold(1);
 
 
             final Calendar c = Calendar.getInstance();
