@@ -8,17 +8,18 @@ import android.graphics.*;
 public class Class {
 	
 	private String className;
-	private Color classColor;
+	private long classColor;
 	
-	public Class(String name) {
-		className = name;	
+	public Class(String name, long colorVal) {
+		className = name;
+		classColor = colorVal;
 	}
 	
 	public void setClassName(String name){
 		className = name;
 	}
 	
-	public void setClassColor(Color color){
+	public void setClassColor(int color){
 		classColor = color;
 	}
 	
@@ -26,7 +27,7 @@ public class Class {
 		return className;
 	}
 	
-	public Color getClassColor() {
+	public long getClassColor() {
 		return classColor;
 	}
 }

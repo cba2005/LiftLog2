@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.*;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,6 +73,17 @@ public class MyActivity extends ActionBarActivity {
                 editEvent();
             }
         });
+
+
+
+
+       /* Button photoButton = (Button) findViewById(R.id.photoButton);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePhoto();
+            }
+        });*/
 
 
         Button calendarButton = (Button) findViewById(R.id.calendarButton);
@@ -147,6 +159,9 @@ public class MyActivity extends ActionBarActivity {
 
 
         dialog.setTitle("Settings");
+        // set the custom dialog components - text, image and button
+        //TextView text = (TextView) dialog.findViewById(R.id.textDialog);
+
 
         ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
         if(imgNum > 0)
@@ -175,10 +190,13 @@ public class MyActivity extends ActionBarActivity {
     {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog);
+        // final RelativeLayout dialogLayout = (RelativeLayout) findViewById(R.id.relLayout);
 
 
         dialog.setTitle("Help");
         // set the custom dialog components - text, image and button
+        //TextView text = (TextView) dialog.findViewById(R.id.textDialog);
+
 
         ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
         image.setImageResource(R.drawable.doge);
@@ -298,6 +316,9 @@ public class MyActivity extends ActionBarActivity {
         MyDatePicker newEvent = new MyDatePicker(t);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
-
-
+	
+	public static void debug(String msg) {
+		if (DEBUG_MODE)
+			Log.i("log", TAG + ": " + msg);
+	}
 }
