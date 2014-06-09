@@ -29,7 +29,7 @@ public class MyActivity extends ActionBarActivity {
 	public static final boolean DEBUG_MODE = true;
 
 
-    private MyCalendarView calendar;
+   // private MyCalendarView calendar;
     private File saveFolder;
     private Uri outputFileUri;
     private ListView list;
@@ -51,7 +51,7 @@ public class MyActivity extends ActionBarActivity {
         getSupportActionBar().setBackgroundDrawable(background);
         setupSelfies();
 
-        calendar = (MyCalendarView) findViewById(R.id.calendarView);
+       // calendar = (MyCalendarView) findViewById(R.id.calendarView);
 
 
         //ListView Stuff
@@ -83,6 +83,13 @@ public class MyActivity extends ActionBarActivity {
         });
 
 
+        Button calendarButton = (Button) findViewById(R.id.calendarButton);
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCalendar();
+            }
+        });
 
     }
 
@@ -118,6 +125,11 @@ public class MyActivity extends ActionBarActivity {
             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, 100);
         }
+    }
+
+    public void openCalendar()
+    {
+
     }
 
     public void settingsDialog()
