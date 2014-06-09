@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +36,7 @@ public class MyActivity extends ActionBarActivity {
     private int imgNum = 0;
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
+    private String path;
 
     /**
      * Called when the activity is first created.
@@ -157,7 +159,14 @@ public class MyActivity extends ActionBarActivity {
 
 
         ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
-        image.setImageResource(R.drawable.doge);
+        if(imgNum > 0)
+        {
+            String fileImgNum = new DecimalFormat("000").format(imgNum);
+            Drawable d = Drawable.createFromPath(path + "/selfie_" + fileImgNum + ".jpg");
+            image.setImageDrawable(d);
+        }
+        else
+            image.setImageResource(R.drawable.doge);
 
         Button dialogButton = (Button) dialog.findViewById(R.id.button);
         // if button is clicked, close the custom dialog
@@ -228,6 +237,7 @@ public class MyActivity extends ActionBarActivity {
             File file = new File(saveFolder, "selfie_" + fileImgNum + ".jpg");
             outputFileUri = null;
             outputFileUri = Uri.fromFile(file);
+
             data.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
             try {
@@ -254,9 +264,10 @@ public class MyActivity extends ActionBarActivity {
         if (!saveFolder.exists())
             saveFolder.mkdirs();
 
+        path = saveFolder.getAbsolutePath();
+
 
         pref =  this.getPreferences(Context.MODE_PRIVATE);
-        //pref = getPreferences(MODE_PRIVATE);
         editor = pref.edit();
         if (!pref.contains("imgNum"))
         {
@@ -264,7 +275,7 @@ public class MyActivity extends ActionBarActivity {
             editor.commit();
         }
         else
-            imgNum = pref.getInt("imgNum",imgNum);
+            imgNum = pref.getInt("imgNum", imgNum);
         if(!pref.contains("vicSelfie"))
         {
             editor.putBoolean("vicSelfie", vicSelfie);
@@ -272,10 +283,18 @@ public class MyActivity extends ActionBarActivity {
         }
         else
             vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
+
+        if(imgNum > 0)
+        {
+            String fileImgNum = new DecimalFormat("000").format(imgNum);
+            Drawable d = Drawable.createFromPath(path + "/selfie_" + fileImgNum + ".jpg");
+            getSupportActionBar().setIcon(d);
+        }
+
     }
-	/*
-	public static void debug(String msg) {
+
+	/*public static void debug(String msg) {
 		if (DEBUG_MODE)
-			Log.i("log", TAG+": "+msg);
+			Log.i("log", TAG + ": " + msg);
 	}*/
 }

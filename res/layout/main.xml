@@ -18,7 +18,11 @@
             android:layout_height="21dp"
             android:id="@+id/calendarView">
             </view>
-
+    <!--<Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selfie Tester"
+            android:id="@+id/photoButton"/>-->
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
