@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,8 @@ public class MyActivity extends ActionBarActivity {
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
     private String path;
+    FragmentManager manager;
+
 
     /**
      * Called when the activity is first created.
@@ -211,7 +214,7 @@ public class MyActivity extends ActionBarActivity {
 
     public void addEvent()
     {
-        AddEventDialog newEvent = new AddEventDialog();
+        AddEventDialog newEvent = new AddEventDialog(this);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
@@ -290,6 +293,20 @@ public class MyActivity extends ActionBarActivity {
             getSupportActionBar().setIcon(d);
         }
 
+    }
+
+
+
+    public void timePickerDialog(TextView t)
+    {
+        MyTimePicker newEvent = new MyTimePicker(t);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+    }
+
+    public void datePickerDialog(TextView t)
+    {
+        MyDatePicker newEvent = new MyDatePicker(t);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
 	/*public static void debug(String msg) {
