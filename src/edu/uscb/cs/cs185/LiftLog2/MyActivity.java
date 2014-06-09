@@ -27,11 +27,8 @@ import java.text.DecimalFormat;
 public class MyActivity extends ActionBarActivity {
 	public static final String TAG = "MAIN_ACTIVITY";
 	public static final boolean DEBUG_MODE = true;
-	
-	// omg caressa use private and public variables
-	// yeah learn how to code omg
-    // WOW can't believe u can't code
-	// get with it
+
+
     private MyCalendarView calendar;
     private File saveFolder;
     private Uri outputFileUri;
@@ -58,7 +55,7 @@ public class MyActivity extends ActionBarActivity {
 
 
         //ListView Stuff
-        list=(ListView)findViewById(R.id.listView);
+        list = (ListView) findViewById(R.id.listView);
 
         // Getting adapter by passing xml data ArrayList
         adapter = new MyAdapter(this);//, songsList);
@@ -68,8 +65,9 @@ public class MyActivity extends ActionBarActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                editEvent();
             }
         });
 
@@ -196,6 +194,12 @@ public class MyActivity extends ActionBarActivity {
     public void addEvent()
     {
         AddEventDialog newEvent = new AddEventDialog();
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+    }
+
+    public void editEvent()
+    {
+        EditEventDialog newEvent = new EditEventDialog();
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
