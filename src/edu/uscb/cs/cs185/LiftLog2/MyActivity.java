@@ -1,9 +1,7 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,7 +12,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
-import android.util.*;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -226,7 +223,7 @@ public class MyActivity extends ActionBarActivity {
         getSupportActionBar().setIcon(new BitmapDrawable(photo));
 
 
-        File file = new File(saveFolder, "victoryPhoto-" + fileImgNum + ".jpg");
+        File file = new File(saveFolder, "selfie_" + fileImgNum + ".jpg");
         outputFileUri = null;
         outputFileUri = Uri.fromFile(file);
         data.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
