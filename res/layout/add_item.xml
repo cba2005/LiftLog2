@@ -3,6 +3,102 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
+              android:background="@color/marshmallow"
               android:layout_height="match_parent">
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/navy"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/addEvent"
+                android:id="@+id/addEvent"/>
+
+    <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/courseName"
+                android:textColor="@color/navy"
+                android:id="@+id/courseName"/>
+
+        <AutoCompleteTextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:singleLine="true"
+                android:id="@+id/acCourseName">
+            <requestFocus />
+        </AutoCompleteTextView>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/eventName"
+            android:textColor="@color/navy"
+            android:id="@+id/eventName"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventEditText"
+            android:layout_gravity="center_horizontal"/>
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/setDate"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/navy"
+            android:textColor="@color/lightyellow"
+            android:gravity="center"
+            android:id="@+id/dateButton"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/setDate"
+            android:textColor="@color/navy"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/eventDate"/>
+
+
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/setTime"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/blue_button"
+            android:clickable="true"
+            android:textColor="@color/lightyellow"
+            android:gravity="center"
+            android:id="@+id/timeButton"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/setTime"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/navy"
+            android:id="@+id/eventTime"/>
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/addEvent"
+            android:id="@+id/addEventButton"
+            android:textStyle="bold"
+            android:textColor="@color/red"
+            android:layout_gravity="end"
+            />
+
+
 
 </LinearLayout>

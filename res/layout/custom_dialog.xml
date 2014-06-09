@@ -16,6 +16,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:textStyle="bold"
             android:text = "@string/victorySelfie"
             android:layout_toRightOf="@id/imageDialog"
             android:layout_margin="5dp" />
