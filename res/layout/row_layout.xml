@@ -21,10 +21,12 @@
                 android:text="Item"
                 android:id="@+id/itemView" android:layout_weight="2"/>
 
-        <ImageView android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/list_item_arrow"
-                   android:layout_alignParentRight="true"
-                   android:layout_centerVertical="true"/>
+        <Button
+                android:id="@+id/btn_remove"
+                android:layout_width="wrap_content"
+                android:background="@color/lime"
+                android:layout_height="wrap_content"
+                android:text="@string/completed"
+                android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

@@ -13,7 +13,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.*;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +39,6 @@ public class MyActivity extends ActionBarActivity {
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
     private String path;
-    FragmentManager manager;
 
 
     /**
@@ -54,26 +53,10 @@ public class MyActivity extends ActionBarActivity {
         Drawable background = getResources().getDrawable(R.drawable.ucsbwave_144);
         getSupportActionBar().setBackgroundDrawable(background);
         setupSelfies();
+        setupList();
 
        // calendar = (MyCalendarView) findViewById(R.id.calendarView);
 
-
-        //ListView Stuff
-        list = (ListView) findViewById(R.id.listView);
-
-        // Getting adapter by passing xml data ArrayList
-        adapter = new MyAdapter(this);//, songsList);
-        list.setAdapter(adapter);
-
-        // Click event for single list row
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                editEventDialog();
-            }
-        });
 
 
 
@@ -215,36 +198,6 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
-    public void addEventDialog()
-    {
-        AddEventDialog newEvent = new AddEventDialog(this);
-        newEvent.show(getSupportFragmentManager(), "newEvent");
-    }
-
-    public void addEventKnownDateDialog(Calendar c)
-    {
-        AddEventKnownDateDialog newEvent = new AddEventKnownDateDialog(this, c);
-        newEvent.show(getSupportFragmentManager(), "newEvent");
-    }
-
-    public void editEventDialog()
-    {
-        EditEventDialog newEvent = new EditEventDialog(this);
-        newEvent.show(getSupportFragmentManager(), "newEvent");
-    }
-
-    public void editEventKnownDateDialog(Calendar c)
-    {
-        EditEventKnownDateDialog newEvent = new EditEventKnownDateDialog(this, c);
-        newEvent.show(getSupportFragmentManager(), "newEvent");
-    }
-
-    public void openDayViewDialog(int month, int day, int year){
-        DayViewDialog newEvent = new DayViewDialog(month, day, year, this);
-        newEvent.show(getSupportFragmentManager(), "newEvent");
-
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK) {
@@ -316,7 +269,71 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
+    public void setupList()
+    {
+        //ListView Stuff
+        list = (ListView) findViewById(R.id.listView);
 
+        // Getting adapter by passing xml data ArrayList
+        adapter = new MyAdapter(this);//, songsList);
+        list.setAdapter(adapter);
+
+        // Click event for single list row
+        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                editEventDialog();
+            }
+        });*/
+
+        list.setOnTouchListener(new MyTouchView(MyActivity.this) {
+            @Override
+            public void onSwipeLeft() {
+                Toast.makeText(MyActivity.this, "left", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void singleTap()
+            {
+                editEventDialog();
+            }
+        });
+
+    }
+
+
+    public void addEventKnownDateDialog(Calendar c)
+    {
+        AddEventKnownDateDialog newEvent = new AddEventKnownDateDialog(this, c);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+    }
+
+
+    public void editEventKnownDateDialog(Calendar c)
+    {
+        EditEventKnownDateDialog newEvent = new EditEventKnownDateDialog(this, c);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+    }
+
+    public void addEventDialog()
+    {
+        AddEventDialog newEvent = new AddEventDialog(this);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+    }
+
+    public void editEventDialog()
+    {
+        EditEventDialog newEvent = new EditEventDialog(this);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+    }
+
+    public void openDayViewDialog(int month, int day, int year){
+        DayViewDialog newEvent = new DayViewDialog(month, day, year, this);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+
+    }
 
     public void timePickerDialog(TextView t)
     {
@@ -340,6 +357,14 @@ public class MyActivity extends ActionBarActivity {
     {
         //call whatever to change text file
     }
+
+    public void completedTask()
+    {
+
+    }
+
+
+
 
 	public static void debug(String msg) {
 		if (DEBUG_MODE)
