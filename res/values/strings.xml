@@ -100,6 +100,42 @@
         <item>CMPSC 597</item>
         <item>CMPSC 598</item>
         <item>CMPSC 599</item>
+        <item>CHEM 1A</item>
+        <item>CHEM 1AL</item>
+        <item>CHEM 1B</item>
+        <item>CHEM 1BL</item>
+        <item>CHEM 1C</item>
+        <item>CHEM 1CL</item>
+        <item>EARTH 2</item>
+        <item>EARTH 4</item>
+        <item>EARTH 4W</item>
+        <item>ECE 152A</item>
+        <item>EEMB 2</item>
+        <item>EEMB 2L</item>
+        <item>ENGR 101</item>
+        <item>GEOG 115A</item>
+        <item>GEOG 115B</item>
+        <item>GEOG 11BL</item>
+        <item>MATH 3A</item>
+        <item>MATH 3B</item>
+        <item>MATH 4A</item>
+        <item>MATH 4B</item>
+        <item>MATH 6A</item>
+        <item>MCDB 1A</item>
+        <item>MCDB 1AL</item>
+        <item>MCDB 1B</item>
+        <item>MCDB 1BL</item>
+        <item>PHYS 1</item>
+        <item>PHYS 2</item>
+        <item>PHYS 3</item>
+        <item>PHYS 3L</item>
+        <item>PHYS 4</item>
+        <item>PHYS 4L</item>
+        <item>PHYS 5</item>
+        <item>PHYS 5L</item>
+        <item>PSTAT 120A</item>
+        <item>PSTAT 120B</item>
+        <item>GE</item>
     </string-array>
 
 </resources>
