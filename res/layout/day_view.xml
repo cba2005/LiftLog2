@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="@string/addEvent"
-            android:id="@+id/addEventButton"
+            android:id="@+id/addEventKnownDateButton"
             android:textStyle="bold"
             android:textColor="@color/lightblue"
             android:background="@drawable/btn_blue_glossy"

@@ -22,6 +22,7 @@ import android.widget.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 public class MyActivity extends ActionBarActivity {
 	public static final String TAG = "MAIN_ACTIVITY";
@@ -217,6 +218,12 @@ public class MyActivity extends ActionBarActivity {
     public void addEventDialog()
     {
         AddEventDialog newEvent = new AddEventDialog(this);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+    }
+
+    public void addEventKnownDateDialog(Calendar c)
+    {
+        AddEventKnownDateDialog newEvent = new AddEventKnownDateDialog(this, c);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 

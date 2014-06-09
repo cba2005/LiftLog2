@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
 
+import java.util.Calendar;
+
 /**
  * Created by bronhuston on 6/8/14.
  */
@@ -28,6 +30,7 @@ public class DayViewDialog extends DialogFragment {
         this.day = Day;
         this.year = Year;
         this.activity = activity;
+
     }
 
     @Override
@@ -39,16 +42,16 @@ public class DayViewDialog extends DialogFragment {
         final Dialog dialog = new Dialog(getActivity());
       //  Toast.makeText(dialog.getContext(),"got here",Toast.LENGTH_LONG).show();
 
-        String date = "" + month + "/" + day + "/" + year;
+        String date = "" + (month+1) + "/" + day + "/" + year;
 
         dialog.setTitle(date);
         dialog.setContentView(R.layout.day_view);
-        //CalendarView calendar = (CalendarView) dialog.findViewById(R.id.calendarView);
+
 
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         list = (ListView) dialog.findViewById(R.id.listViewD);
-        addEventButton = (Button) dialog.findViewById(R.id.addEventButton);
+        addEventButton = (Button) dialog.findViewById(R.id.addEventKnownDateButton);
 
         // Getting adapter by passing xml data ArrayList
         adapter = new MyAdapter(activity);//, songsList);
@@ -66,7 +69,9 @@ public class DayViewDialog extends DialogFragment {
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.addEventDialog();
+                Calendar c = Calendar.getInstance();
+                c.set(year,month,day);
+                activity.addEventKnownDateDialog(c);
             }
         });
 
