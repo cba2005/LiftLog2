@@ -13,7 +13,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/addEvent"
+            android:text="@string/editEvent"
             android:id="@+id/addEvent"/>
 
     <TextView

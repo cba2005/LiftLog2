@@ -13,6 +13,8 @@
     <string name="setDate">Set Date    </string>
     <string name="setTime">Set Time</string>
     <string name="events">Today\'s Events</string>
+    <string name="editEvent">Edit Event</string>
+
 
     <string-array name="classList">
         <item>CMPSC 1</item>
