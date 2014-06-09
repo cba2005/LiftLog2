@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:id="@+id/relLayout"
+                android:background="@color/lightyellow"
+                android:layout_height="fill_parent" >
+
+  <ImageView
+            android:id="@+id/imageDialog"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="6dp" />
+
+    <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text = "@string/victorySelfie"
+            android:layout_toRightOf="@id/imageDialog"
+            android:layout_margin="5dp" />
+    <!--<TextView
+            android:id="@+id/textDialog"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:layout_toRightOf="@+id/imageDialog"/>-->
+
+    <Button
+            android:id="@+id/button"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="@string/done"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:background="@color/navy"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@+id/imageDialog"
+            />
+
+</RelativeLayout>

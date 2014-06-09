@@ -1,6 +1,7 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -82,16 +83,7 @@ public class MyActivity extends ActionBarActivity {
         });
 
 
-        /*calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-                // TODO Auto-generated method stub
-
-
-            }
-        });*/
     }
 
     @Override
@@ -130,7 +122,9 @@ public class MyActivity extends ActionBarActivity {
 
     public void settingsDialog()
     {
-        View checkBoxView = View.inflate(this, R.layout.checkbox_layout, null);
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog);
+        View checkBoxView = View.inflate(this, R.layout.custom_dialog, null);
         CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
 
         checkBox.setChecked(vicSelfie);
@@ -144,29 +138,57 @@ public class MyActivity extends ActionBarActivity {
             }
         });
 
-        checkBox.setText("Victory Selfie");
 
-        new AlertDialog.Builder(this)
-                .setTitle("Much Setting. Such wow")
-                .setView(checkBoxView)
-                //.setMessage("Poop....No Settings")
-                .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-					}
-				})
-                .show();
+       checkBox.setText("Victory Selfie");
+
+
+        dialog.setTitle("Settings");
+        // set the custom dialog components - text, image and button
+        //TextView text = (TextView) dialog.findViewById(R.id.textDialog);
+
+
+        ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
+        image.setImageResource(R.drawable.doge);
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.button);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
     public void helpDialog()
     {
-        new AlertDialog.Builder(this)
-                .setTitle("Need Help??")
-                .setMessage("TOO BAD!")
-                .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
-                .show();
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog);
+        // final RelativeLayout dialogLayout = (RelativeLayout) findViewById(R.id.relLayout);
+
+
+        dialog.setTitle("Help");
+        // set the custom dialog components - text, image and button
+        //TextView text = (TextView) dialog.findViewById(R.id.textDialog);
+
+
+        ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
+        image.setImageResource(R.drawable.doge);
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.button);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
     public void addEvent()
