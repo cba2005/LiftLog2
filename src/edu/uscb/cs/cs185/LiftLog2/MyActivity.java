@@ -226,7 +226,7 @@ public class MyActivity extends ActionBarActivity {
     }
 
     public void openDayViewDialog(int month, int day, int year){
-        DayViewDialog newEvent = new DayViewDialog(month, day, year);
+        DayViewDialog newEvent = new DayViewDialog(month, day, year, this);
         newEvent.show(getSupportFragmentManager(), "newEvent");
 
     }

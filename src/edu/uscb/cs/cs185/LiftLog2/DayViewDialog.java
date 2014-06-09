@@ -3,9 +3,12 @@ package edu.uscb.cs.cs185.LiftLog2;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.CalendarView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 /**
@@ -15,12 +18,18 @@ public class DayViewDialog extends DialogFragment {
     private int month;
     private int day;
     private int year;
+    private ListView list;
+    private MyAdapter adapter;
+    private MyActivity activity;
 
 
-    public DayViewDialog(int Month, int Day, int Year){
+
+
+    public DayViewDialog(int Month, int Day, int Year, MyActivity activity){
         this.month = Month;
         this.day = Day;
         this.year = Year;
+        this.activity = activity;
     }
 
     @Override
@@ -39,6 +48,22 @@ public class DayViewDialog extends DialogFragment {
         //CalendarView calendar = (CalendarView) dialog.findViewById(R.id.calendarView);
 
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        list = (ListView) dialog.findViewById(R.id.listViewD);
+
+        // Getting adapter by passing xml data ArrayList
+        adapter = new MyAdapter(activity);//, songsList);
+        list.setAdapter(adapter);
+
+        // Click event for single list row
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                activity.editEvent();
+            }
+        });
 
 
        // dialog.show();
