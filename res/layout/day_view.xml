@@ -5,6 +5,22 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/addEvent"
+            android:id="@+id/addEventButton"
+            android:textStyle="bold"
+            android:textColor="@color/lightblue"
+            android:background="@drawable/btn_blue_glossy"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
     <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

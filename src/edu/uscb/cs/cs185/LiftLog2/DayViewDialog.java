@@ -6,10 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.CalendarView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 
 /**
  * Created by bronhuston on 6/8/14.
@@ -21,6 +18,7 @@ public class DayViewDialog extends DialogFragment {
     private ListView list;
     private MyAdapter adapter;
     private MyActivity activity;
+    private Button addEventButton;
 
 
 
@@ -50,6 +48,7 @@ public class DayViewDialog extends DialogFragment {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         list = (ListView) dialog.findViewById(R.id.listViewD);
+        addEventButton = (Button) dialog.findViewById(R.id.addEventButton);
 
         // Getting adapter by passing xml data ArrayList
         adapter = new MyAdapter(activity);//, songsList);
@@ -59,9 +58,15 @@ public class DayViewDialog extends DialogFragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                activity.editEvent();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                activity.editEventDialog();
+            }
+        });
+
+        addEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.addEventDialog();
             }
         });
 
