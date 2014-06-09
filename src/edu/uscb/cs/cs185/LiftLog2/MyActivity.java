@@ -233,6 +233,12 @@ public class MyActivity extends ActionBarActivity {
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
+    public void editEventKnownDateDialog(Calendar c)
+    {
+        EditEventKnownDateDialog newEvent = new EditEventKnownDateDialog(this, c);
+        newEvent.show(getSupportFragmentManager(), "newEvent");
+    }
+
     public void openDayViewDialog(int month, int day, int year){
         DayViewDialog newEvent = new DayViewDialog(month, day, year, this);
         newEvent.show(getSupportFragmentManager(), "newEvent");

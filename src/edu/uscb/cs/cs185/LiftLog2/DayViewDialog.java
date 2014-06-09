@@ -62,7 +62,9 @@ public class DayViewDialog extends DialogFragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                activity.editEventDialog();
+                Calendar c = Calendar.getInstance();
+                c.set(year,month,day);
+                activity.editEventKnownDateDialog(c);
             }
         });
 
