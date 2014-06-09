@@ -20,7 +20,7 @@ import java.util.Calendar;
 public class EditEventDialog extends DialogFragment{
 
     private MyActivity activity;
-    private Button timeButton, dateButton;
+    private Button timeButton, dateButton, cancelButton, editEventButton;
     private TextView timeTextView, dateTextView;
     private AutoCompleteTextView className;
     public static final String[] MONTHS ={"January","February","March","April","May","June","July","August","September","October","November","December"};
@@ -42,17 +42,33 @@ public class EditEventDialog extends DialogFragment{
 
         timeButton = (Button) dialog.findViewById(R.id.timeButton);
         dateButton = (Button) dialog.findViewById(R.id.dateButton);
+        cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+        editEventButton = (Button) dialog.findViewById(R.id.editEventButton);
         timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
         dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
         className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
         className.setThreshold(1);
 
+        setDateTime();
+        setListeners(dialog);
+        startAutoComplete();
+        return dialog;
+    }
 
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        String date = "";
+
+    public void startAutoComplete() {
+        //make autocomplere adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.classList));
+        className.setAdapter(adapter);
+
+    }
+
+
+    public void setDateTime()
+    {
+        //pull from text file
+
+        /*String date = "";
         date = MONTHS[month];
         date+= " " + String.valueOf(day);
         date += " " + year;
@@ -60,8 +76,12 @@ public class EditEventDialog extends DialogFragment{
 
         int hour = c.get(Calendar.HOUR_OF_DAY);
         String time = hour + ":"+"00";
-        timeTextView.setText(time);
+        timeTextView.setText(time);*/
 
+    }
+
+    public void setListeners(final Dialog dialog)
+    {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,15 +96,19 @@ public class EditEventDialog extends DialogFragment{
             }
         });
 
-        startAutoComplete();
-        return dialog;
-    }
+        editEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                activity.editEvent();
+            }
+        });
 
-
-    public void startAutoComplete() {
-        //make autocomplere adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.classList));
-        className.setAdapter(adapter);
-
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }

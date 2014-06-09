@@ -14,6 +14,8 @@
     <string name="setTime">Set Time</string>
     <string name="events">Today\'s Events</string>
     <string name="editEvent">Edit Event</string>
+    <string name="cancel">Cancel</string>
+
 
     <string-array name="eventType">
         <item>Homework</item>

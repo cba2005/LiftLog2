@@ -70,7 +70,7 @@ public class MyActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                editEvent();
+                editEventDialog();
             }
         });
 
@@ -108,7 +108,7 @@ public class MyActivity extends ActionBarActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.addEvent:
-                addEvent();
+                addEventDialog();
                 return true;
             case R.id.settings:
                 settingsDialog();
@@ -214,13 +214,13 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
-    public void addEvent()
+    public void addEventDialog()
     {
         AddEventDialog newEvent = new AddEventDialog(this);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
-    public void editEvent()
+    public void editEventDialog()
     {
         EditEventDialog newEvent = new EditEventDialog(this);
         newEvent.show(getSupportFragmentManager(), "newEvent");
@@ -316,7 +316,18 @@ public class MyActivity extends ActionBarActivity {
         MyDatePicker newEvent = new MyDatePicker(t);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
-	
+
+
+    public void addEvent()
+    {
+        //call whatever to change text file
+    }
+
+    public void editEvent()
+    {
+        //call whatever to change text file
+    }
+
 	public static void debug(String msg) {
 		if (DEBUG_MODE)
 			Log.i("log", TAG + ": " + msg);
