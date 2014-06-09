@@ -204,7 +204,7 @@ public class MyActivity extends ActionBarActivity {
 
     public void editEvent()
     {
-        EditEventDialog newEvent = new EditEventDialog();
+        EditEventDialog newEvent = new EditEventDialog(this);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
