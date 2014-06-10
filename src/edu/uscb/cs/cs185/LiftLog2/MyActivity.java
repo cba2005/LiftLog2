@@ -2,6 +2,7 @@ package edu.uscb.cs.cs185.LiftLog2;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -71,21 +72,22 @@ public class MyActivity extends ActionBarActivity {
         dateTV.setText(DateFormat.format(delegate, noteTS));
         delegate = "hh:mm:ss";
         dayTV.setText(DateFormat.format(delegate,noteTS));
-        //ListView Stuff
-        list = (ListView) findViewById(R.id.listView);
-
-
-
-
-
 
         Button calendarButton = (Button) findViewById(R.id.calendarButton);
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCalendar();
-            }
-        });
+
+
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+
+        if (currentapiVersion < Build.VERSION_CODES.HONEYCOMB)
+            calendarButton.setVisibility(View.INVISIBLE);
+        else
+        {
+            calendarButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openCalendar();
+                }
+            });        }
 
     }
 
@@ -301,24 +303,24 @@ public class MyActivity extends ActionBarActivity {
         adapter = new MyAdapter(this);//, songsList);
         list.setAdapter(adapter);
 		
-		list.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName()+" AT POSITION "+position);
-				Event e = eventManager.getEvents().get(position);
-				debug("HERE");
-				editEventDialog(e);
-			}
-		});
+		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName() + " AT POSITION " + position);
+                Event e = eventManager.getEvents().get(position);
+                debug("HERE");
+                editEventDialog(e);
+            }
+        });
 		
-		list.setOnItemLongClickListener( new AdapterView.OnItemLongClickListener() {
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-				Event e = eventManager.getEvents().get(position);
-				debug("HEY U R LONGPRESSING ME LOL: " + e.getName());
-				return false;
-			}
-		});
+		list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Event e = eventManager.getEvents().get(position);
+                debug("HEY U R LONGPRESSING ME LOL: " + e.getName());
+                return false;
+            }
+        });
 
         list.setOnTouchListener(new MyTouchView(MyActivity.this) {
             @Override
