@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:cba_2005GPSCam="http://schemas.android.com/apk/res-auto"
+      xmlns:YouCSMe="http://schemas.android.com/apk/res-auto"
         >
 
 
@@ -11,7 +11,7 @@
             android:orderInCategory="1"
             android:title="@string/addEvent"
             android:icon="@android:drawable/ic_menu_add"
-            cba_2005GPSCam:showAsAction="ifRoom"/>
+            YouCSMe:showAsAction="ifRoom"/>
 
 
     <item
@@ -19,13 +19,13 @@
             android:orderInCategory="2"
             android:title="@string/settings"
             android:icon="@android:drawable/ic_menu_manage"
-            cba_2005GPSCam:showAsAction="never"/>
+            YouCSMe:showAsAction="never"/>
 
     <item
             android:id="@+id/help"
             android:orderInCategory="100"
             android:title="@string/help"
             android:icon="@android:drawable/ic_menu_help"
-            cba_2005GPSCam:showAsAction="never"/>
+            YouCSMe:showAsAction="never"/>
 
 </menu>
