@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.*;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -29,7 +30,7 @@ import java.util.Calendar;
 public class AddEventDialog extends DialogFragment implements IDialog{
     private MyActivity activity;
     private Button timeButton, dateButton, cancelButton, addEventButton;
-    private TextView timeTextView, dateTextView, eNameTextView;
+    private TextView timeTextView, dateTextView,eNameTextView;
     private AutoCompleteTextView className;
     public static final String[] MONTHS ={"January","February","March","April","May","June","July","August","September","October","November","December"};
 	
@@ -51,6 +52,8 @@ public class AddEventDialog extends DialogFragment implements IDialog{
             super.onCreateDialog(savedInstanceState);
            // classesArray = getResources().getStringArray(R.array.classList);
 
+
+
             // creating the fullscreen dialog
             final Dialog dialog = new Dialog(getActivity());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -68,6 +71,12 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 		
             className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
             className.setThreshold(1);
+
+        Spinner dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
+        String[] items = new String[]{"Event Type","Homework","Presentation","Project","Exam"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), android.R.layout.simple_spinner_item, items);
+
+        dropdown.setAdapter(adapter);
 
             setDateTime();
             setListeners(dialog);

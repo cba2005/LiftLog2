@@ -5,13 +5,32 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
 
-  <!--<ImageView
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
-            android:id="@+id/imageView"
-            android:src="@drawable/ucsbwave_144"
-            />-->
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_cal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/imageView"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/navy"
+                android:fontFamily="Arial,Helvetica,sans-serif"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/date"/>
+    </LinearLayout>
+
     <view
             class="edu.uscb.cs.cs185.LiftLog2.MyCalendarView"
             android:layout_width="match_parent"
@@ -23,6 +42,14 @@
             android:layout_height="wrap_content"
             android:text="Selfie Tester"
             android:id="@+id/photoButton"/>-->
+
+
+    <ListView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/listView"
+            android:layout_gravity="center_horizontal"/>
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,10 +63,8 @@
             android:paddingRight="25dp"
             android:textColor="@color/lightblue"
             android:background="@drawable/btn_blue_glossy"
-
+            android:textStyle="bold"
             android:id="@+id/calendarButton"/>
-
-
     <TextView
             android:layout_width="404dp"
             android:layout_height="54dp"
@@ -47,11 +72,5 @@
             android:fontFamily="Arial,Helvetica,sans-serif"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView"/>
-    <ListView
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/listView"
-            android:layout_gravity="center_horizontal"/>
 </LinearLayout>
 

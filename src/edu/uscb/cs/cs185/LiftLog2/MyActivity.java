@@ -1,7 +1,8 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
-import android.app.*;
+import android.app.Dialog;
 import android.content.Context;
+import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -12,15 +13,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.text.format.DateFormat;
+import android.util.*;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
-import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
-import edu.uscb.cs.cs185.LiftLog2.system.*;
+import edu.uscb.cs.cs185.LiftLog2.system.EventManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,6 +42,7 @@ public class MyActivity extends ActionBarActivity {
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
     private String path;
+    private TextView dateTV;
 	
 	private EventManager eventManager;
 	
@@ -53,29 +54,26 @@ public class MyActivity extends ActionBarActivity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-		debug("starting main activity...");
+		//debug("starting main activity...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        dateTV = (TextView) findViewById(R.id.date);
         Drawable background = getResources().getDrawable(R.drawable.ucsbwave_144);
         getSupportActionBar().setBackgroundDrawable(background);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         setupSelfies();
 		setupSystem();
         setupList();
 
-       // calendar = (MyCalendarView) findViewById(R.id.calendarView);
+        String delegate ="EEEE, MMMM dd, yyyy";
+        java.util.Date noteTS = Calendar.getInstance().getTime();
+        dateTV.setText(DateFormat.format(delegate, noteTS));
+        //ListView Stuff
+        list = (ListView) findViewById(R.id.listView);
 
 
 
 
-
-       /* Button photoButton = (Button) findViewById(R.id.photoButton);
-        photoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePhoto();
-            }
-        });*/
 
 
         Button calendarButton = (Button) findViewById(R.id.calendarButton);
@@ -263,6 +261,7 @@ public class MyActivity extends ActionBarActivity {
             saveFolder.mkdirs();
 
         path = saveFolder.getAbsolutePath();
+
 
         pref =  this.getPreferences(Context.MODE_PRIVATE);
         editor = pref.edit();
