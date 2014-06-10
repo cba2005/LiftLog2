@@ -24,7 +24,7 @@ public class ClassManager {
 	private File classFile;
 	
 	public ClassManager(String path) {
-		debug("initiated class manager...YEAH");
+		debug("initiated class manager...");
 		filePath = path;
 		fileName = "classes.txt";
 		classFile = new File(filePath+"/"+fileName);
@@ -53,7 +53,6 @@ public class ClassManager {
 			debug("saving classes...");
 			FileOutputStream fileOutputStream = new FileOutputStream(classFile);
 			BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
-			//DataOutputStream buffer = new DataOutputStream(fileOutputStream);
 			debug("saving numClasses: "+numClasses);
 			buffer.write(numClasses+"\n");
 			for (Class c : classes) {
@@ -74,7 +73,6 @@ public class ClassManager {
 		try {
 			debug("trying to load classes...");
 			FileInputStream fileInputStream = new FileInputStream(classFile);
-			//DataInputStream buffer = new DataInputStream(fileInputStream);
 			BufferedReader buffer = new BufferedReader(new InputStreamReader(fileInputStream));
 			String line = buffer.readLine();
 			numClasses = Integer.parseInt(line);
@@ -114,7 +112,7 @@ public class ClassManager {
 	
 	public Class getClass(String name) {
 		for (Class c : classes) {
-			if (c.getClassName() == name) {
+			if (c.getClassName().compareTo(name) == 0) {
 				debug("found class "+ c.getClassName());
 				return c;
 			}

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 
 import java.util.Calendar;
 
@@ -19,10 +20,14 @@ public class MyDatePicker extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     private TextView dateView;
+	private IDialog iDialog;
+	
     public static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-    MyDatePicker(TextView dateView) {
-        this.dateView = dateView;
+    MyDatePicker(TextView dateView, IDialog iDialog) {
+        
+		this.dateView = dateView;
+		this.iDialog = iDialog;
     }
 
     @Override
@@ -37,14 +42,16 @@ public class MyDatePicker extends DialogFragment
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
-
-
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        String date = "";
-        date = MONTHS[month];
-        date += " " + String.valueOf(day);
-        date += ", " + year;
-        dateView.setText(date);
-    }
+		String date = "";
+		date = MONTHS[month];
+		date += " " + String.valueOf(day);
+		date += ", " + year;
+		dateView.setText(date);
+		
+		if (iDialog != null)
+			iDialog.setDate(year, month, day);
+	}
+	
 }

@@ -95,7 +95,7 @@ public class AddEventKnownDateDialog extends DialogFragment {
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.timePickerDialog(timeTextView);
+                activity.timePickerDialog(timeTextView, null);
             }
         });
 

@@ -1,6 +1,6 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
-import android.app.Dialog;
+import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,12 +12,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
+import edu.uscb.cs.cs185.LiftLog2.system.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,6 +42,10 @@ public class MyActivity extends ActionBarActivity {
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
     private String path;
+	
+	private EventManager eventManager;
+	
+    FragmentManager manager;
 
 
     /**
@@ -46,13 +53,14 @@ public class MyActivity extends ActionBarActivity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-		//debug("starting main activity...");
+		debug("starting main activity...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
         Drawable background = getResources().getDrawable(R.drawable.ucsbwave_144);
         getSupportActionBar().setBackgroundDrawable(background);
         setupSelfies();
+		setupSystem();
         setupList();
 
        // calendar = (MyCalendarView) findViewById(R.id.calendarView);
@@ -226,6 +234,20 @@ public class MyActivity extends ActionBarActivity {
             }
         }
     }
+	
+	public void setupSystem() {
+		debug("setting up system...");
+		boolean sdCardExists = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+		if (sdCardExists) {
+			saveFolder = new File(Environment.getExternalStorageDirectory(), "/YouCSMe");
+		} else {
+			saveFolder = getBaseContext().getDir("/YouCSMe", Context.MODE_PRIVATE);
+		}
+		String path = saveFolder.getAbsolutePath();
+		
+		eventManager = new EventManager(path);
+		debug("system setup complete!");
+	}
 
     public void setupSelfies()
     {
@@ -241,7 +263,6 @@ public class MyActivity extends ActionBarActivity {
             saveFolder.mkdirs();
 
         path = saveFolder.getAbsolutePath();
-
 
         pref =  this.getPreferences(Context.MODE_PRIVATE);
         editor = pref.edit();
@@ -335,15 +356,15 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
-    public void timePickerDialog(TextView t)
+    public void timePickerDialog(TextView t, IDialog d)
     {
-        MyTimePicker newEvent = new MyTimePicker(t);
+        MyTimePicker newEvent = new MyTimePicker(t, d);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
-    public void datePickerDialog(TextView t)
+    public void datePickerDialog(TextView t, IDialog d)
     {
-        MyDatePicker newEvent = new MyDatePicker(t);
+        MyDatePicker newEvent = new MyDatePicker(t, d);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
@@ -351,6 +372,7 @@ public class MyActivity extends ActionBarActivity {
     public void addEvent()
     {
         //call whatever to change text file
+		
     }
 
     public void editEvent()
@@ -365,6 +387,10 @@ public class MyActivity extends ActionBarActivity {
 
 
 
+	
+	public EventManager getEventManager() {
+		return eventManager;
+	}
 
 	public static void debug(String msg) {
 		if (DEBUG_MODE)

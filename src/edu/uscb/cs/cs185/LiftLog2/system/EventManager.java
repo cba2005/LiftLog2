@@ -1,7 +1,5 @@
 package edu.uscb.cs.cs185.LiftLog2.system;
 
-import edu.uscb.cs.cs185.LiftLog2.*;
-
 import java.io.*;
 import java.util.*;
 
@@ -21,49 +19,49 @@ public class EventManager {
 	public static final int TYP_EXAM = 4;
 	
 	public static String EVENT_FILE_PATH;
-	public static String EVENT_FILE_NAME;
+	public static final String ACTIVE_EVENT_FILE_NAME = "activeEvents.txt";
+	public static final String INACTIVE_EVENT_FILE_NAME = "inactiveEvents.txt";
 	
-	private int numEvents;
-	private ArrayList<Event> events;
-	private File eventFile;
+	private int numActiveEvents;
+	private int numInactiveEvents;
+	private ArrayList<Event> activeEvents;
+	private ArrayList<Event> inactiveEvents;
+	private File activeEventFile;
+	private File inactiveEventFile;
 	private ClassManager classManager;
 	
 	public EventManager(String path) {
 		classManager = new ClassManager(path);
-		events = new ArrayList<Event>();
+		activeEvents = new ArrayList<Event>();
+		inactiveEvents = new ArrayList<Event>();
 		EVENT_FILE_PATH = path;
-		EVENT_FILE_NAME = "events.txt";
-		eventFile = new File(EVENT_FILE_PATH+"/"+EVENT_FILE_NAME);
-		numEvents = 0;	
-		loadEvents();
+		activeEventFile = new File(EVENT_FILE_PATH+"/"+ ACTIVE_EVENT_FILE_NAME);
+		inactiveEventFile = new File(EVENT_FILE_PATH+"/"+INACTIVE_EVENT_FILE_NAME);
+		numActiveEvents = 0;
+		numInactiveEvents = 0;
+		loadActiveEvents();
+		loadInactiveEvents();
 	}
 	
-	public void loadEvents() {
-		if (!eventFile.exists())
+	public void loadActiveEvents() {
+		if (!activeEventFile.exists())
 			return;
 		try {
-			debug("trying to load events...");
-			FileInputStream fileInputStream = new FileInputStream(eventFile);
-			//DataInputStream buffer = new DataInputStream(fileInputStream);
+			debug("trying to load activeEvents...");
+			FileInputStream fileInputStream = new FileInputStream(activeEventFile);
 			BufferedReader buffer = new BufferedReader(new InputStreamReader(fileInputStream));
 			String line = buffer.readLine();
-			numEvents = Integer.parseInt(line);
+			numActiveEvents = Integer.parseInt(line);
 			line = buffer.readLine();
 			while (line != null)
 			{
 				String className = line;
-				line = buffer.readLine();
-				String name = line;
-				line = buffer.readLine();
-				String desc = line;
-				line = buffer.readLine();
-				String status = line;
-				line = buffer.readLine();
-				String type = line;
-				line = buffer.readLine();
-				String date = line;
-				line = buffer.readLine();
-				String time = line;
+				String name = buffer.readLine();
+				String desc = buffer.readLine();
+				String status = buffer.readLine();
+				String type = buffer.readLine();
+				String date = buffer.readLine();
+				String time = buffer.readLine();
 				line = buffer.readLine();
 				
 				debug("loaded event:\n"+className+"\n"+name+"\n"+desc+"\n"+status+"\n"+type+"\n"+date+"\n"+time+"\n");
@@ -71,19 +69,11 @@ public class EventManager {
 				int year = Integer.parseInt(date.substring(0, 4));
 				int month = Integer.parseInt(date.substring(5, 7));
 				int day = Integer.parseInt(date.substring(8));
-				debug("YEAR FOUND: "+year);
-				debug("MONTH FOUND: "+month);
-				debug("DAY FOUND: "+day);
 				
 				int hour = Integer.parseInt(time.substring(0,2));
 				int minute = Integer.parseInt(time.substring(3));
-				debug("HOUR FOUND: "+hour);
-				debug("MINUTE FOUND: "+minute);
-				
-				Calendar c = Calendar.getInstance();
-				c.set(year, month, day, hour, minute);
-				
-				events.add(new Event(Integer.parseInt(type), className, name, desc, c));
+
+				activeEvents.add(new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute)));
 			}
 		}
 		catch(Exception e) {
@@ -91,17 +81,54 @@ public class EventManager {
 		}
 	}
 	
-	public void saveEvents() {
+	public void loadInactiveEvents() {
+		if (!inactiveEventFile.exists())
+			return;
 		try {
-			if (!eventFile.exists())
+			debug("trying to load inactiveEvents...");
+			FileInputStream fileInputStream = new FileInputStream(inactiveEventFile);
+			BufferedReader buffer = new BufferedReader(new InputStreamReader(fileInputStream));
+			String line = buffer.readLine();
+			numInactiveEvents = Integer.parseInt(line);
+			line = buffer.readLine();
+			while (line != null)
+			{
+				String className = line;
+				String name = buffer.readLine();
+				String desc = buffer.readLine();
+				String status = buffer.readLine();
+				String type = buffer.readLine();
+				String date = buffer.readLine();
+				String time = buffer.readLine();
+				line = buffer.readLine();
+
+				debug("loaded event:\n"+className+"\n"+name+"\n"+desc+"\n"+status+"\n"+type+"\n"+date+"\n"+time+"\n");
+
+				int year = Integer.parseInt(date.substring(0, 4));
+				int month = Integer.parseInt(date.substring(5, 7));
+				int day = Integer.parseInt(date.substring(8));
+
+				int hour = Integer.parseInt(time.substring(0,2));
+				int minute = Integer.parseInt(time.substring(3));
+
+				inactiveEvents.add(new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute)));
+			}
+		}
+		catch(Exception e) {
+
+		}	
+	}
+	
+	public void saveActiveEvents() {
+		try {
+			if (!activeEventFile.exists())
 				new File(EVENT_FILE_PATH).mkdirs();
 
-			debug("saving events...");
-			FileOutputStream fileOutputStream = new FileOutputStream(eventFile);
+			debug("saving activeEvents...");
+			FileOutputStream fileOutputStream = new FileOutputStream(activeEventFile);
 			BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
-			//DataOutputStream buffer = new DataOutputStream(fileOutputStream);
-			buffer.write(numEvents+"\n");
-			for (Event event : events) {
+			buffer.write(numActiveEvents +"\n");
+			for (Event event : activeEvents) {
 				buffer.write(event.getClassName()+"\n");
 				buffer.write(event.getName()+"\n");
 				buffer.write(event.getDescription()+"\n");
@@ -118,9 +145,40 @@ public class EventManager {
 		}	
 	}
 	
-	public void addEvent(Event e) {
-		debug("adding event...");
-		events.add(e);
+	public void saveInactiveEvents() {
+		try {
+			if (!inactiveEventFile.exists())
+				new File(EVENT_FILE_PATH).mkdirs();
+
+			debug("saving inactiveEvents...");
+			FileOutputStream fileOutputStream = new FileOutputStream(inactiveEventFile);
+			BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
+			buffer.write(numInactiveEvents +"\n");
+			for (Event event : inactiveEvents) {
+				buffer.write(event.getClassName()+"\n");
+				buffer.write(event.getName()+"\n");
+				buffer.write(event.getDescription()+"\n");
+				buffer.write(event.getStatus()+"\n");
+				buffer.write(event.getType()+"\n");
+				buffer.write(event.getDateDue()+"\n");
+				buffer.write(event.getTimeDue()+"\n");
+			}
+
+			buffer.close();
+		}
+		catch (Exception e) {
+			debug("Exception caught trying to save: "+e);
+		}
+	}
+	
+	public void addActiveEvent(Event e) {
+		debug("adding active event...");
+		if (activeEventsContains(e.getName(), e.getClassName())) {
+			// throw exception maybe
+			debug("event already exists: "+e.getName()+" : "+e.getClassName());
+			return;
+		}
+		activeEvents.add(e);
 		String className = e.getClassName();
 		if(!classManager.contains(className)) {
 			classManager.addClass(className, ClassManager.COLORS[classManager.getNumClasses()%ClassManager.NUM_COLORS]);
@@ -129,31 +187,93 @@ public class EventManager {
 		else {
 			e.setClass_(classManager.getClass(className));	
 		}
-		numEvents++;
-		saveEvents();
+		numActiveEvents++;
+		saveActiveEvents();
+	}
+
+	public void addInactiveEvent(Event e) {
+		debug("adding inactive event...");
+		if (inactiveEventsContains(e.getName(), e.getClassName())) {
+			// throw exception maybe
+			debug("event already exists: "+e.getName()+" : "+e.getClassName());
+			return;
+		}
+		inactiveEvents.add(e);
+		numInactiveEvents++;
+		saveActiveEvents();
 	}
 	
-	public void removeEvent(String name) {
-		events.remove(getEvent(name));
-		numEvents--;
+	public void removeActiveEvent(String name, String className) {
+		Event e = getActiveEvent(name, className);		
+		if (!activeEvents.contains(e)) {
+			debug("activeEvents doesn't contain: "+name);
+			return;
+		}
+		activeEvents.remove(e);
+		numActiveEvents--;
+		saveActiveEvents();
 	}
 	
-	public void completeEvent(Event e) {
-		
+	public void removeInactiveEvent(String name, String className) {
+		Event e = getInactiveEvent(name, className);
+		if (!inactiveEvents.contains(e)) {
+			debug("activeEvents doesn't contain: "+name);
+			return;
+		}
+		for (Event ev : inactiveEvents) {
+			debug(ev.getName());
+		}
+		inactiveEvents.remove(e);
+		numInactiveEvents--;
+		saveInactiveEvents();	
 	}
 	
-	public boolean contains(String name) {
-		for (Event e: events) {
-			if (e.getName().compareTo(name) == 0) {
+	public void completeEvent(String name, String className) {
+		Event e = getActiveEvent(name, className);
+		if (e == null) {
+			// exception??? you fucked up, son.
+			return;
+		}
+		e.setStatus(STAT_COMPLETE);
+		removeActiveEvent(name, className);
+		addInactiveEvent(e);
+		saveActiveEvents();
+		saveInactiveEvents();
+	}
+	
+	/*
+		looks up if an event exists in the ACTIVE event list
+	 */
+	public boolean activeEventsContains(String name, String className) {
+		for (Event e: activeEvents) {
+			if (e.getName().compareTo(name) == 0 && e.getClassName().compareTo(className) == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean inactiveEventsContains(String name, String className) {
+		for (Event e: inactiveEvents) {
+			if (e.getName().compareTo(name) == 0 && e.getClassName().compareTo(className) == 0) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public Event getEvent(String name) {
-		for (Event e : events) {
-			if (e.getName() == name) {
+	public Event getActiveEvent(String name, String className) {
+		for (Event e : activeEvents) {
+			if (e.getName().compareTo(name) == 0 && e.getClassName().compareTo(className) == 0) {
+				return e;
+			}
+		}
+		return null;
+	}
+
+	public Event getInactiveEvent(String name, String className) {
+		for (Event e : inactiveEvents) {
+			if (e.getName().compareTo(name) == 0 && e.getClassName().compareTo(className) == 0) {
 				return e;
 			}
 		}
@@ -173,6 +293,38 @@ public class EventManager {
 			default:
 				return "WAT";
 		}
+	}
+	
+	/*
+		will return null if empty, handle accordingly
+	 */
+	public ArrayList<Event> getActiveEventsForDate(Calendar c) {
+		ArrayList<Event> list = new ArrayList<Event>();
+		String date = Event.DATE_FORMAT.format(c);
+		for (Event e : activeEvents) {
+			if (e.getDateDue().compareTo(date) == 0)
+				list.add(e);
+		}
+		return list;
+	}
+
+	/*
+		will return null if empty, handle accordingly
+	 */
+	public ArrayList<Event> getInactiveEventsForDate(Calendar c) {
+		ArrayList<Event> list = new ArrayList<Event>();
+		String date = Event.DATE_FORMAT.format(c);
+		for (Event e : inactiveEvents) {
+			if (e.getDateDue().compareTo(date) == 0)
+				list.add(e);
+		}
+		return list;
+	}
+	
+	public static Calendar NEW_CALENDAR(int year, int month, int day, int hour, int min) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(year, month, day, hour, min);
+		return calendar;
 	}
 	
 	public void debug(String msg) {
