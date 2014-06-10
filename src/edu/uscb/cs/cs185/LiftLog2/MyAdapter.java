@@ -54,7 +54,6 @@ public class MyAdapter extends BaseAdapter{
 		return position;
     }
 	
-
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 		MyViewHolder viewHolder;

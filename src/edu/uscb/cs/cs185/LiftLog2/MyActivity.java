@@ -304,9 +304,19 @@ public class MyActivity extends ActionBarActivity {
 		list.setOnItemClickListener( new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName());
+				debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName()+" AT POSITION "+position);
 				Event e = eventManager.getEvents().get(position);
+				debug("HERE");
 				editEventDialog(e);
+			}
+		});
+		
+		list.setOnItemLongClickListener( new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				Event e = eventManager.getEvents().get(position);
+				debug("HEY U R LONGPRESSING ME LOL: " + e.getName());
+				return false;
 			}
 		});
 

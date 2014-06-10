@@ -76,7 +76,7 @@ public class Event {
 	public void setCalendar(Calendar c){
 		calendar = c;
 		dateDue = DATE_FORMAT.format(calendar.getTime());
-		timeDue = DATE_FORMAT.format(calendar.getTime());
+		timeDue = TIME_FORMAT.format(calendar.getTime());
 	}
 	
 	public void setClassName(String n) {
@@ -132,10 +132,12 @@ public class Event {
 	}
 	
 	public int getHour() {
+		debug("GETTING HOUR: "+timeDue.substring(0, 2));
 		return Integer.parseInt(timeDue.substring(0,2));
 	}
 	
 	public int getMinutes() {
+		debug("GETTING MINUTES: "+timeDue.substring(3));
 		return Integer.parseInt(timeDue.substring(3));
 	}
 	

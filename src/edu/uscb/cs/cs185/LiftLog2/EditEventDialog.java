@@ -53,9 +53,7 @@ public class EditEventDialog extends DialogFragment implements IDialog{
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
         // classesArray = getResources().getStringArray(R.array.classList);
-
-
-
+		
         // creating the fullscreen dialog
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -73,7 +71,6 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 
         className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
         className.setThreshold(1);
-	
 
         Spinner dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
         String[] items = new String[]{"Event Type","Homework","Presentation","Project","Exam"};
@@ -84,10 +81,16 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 		// beep boop
 		eNameTextView.setText(event.getName());
 		className.setText(event.getClassName());
+		
+		MyActivity.debug("CHECK1");
 
         setDateTime();
+		MyActivity.debug("CHECK2");
         setListeners(dialog);
+		MyActivity.debug("CHECK3");
         startAutoComplete();
+		
+		MyActivity.debug("CHECK4");
 
         return dialog;
     }
@@ -111,28 +114,42 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 		else {
 			event.setClass_(classManager.getClass(cName));
 		}
+		
 		event.setCalendar(EventManager.NEW_CALENDAR(year, month, day, hour, minute));
 		event.setDescription(DEF_DESC);
 		event.setType(DEF_TYPE);
 		event.setStatus(EventManager.STAT_INCOMPLETE);
+		activity.getEventManager().sortEvents();
+		activity.getEventManager().saveActiveEvents();
+		activity.getEventManager().saveInactiveEvents();
     }
 
     public void setDateTime()
     {
         final Calendar c = Calendar.getInstance();
+		MyActivity.debug("AHOY THERE 0");
         year = event.getYear();
         month = event.getMonth();
         day = event.getDay();
+		MyActivity.debug("AHOY THERE 1");
         String date = "";
         date = MONTHS[month];
         date+= " " + String.valueOf(day);
-        date += " " + year;
+        date += ", " + year;
         dateTextView.setText(date);
+		MyActivity.debug("AHOY THERE 2");
 
         hour = event.getHour();
 		minute = event.getMinutes();
-        String time = hour + ":"+minute;
+		MyActivity.debug("AHOY THERE 3");
+		String time;
+		if (minute < 10)
+			time = hour + ":0"+minute;
+		else
+        	time = hour + ":"+minute;
+		MyActivity.debug("AHOY THERE 4");
         timeTextView.setText(time);
+		MyActivity.debug("AHOY THERE 5");
     }
 
     public void setListeners(final Dialog dialog)
