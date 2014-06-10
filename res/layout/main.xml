@@ -63,6 +63,16 @@
         android:layout_height="1dp"
         android:paddingBottom="10dp"
         android:background="@color/blue"/>
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:paddingBottom="10dp"
+            android:background="@color/yellow"/>
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:paddingBottom="10dp"
+            android:background="@color/blue"/>
     <ListView
             android:layout_weight="1"
             android:layout_width="match_parent"
