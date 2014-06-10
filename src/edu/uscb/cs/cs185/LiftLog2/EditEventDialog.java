@@ -1,11 +1,19 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.FragmentManager;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.*;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -20,25 +28,31 @@ import java.util.Calendar;
  * Created by Caressa on 6/6/2014.
  */
 public class EditEventDialog extends DialogFragment implements IDialog{
-
     private MyActivity activity;
     private Button timeButton, dateButton, cancelButton, editEventButton;
-    private TextView timeTextView, dateTextView, eNameTextView;
+    private TextView timeTextView, dateTextView,eNameTextView;
     private AutoCompleteTextView className;
     public static final String[] MONTHS ={"January","February","March","April","May","June","July","August","September","October","November","December"};
-	
-	private EditEventDialog my_dialog;
-	private int year, month, day, hour, minute;
+
+    private int year, month, day, hour, minute;
+    private EditEventDialog my_dialog;
 
     public EditEventDialog(MyActivity activity)
     {
         this.activity = activity;
-		my_dialog = this;
+        this.my_dialog = this;
     }
+
+    private static String[] classesArray;
+    TextView eventDate;
+    TextView eventTime;
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
+        // classesArray = getResources().getStringArray(R.array.classList);
+
+
 
         // creating the fullscreen dialog
         final Dialog dialog = new Dialog(getActivity());
@@ -52,16 +66,24 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         editEventButton = (Button) dialog.findViewById(R.id.editEventButton);
         timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
         dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
-		eNameTextView = (TextView) dialog.findViewById(R.id.eventEditText);
+        eNameTextView = (TextView) dialog.findViewById(R.id.eventEditText);
+
+
         className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
         className.setThreshold(1);
+
+        Spinner dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
+        String[] items = new String[]{"Event Type","Homework","Presentation","Project","Exam"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), android.R.layout.simple_spinner_item, items);
+
+        dropdown.setAdapter(adapter);
 
         setDateTime();
         setListeners(dialog);
         startAutoComplete();
+
         return dialog;
     }
-
 
     public void startAutoComplete() {
         //make autocomplere adapter
@@ -70,20 +92,22 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 
     }
 
-	public void addEvent() {
-		String cName = className.getText().toString();
-		String name = eNameTextView.getText().toString();
-		String desc = DEF_DESC;
-		int type = DEF_TYPE;
-		Calendar cal = EventManager.NEW_CALENDAR(year, month, day, hour, minute);
-		activity.getEventManager().addActiveEvent(new Event(type, cName, name, desc, cal));
-	}
+    public void editEvent() {
+        String cName = className.getText().toString();
+        String name = eNameTextView.getText().toString();
+        String desc = DEF_DESC;
+        int type = DEF_TYPE;
+        Calendar cal = EventManager.NEW_CALENDAR(year, month, day, hour, minute);
+        activity.getEventManager().addActiveEvent(new Event(type, cName, name, desc, cal));
+    }
 
     public void setDateTime()
     {
-        //pull from text file
-
-        /*String date = "";
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        String date = "";
         date = MONTHS[month];
         date+= " " + String.valueOf(day);
         date += " " + year;
@@ -91,7 +115,7 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 
         int hour = c.get(Calendar.HOUR_OF_DAY);
         String time = hour + ":"+"00";
-        timeTextView.setText(time);*/
+        timeTextView.setText(time);
 
     }
 
@@ -115,6 +139,7 @@ public class EditEventDialog extends DialogFragment implements IDialog{
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                editEvent();
                 activity.editEvent();
             }
         });
@@ -127,21 +152,21 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         });
     }
 
-	@Override
-	public void setDate(int y, int m, int d) {
-		year = y;
-		month = m;
-		day = d;
-		MyActivity.debug("SET YEAR: "+year);
-		MyActivity.debug("SET MONTH: "+month);
-		MyActivity.debug("SET DAY: "+day);
-	}
+    @Override
+    public void setDate(int y, int m, int d) {
+        year = y;
+        month = m;
+        day = d;
+        MyActivity.debug("SET YEAR: "+year);
+        MyActivity.debug("SET MONTH: "+month);
+        MyActivity.debug("SET DAY: "+day);
+    }
 
-	@Override
-	public void setTime(int h, int min) {
-		hour = h;
-		minute = min;
-		MyActivity.debug("SET HOUR: "+hour);
-		MyActivity.debug("SET MINUTE: "+minute);
-	}
+    @Override
+    public void setTime(int h, int min) {
+        hour = h;
+        minute = min;
+        MyActivity.debug("SET HOUR: "+hour);
+        MyActivity.debug("SET MINUTE: "+minute);
+    }
 }

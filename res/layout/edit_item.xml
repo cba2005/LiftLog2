@@ -1,137 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:background="@color/lightblue"
               android:layout_height="match_parent">
 
-    <TextView
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#99bbd2">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:id="@+id/cancelButton"
+
+                android:background="@drawable/button_image"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/navy"
+                android:gravity="center_horizontal"
+
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/editEvent"
+                android:id="@+id/addEvent"/>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:textColor="#00688B"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/editEvent"
-            android:id="@+id/addEvent"/>
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/courseName"
-            android:textColor="@color/navy"
-            android:id="@+id/courseName"/>
-
-    <AutoCompleteTextView
+            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/courseName"
+                android:gravity="center_vertical"
+                android:textColor="@color/navy"
+                android:layout_weight="1"
+                android:id="@+id/courseName"/>
+        <AutoCompleteTextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:singleLine="true"
+                android:layout_weight="1"
+                android:id="@+id/acCourseName">
+            <requestFocus />
+        </AutoCompleteTextView>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:singleLine="true"
-            android:id="@+id/acCourseName">
-        <requestFocus />
-    </AutoCompleteTextView>
+            android:layout_height="wrap_content">
 
-    <TextView
+        <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/eventName"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:textColor="@color/navy"
+                android:id="@+id/eventName"/>
+        <EditText
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:id="@+id/eventEditText"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal|left"/>
+    </LinearLayout>
+    <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/eventName"
-            android:textColor="@color/navy"
-            android:id="@+id/eventName"/>
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/eventEditText"
-            android:layout_gravity="center_horizontal"/>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/setDate"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:background="@drawable/btn_blue_glossy"
-            android:textColor="@color/lightblue"
-            android:textStyle="bold"
-            android:gravity="center_vertical|left"
-
-            android:id="@+id/dateButton"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/navy"
-            android:paddingBottom="15dp"
-            android:paddingRight="5dp"
-            android:layout_gravity="right|center_vertical"
-            android:id="@+id/eventDate"/>
-
-
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/setTime"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:background="@drawable/btn_blue_glossy"
-            android:clickable="true"
-            android:textColor="@color/lightyellow"
-            android:textStyle="bold"
-            android:gravity="center_vertical|left"
-            android:id="@+id/timeButton"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_gravity="right|center_vertical"
-            android:textColor="@color/navy"
-            android:paddingBottom="15dp"
-            android:paddingRight="5dp"
-            android:id="@+id/eventTime"/>
-
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/done"
-            android:id="@+id/editEventButton"
-            android:textStyle="bold"
-            android:textColor="@color/lightblue"
-            android:background="@drawable/btn_blue_glossy"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:layout_height="wrap_content">
+        <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_white_glossy"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|right"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:spinnerMode="dropdown" />
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@android:drawable/ic_menu_more"/>
+    </RelativeLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navy"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:layout_weight="5"
+                android:gravity="left|center_vertical"
+                android:id="@+id/eventDate"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setDate"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_blue_glossy"
+                android:textColor="@color/lightblue"
+                android:textStyle="bold"
+                android:gravity="center_vertical|right"
+                android:id="@+id/dateButton"/>
 
 
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/cancel"
-            android:id="@+id/cancelButton"
-            android:textStyle="bold"
-            android:textColor="@color/lightblue"
-            android:background="@drawable/btn_blue_glossy"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:clickable="true"
-            android:focusable="true"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/navy"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:layout_weight="8"
+                android:id="@+id/eventTime"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setTime"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:background="@drawable/btn_blue_glossy"
+                android:clickable="true"
+                android:textColor="@color/lightyellow"
+                android:textStyle="bold"
+                android:gravity="center_vertical|right"
+
+                android:layout_weight="1"
+                android:id="@+id/timeButton"/>
+
+    </LinearLayout>
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/editEvent"
+                android:id="@+id/editEventButton"
+                android:textStyle="bold"
+                android:textColor="@color/lightblue"
+                android:background="@drawable/btn_blue_glossy"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="25dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+    </RelativeLayout>
 
 
 
