@@ -20,7 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
-import edu.uscb.cs.cs185.LiftLog2.system.EventManager;
+import edu.uscb.cs.cs185.LiftLog2.system.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -297,6 +297,15 @@ public class MyActivity extends ActionBarActivity {
         // Getting adapter by passing xml data ArrayList
         adapter = new MyAdapter(this);//, songsList);
         list.setAdapter(adapter);
+		
+		list.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName());
+				Event e = eventManager.getEvents().get(position);
+				editEventDialog(e);
+			}
+		});
 
         list.setOnTouchListener(new MyTouchView(MyActivity.this) {
             @Override
@@ -304,11 +313,11 @@ public class MyActivity extends ActionBarActivity {
                 Toast.makeText(MyActivity.this, "left", Toast.LENGTH_SHORT).show();
             }
 
-            @Override
+/*            @Override
             public void singleTap()
             {
                 editEventDialog();
-            }
+            }*/
         });
 
     }
@@ -333,9 +342,9 @@ public class MyActivity extends ActionBarActivity {
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
-    public void editEventDialog()
+    public void editEventDialog(Event e)
     {
-        EditEventDialog newEvent = new EditEventDialog(this);
+        EditEventDialog newEvent = new EditEventDialog(this, e);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 

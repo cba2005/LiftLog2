@@ -36,11 +36,13 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 
     private int year, month, day, hour, minute;
     private EditEventDialog my_dialog;
+	private Event event;
 
-    public EditEventDialog(MyActivity activity)
+    public EditEventDialog(MyActivity activity, Event e)
     {
         this.activity = activity;
         this.my_dialog = this;
+		this.event = e;
     }
 
     private static String[] classesArray;
@@ -71,12 +73,17 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 
         className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
         className.setThreshold(1);
+	
 
         Spinner dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
         String[] items = new String[]{"Event Type","Homework","Presentation","Project","Exam"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), android.R.layout.simple_spinner_item, items);
 
         dropdown.setAdapter(adapter);
+
+		// beep boop
+		eNameTextView.setText(event.getName());
+		className.setText(event.getClassName());
 
         setDateTime();
         setListeners(dialog);
@@ -93,30 +100,39 @@ public class EditEventDialog extends DialogFragment implements IDialog{
     }
 
     public void editEvent() {
-        String cName = className.getText().toString();
-        String name = eNameTextView.getText().toString();
-        String desc = DEF_DESC;
-        int type = DEF_TYPE;
-        Calendar cal = EventManager.NEW_CALENDAR(year, month, day, hour, minute);
-        activity.getEventManager().addActiveEvent(new Event(type, cName, name, desc, cal));
+		event.setName(eNameTextView.getText().toString());
+		ClassManager classManager = activity.getEventManager().getClassManager();
+		String cName = className.getText().toString();
+		event.setClassName(cName);
+		if(!classManager.contains(cName)) {
+			classManager.addClass(cName, ClassManager.COLORS[classManager.getNumClasses()%ClassManager.NUM_COLORS]);
+			event.setClass_(classManager.getClass(cName));
+		}
+		else {
+			event.setClass_(classManager.getClass(cName));
+		}
+		event.setCalendar(EventManager.NEW_CALENDAR(year, month, day, hour, minute));
+		event.setDescription(DEF_DESC);
+		event.setType(DEF_TYPE);
+		event.setStatus(EventManager.STAT_INCOMPLETE);
     }
 
     public void setDateTime()
     {
         final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        year = event.getYear();
+        month = event.getMonth();
+        day = event.getDay();
         String date = "";
         date = MONTHS[month];
         date+= " " + String.valueOf(day);
         date += " " + year;
         dateTextView.setText(date);
 
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        String time = hour + ":"+"00";
+        hour = event.getHour();
+		minute = event.getMinutes();
+        String time = hour + ":"+minute;
         timeTextView.setText(time);
-
     }
 
     public void setListeners(final Dialog dialog)

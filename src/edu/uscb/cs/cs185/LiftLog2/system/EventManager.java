@@ -28,12 +28,15 @@ public class EventManager {
 	private ArrayList<Event> inactiveEvents;
 	private File activeEventFile;
 	private File inactiveEventFile;
+	private int numTotalEvents;
+	private ArrayList<Event> events;
 	private ClassManager classManager;
 	
 	public EventManager(String path) {
 		classManager = new ClassManager(path);
 		activeEvents = new ArrayList<Event>();
 		inactiveEvents = new ArrayList<Event>();
+		events = new ArrayList<Event>();
 		EVENT_FILE_PATH = path;
 		activeEventFile = new File(EVENT_FILE_PATH+"/"+ ACTIVE_EVENT_FILE_NAME);
 		inactiveEventFile = new File(EVENT_FILE_PATH+"/"+INACTIVE_EVENT_FILE_NAME);
@@ -41,6 +44,10 @@ public class EventManager {
 		numInactiveEvents = 0;
 		loadActiveEvents();
 		loadInactiveEvents();
+	}
+	
+	public void editEvent(String name, String className) {
+		
 	}
 	
 	public void loadActiveEvents() {
@@ -75,6 +82,8 @@ public class EventManager {
 
 				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute));
 				activeEvents.add(e);
+				events.add(e);
+				sortEvents();
 				if(!classManager.contains(className)) {
 					classManager.addClass(className, ClassManager.COLORS[classManager.getNumClasses()%ClassManager.NUM_COLORS]);
 					e.setClass_(classManager.getClass(className));
@@ -121,6 +130,8 @@ public class EventManager {
 
 				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute));
 				inactiveEvents.add(e);
+				events.add(e);
+				sortEvents();
 				if(!classManager.contains(className)) {
 					classManager.addClass(className, ClassManager.COLORS[classManager.getNumClasses()%ClassManager.NUM_COLORS]);
 					e.setClass_(classManager.getClass(className));
@@ -195,6 +206,8 @@ public class EventManager {
 			return;
 		}
 		activeEvents.add(e);
+		events.add(e);
+		sortEvents();
 		String className = e.getClassName();
 		if(!classManager.contains(className)) {
 			classManager.addClass(className, ClassManager.COLORS[classManager.getNumClasses()%ClassManager.NUM_COLORS]);
@@ -226,6 +239,8 @@ public class EventManager {
 			return;
 		}
 		activeEvents.remove(e);
+		events.remove(e);
+		sortEvents();
 		numActiveEvents--;
 		saveActiveEvents();
 	}
@@ -240,6 +255,8 @@ public class EventManager {
 			debug(ev.getName());
 		}
 		inactiveEvents.remove(e);
+		events.remove(e);
+		sortEvents();
 		numInactiveEvents--;
 		saveInactiveEvents();	
 	}
@@ -289,6 +306,15 @@ public class EventManager {
 
 	public Event getInactiveEvent(String name, String className) {
 		for (Event e : inactiveEvents) {
+			if (e.getName().compareTo(name) == 0 && e.getClassName().compareTo(className) == 0) {
+				return e;
+			}
+		}
+		return null;
+	}
+
+	public Event getEvent(String name, String className) {
+		for (Event e : events) {
 			if (e.getName().compareTo(name) == 0 && e.getClassName().compareTo(className) == 0) {
 				return e;
 			}
@@ -345,12 +371,27 @@ public class EventManager {
 		return inactiveEvents;
 	}
 	
+	public void sortEvents() {
+		Collections.sort(events, new EventComparator());	
+	}
+	
+	public ArrayList<Event> getEvents() { 
+		// sort events first by date due
+		return events; 
+	}
+	
 	public int getNumActiveEvents() {
 		return numActiveEvents;
 	}
 	
 	public int getNumInactiveEvents() {
 		return numInactiveEvents;
+	}
+	
+	public int getNumTotalEvents() { return numActiveEvents + numInactiveEvents; }
+	
+	public ClassManager getClassManager() {
+		return classManager;
 	}
 	
 	public static Calendar NEW_CALENDAR(int year, int month, int day, int hour, int min) {

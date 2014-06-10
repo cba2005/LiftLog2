@@ -116,7 +116,12 @@ public class AddEventDialog extends DialogFragment implements IDialog{
         int hour = c.get(Calendar.HOUR_OF_DAY);
         String time = hour + ":"+"00";
         timeTextView.setText(time);
-
+		
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.hour = hour;
+		this.minute = 0;
     }
 
     public void setListeners(final Dialog dialog)

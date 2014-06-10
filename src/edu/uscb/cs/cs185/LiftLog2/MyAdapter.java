@@ -39,18 +39,18 @@ public class MyAdapter extends BaseAdapter{
     }
     @Override
     public int getCount() {
-        //have it return the number of items we want displayed
-        return eventManager.getNumActiveEvents();
+        // have it return the number of items we want displayed
+        return eventManager.getNumTotalEvents();
     }
 
     @Override
-    public Object getItem(int position) {
-        return eventManager.getActiveEvents().get(position);
+    public Object getItem(int position) {      
+		return eventManager.getEvents().get(position);
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
+    public long getItemId(int position) { 
+		return position;
     }
 	
 

@@ -119,6 +119,26 @@ public class Event {
 		return calendar;
 	}
 	
+	public int getYear() {
+		return Integer.parseInt(dateDue.substring(0, 4));
+	}
+	
+	public int getMonth() {
+		return Integer.parseInt(dateDue.substring(5, 7));
+	}
+	
+	public int getDay() {
+		return Integer.parseInt(dateDue.substring(8));
+	}
+	
+	public int getHour() {
+		return Integer.parseInt(timeDue.substring(0,2));
+	}
+	
+	public int getMinutes() {
+		return Integer.parseInt(timeDue.substring(3));
+	}
+	
 	public Class getClass_() {
 		return class_;
 	}
