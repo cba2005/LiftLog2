@@ -2,7 +2,9 @@ package edu.uscb.cs.cs185.LiftLog2;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.view.Window;
 import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -185,10 +187,13 @@ public class MyActivity extends ActionBarActivity {
     {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_dialog);
+
         // final RelativeLayout dialogLayout = (RelativeLayout) findViewById(R.id.relLayout);
 
 
         dialog.setTitle("Help");
+        CheckBox checkBox = (CheckBox) dialog.findViewById(R.id.checkbox);
+        checkBox.setVisibility(View.INVISIBLE);
         // set the custom dialog components - text, image and button
         //TextView text = (TextView) dialog.findViewById(R.id.textDialog);
 
