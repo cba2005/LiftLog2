@@ -21,7 +21,7 @@ public class MyAdapter extends BaseAdapter{
     private LayoutInflater inflater = null;
 	private MyActivity myActivity;
 	private EventManager eventManager;
-	
+
 	private ArrayList<Event> events;
 	
 	static class MyViewHolder {
@@ -36,6 +36,7 @@ public class MyAdapter extends BaseAdapter{
 		myActivity = (MyActivity) activity;
 		eventManager = myActivity.getEventManager();
         inflater = activity.getLayoutInflater();
+
     }
     @Override
     public int getCount() {
@@ -59,7 +60,8 @@ public class MyAdapter extends BaseAdapter{
 		MyViewHolder viewHolder;
 	
         if(view == null) {
-			view = inflater.inflate(R.layout.row_layout, viewGroup, false);
+
+			    view = inflater.inflate(R.layout.row_layout, viewGroup, false);
 
 			viewHolder = new MyViewHolder();
 

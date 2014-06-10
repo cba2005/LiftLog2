@@ -42,7 +42,7 @@ public class MyActivity extends ActionBarActivity {
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
     private String path;
-    private TextView dateTV;
+    private TextView dateTV,dayTV;
 	
 	private EventManager eventManager;
 	
@@ -58,6 +58,7 @@ public class MyActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         dateTV = (TextView) findViewById(R.id.date);
+        dayTV = (TextView) findViewById(R.id.day);
         Drawable background = getResources().getDrawable(R.drawable.ucsbwave_144);
         getSupportActionBar().setBackgroundDrawable(background);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -68,6 +69,8 @@ public class MyActivity extends ActionBarActivity {
         String delegate ="EEEE, MMMM dd, yyyy";
         java.util.Date noteTS = Calendar.getInstance().getTime();
         dateTV.setText(DateFormat.format(delegate, noteTS));
+        delegate = "hh:mm:ss";
+        dayTV.setText(DateFormat.format(delegate,noteTS));
         //ListView Stuff
         list = (ListView) findViewById(R.id.listView);
 

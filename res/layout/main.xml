@@ -5,31 +5,48 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
-    <LinearLayout
-            android:orientation="horizontal"
+    <RelativeLayout
             android:layout_width="fill_parent"
-
             android:layout_height="wrap_content">
+<!--
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_cal"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
+                android:padding="35dp"
+                android:layout_alignParentLeft="true"
                 android:id="@+id/imageView"/>
+                -->
         <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:alpha="1"
+                android:textSize="60sp"
+                android:paddingTop="50sp"
+                android:paddingRight="45dp"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/silver"
+                android:fontFamily="Arial,Helvetica,sans-serif"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/day"/>
+        <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
+
+                android:padding="45dp"
+                android:textSize="35sp"
+
                 android:layout_gravity="center_horizontal"
+                android:layout_alignParentLeft="true"
                 android:textColor="@color/navy"
                 android:fontFamily="Arial,Helvetica,sans-serif"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/date"/>
-    </LinearLayout>
+
+    </RelativeLayout>
 
 
     <!--<Button

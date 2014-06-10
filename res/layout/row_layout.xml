@@ -6,27 +6,69 @@
               android:background="@drawable/list_selector"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+<!--((GradientDrawable)someView.getBackground()).setColor(someColor);-->
+    <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/rview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <!--
+        <View
+                android:id="@+id/myRectangleView"
+                android:layout_width="30dp"
+                android:padding="35dp"
+
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/rectangle"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/myRectangleView"
                 android:text="Due"
+                android:layout_toRightOf="@id/myRectangleView"
+                android:id="@+id/dateView"
 
-                android:id="@+id/dateView" android:layout_weight="1"
+                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/abc_dropdownitem_text_padding_left"/>
+-->
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Item"
-                android:id="@+id/itemView" android:layout_weight="2"/>
+                android:id="@+id/itemView"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"/>
 
         <View
                 android:id="@+id/myRectangleView"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rectangle" android:layout_weight="0"/>
+                android:background="@drawable/rectangle"
 
+                android:padding="35dp"
+                android:layout_weight="0"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/myRectangleView"
+                    android:text="Due"
+                    android:layout_toRightOf="@id/myRectangleView"
+                    android:id="@+id/dateView"
+
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/abc_dropdownitem_text_padding_left"/>
+        </RelativeLayout>
+        </RelativeLayout>
         <Button
                 android:id="@+id/completedButton"
                 android:layout_width="wrap_content"
@@ -34,4 +76,5 @@
                 android:layout_height="wrap_content"
                 android:text="@string/completed"
                 android:visibility="gone" />
+    </LinearLayout>
 </LinearLayout>
