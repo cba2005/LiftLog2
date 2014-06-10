@@ -5,6 +5,7 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
+
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -14,7 +15,7 @@
                 android:layout_height="wrap_content"
                 android:alpha="1"
                 android:textSize="60sp"
-                android:paddingTop="40sp"
+                android:paddingTop="30sp"
                 android:paddingRight="20dp"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/silver"
@@ -26,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
 
-                android:paddingTop="30dp"
+                android:paddingTop="20dp"
                 android:paddingLeft="20dp"
 
                 android:textSize="30sp"
@@ -47,7 +48,21 @@
             android:text="Selfie Tester"
             android:id="@+id/photoButton"/>-->
 
-
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:paddingBottom="10dp"
+            android:background="@color/blue"/>
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:paddingBottom="10dp"
+            android:background="@color/yellow"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:paddingBottom="10dp"
+        android:background="@color/blue"/>
     <ListView
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -59,13 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/calendar"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
+            android:layout_gravity ="bottom|center|end"
+
             android:textColor="@color/lightblue"
             android:background="@drawable/btn_blue_glossy"
             android:textStyle="bold"
@@ -77,5 +87,6 @@
             android:fontFamily="Arial,Helvetica,sans-serif"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView"/>
+
 </LinearLayout>
 
