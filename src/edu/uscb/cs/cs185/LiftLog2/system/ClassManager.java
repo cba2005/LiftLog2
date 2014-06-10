@@ -1,6 +1,7 @@
 package edu.uscb.cs.cs185.LiftLog2.system;
 
 import android.graphics.*;
+import edu.uscb.cs.cs185.LiftLog2.R;
 
 import java.io.*;
 import java.util.*;
@@ -9,9 +10,21 @@ import java.util.*;
  * Created by ilovekpop on 6/7/2014.
  */
 public class ClassManager {
-	
-	public static final int[] COLORS = {Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.YELLOW};
-	public static final int NUM_COLORS = 5;
+    Color c;
+	static int red = 0xFFFF0000;
+
+    static int fuschia = 0xFFFF00FF;
+    static int purple = 0xFF660066;
+    static int teal = 0xFF008080;
+static int blue = 0xFF0000FF;
+   static int violet = 0xFF800080;
+    static int lavender = 0xFF9999ff;
+    static int salmon = 0xFFff9999;
+    static int darkTurq = 0xFF009999;
+    static int green = 0xFF66cc66;
+    static int maroon = 0xFF800000;
+    public static final int[] COLORS = {red,blue ,darkTurq, purple, teal, fuschia,violet,lavender,salmon,green,maroon};
+	public static final int NUM_COLORS = 10;
 	
 	// minor change
 	public static final String TAG = "CLASS_MANAGER";

@@ -69,7 +69,7 @@ public class MyActivity extends ActionBarActivity {
 		setupSystem();
         setupList();
 
-        String delegate ="EEEE, MMMM dd, yyyy";
+        String delegate ="EEEE, MMMM dd";//, yyyy";
         java.util.Date noteTS = Calendar.getInstance().getTime();
         dateTV.setText(DateFormat.format(delegate, noteTS));
         delegate = "hh:mm:ss";

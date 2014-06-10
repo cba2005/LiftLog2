@@ -8,24 +8,14 @@
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-<!--
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_cal"
-                android:padding="35dp"
-                android:layout_alignParentLeft="true"
-                android:id="@+id/imageView"/>
-                -->
+
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
                 android:alpha="1"
                 android:textSize="60sp"
-                android:paddingTop="50sp"
-                android:paddingRight="45dp"
+                android:paddingTop="40sp"
+                android:paddingRight="20dp"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/silver"
                 android:fontFamily="Arial,Helvetica,sans-serif"
@@ -36,8 +26,10 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
 
-                android:padding="45dp"
-                android:textSize="35sp"
+                android:paddingTop="30dp"
+                android:paddingLeft="20dp"
+
+                android:textSize="30sp"
 
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentLeft="true"

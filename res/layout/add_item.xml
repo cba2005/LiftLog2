@@ -8,7 +8,7 @@
 <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#99bbd2">
+        android:background="@color/barblue">
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
