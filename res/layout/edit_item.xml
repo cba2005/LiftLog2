@@ -98,8 +98,8 @@
                 android:layout_centerVertical="true"
                 android:src="@android:drawable/ic_menu_more"/>
     </RelativeLayout>
-    <LinearLayout
-            android:orientation="horizontal"
+    <RelativeLayout
+
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
         <TextView
@@ -115,6 +115,8 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:layout_weight="5"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
                 android:gravity="left|center_vertical"
                 android:id="@+id/eventDate"/>
         <Button
@@ -128,19 +130,21 @@
                 android:paddingTop="10dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:layout_weight="1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:background="@drawable/btn_blue_glossy"
                 android:textColor="@color/lightblue"
                 android:textStyle="bold"
                 android:gravity="center_vertical|right"
                 android:id="@+id/dateButton"/>
+        <!--
 
-
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            </LinearLayout>
+            <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    -->
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -154,7 +158,8 @@
                 android:paddingTop="10dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:layout_weight="8"
+                android:layout_below="@id/dateButton"
+                android:layout_alignParentLeft="true"
                 android:id="@+id/eventTime"/>
         <Button
                 android:layout_width="wrap_content"
@@ -169,14 +174,16 @@
                 android:paddingRight="25dp"
                 android:background="@drawable/btn_blue_glossy"
                 android:clickable="true"
+                android:layout_below="@id/dateButton"
+                android:layout_alignStart="@id/dateButton"
+                android:layout_alignParentRight="true"
                 android:textColor="@color/lightyellow"
                 android:textStyle="bold"
                 android:gravity="center_vertical|right"
-
                 android:layout_weight="1"
                 android:id="@+id/timeButton"/>
 
-    </LinearLayout>
+    </RelativeLayout>
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
