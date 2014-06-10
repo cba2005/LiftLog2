@@ -10,10 +10,10 @@ import java.util.*;
 public class Class {
 	
 	private String className;
-	private long classColor;
+	private int classColor;
 	private ArrayList<Event> events;
 	
-	public Class(String name, long colorVal) {
+	public Class(String name, int colorVal) {
 		className = name;
 		classColor = colorVal;
 		events = new ArrayList<Event>();
@@ -53,7 +53,7 @@ public class Class {
 		return className;
 	}
 	
-	public long getClassColor() {
+	public int getClassColor() {
 		return classColor;
 	}
 }

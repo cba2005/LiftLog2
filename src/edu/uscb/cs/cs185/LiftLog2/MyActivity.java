@@ -298,16 +298,6 @@ public class MyActivity extends ActionBarActivity {
         adapter = new MyAdapter(this);//, songsList);
         list.setAdapter(adapter);
 
-        // Click event for single list row
-        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                editEventDialog();
-            }
-        });*/
-
         list.setOnTouchListener(new MyTouchView(MyActivity.this) {
             @Override
             public void onSwipeLeft() {

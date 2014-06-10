@@ -73,7 +73,15 @@ public class EventManager {
 				int hour = Integer.parseInt(time.substring(0,2));
 				int minute = Integer.parseInt(time.substring(3));
 
-				activeEvents.add(new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute)));
+				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute));
+				activeEvents.add(e);
+				if(!classManager.contains(className)) {
+					classManager.addClass(className, ClassManager.COLORS[classManager.getNumClasses()%ClassManager.NUM_COLORS]);
+					e.setClass_(classManager.getClass(className));
+				}
+				else {
+					e.setClass_(classManager.getClass(className));
+				}
 			}
 		}
 		catch(Exception e) {
@@ -111,7 +119,15 @@ public class EventManager {
 				int hour = Integer.parseInt(time.substring(0,2));
 				int minute = Integer.parseInt(time.substring(3));
 
-				inactiveEvents.add(new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute)));
+				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute));
+				inactiveEvents.add(e);
+				if(!classManager.contains(className)) {
+					classManager.addClass(className, ClassManager.COLORS[classManager.getNumClasses()%ClassManager.NUM_COLORS]);
+					e.setClass_(classManager.getClass(className));
+				}
+				else {
+					e.setClass_(classManager.getClass(className));
+				}
 			}
 		}
 		catch(Exception e) {
@@ -319,6 +335,22 @@ public class EventManager {
 				list.add(e);
 		}
 		return list;
+	}
+	
+	public ArrayList<Event> getActiveEvents() {
+		return activeEvents;
+	}
+	
+	public ArrayList<Event> getInactiveEvents() {
+		return inactiveEvents;
+	}
+	
+	public int getNumActiveEvents() {
+		return numActiveEvents;
+	}
+	
+	public int getNumInactiveEvents() {
+		return numInactiveEvents;
 	}
 	
 	public static Calendar NEW_CALENDAR(int year, int month, int day, int hour, int min) {

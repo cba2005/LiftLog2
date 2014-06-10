@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class ClassManager {
 	
-	public static final long[] COLORS = {Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.YELLOW};
+	public static final int[] COLORS = {Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.YELLOW};
 	public static final int NUM_COLORS = 5;
 	
 	// minor change
@@ -35,7 +35,7 @@ public class ClassManager {
 		loadClasses();
 	}
 	
-	public void addClass(String name, long color){
+	public void addClass(String name, int color){
 		classes.add(new Class(name, color));
 		debug("ADDING CLASS...");
 		debug("class: "+name);
