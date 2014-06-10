@@ -78,8 +78,10 @@ public class MyAdapter extends BaseAdapter{
 		Event event = (Event) getItem(i);
 		if (event.getClass_() == null)
 			MyActivity.debug("EVENT CLASS IS NULL");
-		else
+		else {
+			MyActivity.debug("attempting to color squares");
 			((GradientDrawable) rect.getBackground()).setColor(event.getClass_().getClassColor());
+		}
 
 		//rowLayout.setBackgroundColor(event.getClass_().getClassColor());
 		

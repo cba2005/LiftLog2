@@ -361,12 +361,14 @@ public class MyActivity extends ActionBarActivity {
     public void addEvent()
     {
         //call whatever to change text file
+		adapter.notifyDataSetChanged();
 		
     }
 
     public void editEvent()
     {
         //call whatever to change text file
+		adapter.notifyDataSetChanged();
     }
 
     public void completedTask()
