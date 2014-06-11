@@ -11,6 +11,8 @@ import android.view.Window;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+
 import android.os.Handler;
 import android.widget.CalendarView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 public class CalendarDialog extends DialogFragment {
     private MyActivity activity;
 
+    private long date;
     private int mYear = 0;
     private int mMonth = 0;
     private int mDay = 0;
@@ -55,38 +58,28 @@ public class CalendarDialog extends DialogFragment {
 
         // creating the fullscreen dialog
         final Dialog dialog = new Dialog(getActivity());
-
-
-
-
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.calendar);
-        CalendarView calendar = (CalendarView) dialog.findViewById(R.id.calendarView);
-
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        final CalendarView calendar = (CalendarView) dialog.findViewById(R.id.calendarView);
+        date = calendar.getDate();
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth)
+            {
+                if(calendar.getDate() != date)
+                {
+                    done = 1;
+                    mMonth = month;
+                    mYear = year;
+                    mDay = dayOfMonth;
+                    dialog.dismiss();
+                    activity.openDayViewDialog(mMonth, mDay, mYear);
+                }
 
-
-
-                done = 1;
-                mMonth = month;
-                mYear = year;
-                mDay = dayOfMonth;
-
-              /*  Toast.makeText(dialog.getContext(), "Selected Date is\n\n"
-                                + getmDay() + " : " + getmMonth() + " : " + getmYear() + " done?:" + done,
-                        Toast.LENGTH_LONG).show();
-
-                 */
-                //newEvent.getDialog().show();
-                //newEvent.getDialog().dismiss();
-                dialog.dismiss();
-                activity.openDayViewDialog(mMonth, mDay, mYear);
             }
         });
 
