@@ -16,6 +16,8 @@
             android:layout_height="fill_parent"
             android:background="@color/red"
             android:text="Completed"
+            android:id = "@+id/completedButton"
+            android:visibility="invisible"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_alignParentRight="true"
