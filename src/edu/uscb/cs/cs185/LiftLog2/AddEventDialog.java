@@ -200,7 +200,7 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 								})
 								.show();
 					}
-				}				
+				}
             }
         });
 

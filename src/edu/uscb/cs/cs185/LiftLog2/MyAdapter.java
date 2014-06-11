@@ -27,6 +27,7 @@ public class MyAdapter extends BaseAdapter{
 	private EventManager eventManager;
     private ScaleAnimation animOpen, animClose;
 	private ImageView eventIcon;
+    private LinearLayout linearLayout;
     private MyAdapter myAdapter = this;
 
     private ArrayList<Event> events;
@@ -37,6 +38,7 @@ public class MyAdapter extends BaseAdapter{
 		TextView className;
         Button button;
 		ImageView eventIcon;
+        LinearLayout linearLayout;
 	}
 
     public MyAdapter(Activity activity, ArrayList<Event> events)
@@ -59,15 +61,15 @@ public class MyAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {      
+    public Object getItem(int position) {
 		return events.get(position);//eventManager.getEvents().get(position);
     }
 
     @Override
-    public long getItemId(int position) { 
+    public long getItemId(int position) {
 		return position;
     }
-	
+
     @Override
     public View getView(final int position, View view, final ViewGroup viewGroup) {
         final MyViewHolder viewHolder;
@@ -82,14 +84,15 @@ public class MyAdapter extends BaseAdapter{
 			viewHolder.name = (TextView) view.findViewById(R.id.itemView);
             viewHolder.button = (Button) view.findViewById(R.id.completedButton);
 			viewHolder.eventIcon = (ImageView) view.findViewById(R.id.eventIcon);
-		
+            viewHolder.linearLayout = (LinearLayout) view.findViewById(R.id.rowView);
+            viewHolder.linearLayout.setBackgroundDrawable(view.getResources().getDrawable(R.drawable.list_selector));
 
 			view.setTag(viewHolder);
 		}
 		else {
 			viewHolder = (MyViewHolder) view.getTag();
 		}
-		
+
 		View rect = view.findViewById(R.id.myRectangleView);
 		final Event event = (Event) getItem(position);
 		if (event.getClass_() == null)
@@ -192,6 +195,31 @@ public class MyAdapter extends BaseAdapter{
 
 		viewHolder.date.setText(event.getFormattedDate());
 		viewHolder.name.setText(event.getName());
+		viewHolder.eventIcon.setBackgroundDrawable(myActivity.getEventDrawable(event));
+        viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.list_selector));
+
+        int dueDay = event.getDay();
+        int dueMonth = event.getMonth();
+        int dueYear = event.getYear();
+
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH); // Note: zero based!
+        int day = now.get(Calendar.DAY_OF_MONTH);
+        int hour = now.get(Calendar.HOUR);
+
+        if (((dueDay == day) && (dueMonth == (month+1))) && (dueYear == year)) {
+
+                viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.due_today));
+
+        }
+        else if ((dueMonth < (month+1)) && (dueYear == year))
+            viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.late));
+        else if (dueYear < year)
+            viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.late));
+        else
+            viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.list_selector));
+                viewHolder.name.setText(event.getName());
 		viewHolder.eventIcon.setBackgroundDrawable(myActivity.getEventDrawable(event));
 
         return view;
