@@ -18,35 +18,31 @@ import java.util.Calendar;
 
 
 public class MyDatePicker extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener {
+   	implements DatePickerDialog.OnDateSetListener {
 
     private TextView dateView;
 	private IDialog iDialog;
+	private int year, month, day;
 
-    MyDatePicker(TextView dateView, IDialog iDialog) {
+    MyDatePicker(TextView dateView, IDialog iDialog, int year, int month, int day) {
         
 		this.dateView = dateView;
 		this.iDialog = iDialog;
+		this.year = year;
+		this.month = month;
+		this.day = day;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
         // Create a new instance of DatePickerDialog and return it
+		MyActivity.debug("PICKER YEAR, MONTH, DAY: "+year+", "+month+", "+day);
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-		String date = "";
-		date = Event.MONTHS[month];
-		date += " " + String.valueOf(day);
-		date += ", " + year;
+		String date = Event.FORMAT_DATE(year, month+1, day);
 		dateView.setText(date);
 		
 		if (iDialog != null)

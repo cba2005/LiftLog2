@@ -346,15 +346,15 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
-    public void timePickerDialog(TextView t, IDialog d)
+    public void timePickerDialog(TextView t, IDialog d, int hour, int minute)
     {
-        MyTimePicker newEvent = new MyTimePicker(t, d);
+        MyTimePicker newEvent = new MyTimePicker(t, d, hour, minute);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
-    public void datePickerDialog(TextView t, IDialog d)
+    public void datePickerDialog(TextView t, IDialog d, int year, int month, int day)
     {
-        MyDatePicker newEvent = new MyDatePicker(t, d);
+        MyDatePicker newEvent = new MyDatePicker(t, d, year, month, day);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
@@ -383,6 +383,21 @@ public class MyActivity extends ActionBarActivity {
         //on positive, delete/update
         //on neg dismiss
     }
+
+	public Drawable getEventDrawable(Event e) {
+		switch(e.getType()) {
+			case EventManager.TYP_HOMEWORK:
+				return getResources().getDrawable(R.drawable.homework);
+			case EventManager.TYP_PRESENTATION:
+				return getResources().getDrawable(R.drawable.presentation);
+			case EventManager.TYP_PROJECT:
+				return getResources().getDrawable(R.drawable.project);
+			case EventManager.TYP_EXAM:
+				return getResources().getDrawable(R.drawable.exam);
+			default:
+				return getResources().getDrawable(R.drawable.homework);
+		}
+	}
 
 
 

@@ -1,12 +1,8 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.FragmentManager;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -24,7 +20,6 @@ import edu.uscb.cs.cs185.LiftLog2.system.*;
 import java.util.Calendar;
 
 import static android.widget.AdapterView.OnItemSelectedListener;
-
 
 /**
  * Created by Caressa on 6/6/2014.
@@ -76,18 +71,14 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 		dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
        //eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.homework));
 		Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
-		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item, items);
-		SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, EventManager.EVENT_TYPES,pics);
-
+		SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, EventManager.EVENT_TYPES, pics);
 		dropdown.setAdapter(myAdapter);
-
+		
 		MyActivity.debug("ADAPTER SET");
 
         setDateTime();
         setListeners(dialog);
         startAutoComplete();
-
-
 
         return dialog;
     }
@@ -103,32 +94,24 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 		String name = eNameTextView.getText().toString();
 		String desc = DEF_DESC;
 		int type = dropdown.getSelectedItemPosition();
-
 		Calendar cal = EventManager.NEW_CALENDAR(year, month, day, hour, minute);
-		activity.getEventManager().addActiveEvent(new Event(type, cName, name, desc, cal));
+		Event e = new Event(type, cName, name, desc, cal);
+		activity.getEventManager().addActiveEvent(e);
 	}
 
     public void setDateTime()
     {
         final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        String date = "";
-        date = MONTHS[month-1];
-        date+= " " + String.valueOf(day);
-        date += " " + year;
-        dateTextView.setText(date);
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+        day = c.get(Calendar.DAY_OF_MONTH);
+		String date = Event.FORMAT_DATE(year, month, day);
+		dateTextView.setText(date);
 
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        String time = hour + ":"+"00";
-        timeTextView.setText(time);
-		
-		this.year = year;
-		this.month = month;
-		this.day = day;
-		this.hour = hour;
-		this.minute = 0;
+        hour = c.get(Calendar.HOUR_OF_DAY);
+		minute = c.get(Calendar.MINUTE);
+		String time = Event.FORMAT_TIME(hour, minute);
+		timeTextView.setText(time);
     }
 
     public void setListeners(final Dialog dialog)
@@ -136,14 +119,15 @@ public class AddEventDialog extends DialogFragment implements IDialog{
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.datePickerDialog(dateTextView, my_dialog);
+				MyActivity.debug("PASSING TO DATE PICKER "+year+", "+(month-1)+", "+day);
+                activity.datePickerDialog(dateTextView, my_dialog, year, month-1, day);
             }
         });
 
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.timePickerDialog(timeTextView, my_dialog);
+                activity.timePickerDialog(timeTextView, my_dialog, hour, minute);
             }
         });
 
@@ -190,17 +174,12 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 		year = y;
 		month = m;
 		day = d;
-		MyActivity.debug("SET YEAR: "+year);
-		MyActivity.debug("SET MONTH: "+month);
-		MyActivity.debug("SET DAY: "+day);
 	}
 
 	@Override
 	public void setTime(int h, int min) {
 		hour = h;
 		minute = min;
-		MyActivity.debug("SET HOUR: "+hour);
-		MyActivity.debug("SET MINUTE: "+minute);
 	}
 }
 

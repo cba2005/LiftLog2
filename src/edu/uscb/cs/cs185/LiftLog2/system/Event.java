@@ -1,10 +1,11 @@
 package edu.uscb.cs.cs185.LiftLog2.system;
 
 
-import java.sql.*;
+import android.graphics.drawable.*;
+import edu.uscb.cs.cs185.LiftLog2.*;
+
 import java.text.*;
 import java.util.*;
-import java.util.Date;
 
 /**
  * Created by ilovekpop on 6/7/2014.
@@ -14,7 +15,7 @@ public class Event {
 	public static final String TAG = "EVENT";
 	
 	public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-	public static final DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm");
+	public static final DateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 	public static final String[] MONTHS = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 	
 	private int type;
@@ -33,6 +34,8 @@ public class Event {
 	public Event(int type, String className, String name, String description, Calendar c) {
 		status = EventManager.STAT_INCOMPLETE;
 		
+		debug("ADDING CALENDAR: "+c.getTime());
+		
 		this.type = type;
 		this.className = className;
 		this.name = name;
@@ -40,8 +43,10 @@ public class Event {
 		this.timeDue = TIME_FORMAT.format(c.getTime());
 		this.description = description;
 		this.calendar = c;
-		this.formattedDate = MONTHS[getMonth()-1]+" "+getDay()+", "+getYear();
+		this.formattedDate = FORMAT_DATE(getYear(), getMonth(), getDay());
+		this.formattedTime = FORMAT_TIME(getHour(), getMinutes());
 		debug("DATE: "+MONTHS[getMonth()-1]+" "+getDay()+", "+getYear());
+		debug("TIME: "+ FORMAT_TIME(getHour(), getMinutes()));
 		
 
 		debug("CREATING EVENT...");
@@ -83,7 +88,8 @@ public class Event {
 		calendar = c;
 		dateDue = DATE_FORMAT.format(calendar.getTime());
 		timeDue = TIME_FORMAT.format(calendar.getTime());
-		formattedDate = MONTHS[getMonth()-1]+" "+getDay()+", "+getYear();
+		formattedDate = FORMAT_DATE(getYear(), getMonth(), getDay());
+		formattedTime = FORMAT_TIME(getHour(), getMinutes());
 	}
 	
 	public void setClassName(String n) {
@@ -156,13 +162,35 @@ public class Event {
 		return formattedDate;
 	}
 	
-	public String getFormattedTime() {
-		int hour = getHour();
-		int day = getMinutes();
-		if (hour < 12) {
-			hour = hour % 13;
+	public String getFormattedTime() { 
+		DateFormat dFormat = new SimpleDateFormat("h:mm a");
+		return dFormat.format(calendar.getTime());
+	}
+	
+	// should've used calendar and dateformat i fucked up
+	public static String FORMAT_DATE(int year, int monthIndex, int day) {
+		return MONTHS[monthIndex-1]+" "+day+", "+year; 
+	}
+	
+	// pretty retarded man o well, will fix in future iterations maybe
+	public static String FORMAT_TIME(int hour, int minute) {
+		String min;
+		if (minute < 10)
+			min = "0"+minute;
+		else
+			min = ""+minute;
+		String ampm = "AM";
+		if (hour > 12) {
+			hour = hour % 12;
+			ampm = "PM";		
 		}
-		return "";
+		else if (hour == 0) {
+			hour = 12;
+			ampm = "AM";
+		}
+		else if (hour == 12)
+			ampm = "PM";
+		return hour+":"+min+" "+ampm;
 	}
 
 	public void debug(String msg) {

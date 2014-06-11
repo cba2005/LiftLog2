@@ -228,6 +228,16 @@ public class EventManager {
 		saveActiveEvents();
 	}
 	
+	public void removeEvent(String name, String className) {
+		Event e = getEvent(name, className);
+		if (!events.contains(e))
+			return;
+		if (e.getStatus() == STAT_COMPLETE) 
+			removeActiveEvent(name, className);
+		else
+			removeInactiveEvent(name, className);	
+	}
+	
 	public void removeActiveEvent(String name, String className) {
 		Event e = getActiveEvent(name, className);		
 		if (!activeEvents.contains(e)) {
@@ -244,11 +254,8 @@ public class EventManager {
 	public void removeInactiveEvent(String name, String className) {
 		Event e = getInactiveEvent(name, className);
 		if (!inactiveEvents.contains(e)) {
-			debug("activeEvents doesn't contain: "+name);
+			debug("inactiveEvents doesn't contain: "+name);
 			return;
-		}
-		for (Event ev : inactiveEvents) {
-			debug(ev.getName());
 		}
 		inactiveEvents.remove(e);
 		events.remove(e);
@@ -372,7 +379,6 @@ public class EventManager {
 	}
 	
 	public ArrayList<Event> getEvents() { 
-		// sort events first by date due
 		return events; 
 	}
 	

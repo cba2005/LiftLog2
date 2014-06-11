@@ -26,6 +26,7 @@ public class MyAdapter extends BaseAdapter{
 	private MyActivity myActivity;
 	private EventManager eventManager;
     private ScaleAnimation animOpen, animClose;
+	private ImageView eventIcon;
 
     private ArrayList<Event> events;
 	
@@ -34,6 +35,7 @@ public class MyAdapter extends BaseAdapter{
 		TextView name;
 		TextView className;
         Button button;
+		ImageView eventIcon;
 	}
 
     public MyAdapter(Activity activity)
@@ -70,7 +72,6 @@ public class MyAdapter extends BaseAdapter{
 
         if(view == null) {
 
-
 			view = inflater.inflate(R.layout.row_layout, viewGroup, false);
 			viewHolder = new MyViewHolder();
 
@@ -78,15 +79,16 @@ public class MyAdapter extends BaseAdapter{
 			viewHolder.date = (TextView) view.findViewById(R.id.dateView);
 			viewHolder.name = (TextView) view.findViewById(R.id.itemView);
             viewHolder.button = (Button) view.findViewById(R.id.completedButton);
+			viewHolder.eventIcon = (ImageView) view.findViewById(R.id.eventIcon);
+		
 
 			view.setTag(viewHolder);
 		}
 		else {
 			viewHolder = (MyViewHolder) view.getTag();
 		}
-
-
-        View rect = view.findViewById(R.id.myRectangleView);
+		
+		View rect = view.findViewById(R.id.myRectangleView);
 		final Event event = (Event) getItem(position);
 		if (event.getClass_() == null)
 			MyActivity.debug("EVENT CLASS IS NULL");
@@ -181,13 +183,12 @@ public class MyAdapter extends BaseAdapter{
                 finalView.performLongClick();
 
             }
-
-
         });
 
-
+		
 		viewHolder.date.setText(event.getFormattedDate());
 		viewHolder.name.setText(event.getName());
+		viewHolder.eventIcon.setBackgroundDrawable(myActivity.getEventDrawable(event));
 
         return view;
     }

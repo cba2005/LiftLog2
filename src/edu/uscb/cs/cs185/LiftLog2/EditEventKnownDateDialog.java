@@ -24,6 +24,7 @@ public class EditEventKnownDateDialog extends DialogFragment {
     private AutoCompleteTextView className;
     private Calendar c;
     public static final String[] MONTHS ={"January","February","March","April","May","June","July","August","September","October","November","December"};
+	private int year, month, day, hour, minute;
 
     public EditEventKnownDateDialog(MyActivity activity, Calendar c)
     {
@@ -98,7 +99,7 @@ public class EditEventKnownDateDialog extends DialogFragment {
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.timePickerDialog(timeTextView, null);
+                activity.timePickerDialog(timeTextView, null, hour, minute);
             }
         });
 

@@ -1,15 +1,9 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.FragmentManager;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -74,34 +68,24 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         className.setThreshold(1);
         dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
 		Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
-		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item, items);
 		SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, EventManager.EVENT_TYPES,pics);
-
 		dropdown.setAdapter(myAdapter);
 
 		// beep boop
 		eNameTextView.setText(event.getName());
 		className.setText(event.getClassName());
 		dropdown.setSelection(event.getType());
-		
-		MyActivity.debug("CHECK1");
 
         setDateTime();
-		MyActivity.debug("CHECK2");
         setListeners(dialog);
-		MyActivity.debug("CHECK3");
         startAutoComplete();
-		
-		MyActivity.debug("CHECK4");
 
         return dialog;
     }
 
     public void startAutoComplete() {
-        //make autocomplere adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.classList));
         className.setAdapter(adapter);
-
     }
 
     public void editEvent() {
@@ -128,31 +112,16 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 
     public void setDateTime()
     {
-        final Calendar c = Calendar.getInstance();
-		MyActivity.debug("AHOY THERE 0");
-        year = event.getYear();
-        month = event.getMonth();
-        day = event.getDay();
-		MyActivity.debug("AHOY THERE 1");
-        String date = "";
-		MyActivity.debug("MONTH: "+month);
-        date = Event.MONTHS[month-1];
-        date+= " " + String.valueOf(day);
-        date += ", " + year;
+        String date = Event.FORMAT_DATE(event.getYear(), event.getMonth(), event.getDay());
         dateTextView.setText(date);
-		MyActivity.debug("AHOY THERE 2");
-
-        hour = event.getHour();
-		minute = event.getMinutes();
-		MyActivity.debug("AHOY THERE 3");
-		String time;
-		if (minute < 10)
-			time = hour + ":0"+minute;
-		else
-        	time = hour + ":"+minute;
-		MyActivity.debug("AHOY THERE 4");
+		String time = event.getFormattedTime(); //Event.FORMAT_TIME(event.getHour(), event.getMinutes());
         timeTextView.setText(time);
-		MyActivity.debug("AHOY THERE 5");
+		
+		year = event.getYear();
+		month = event.getMonth()-1;
+		day = event.getDay();
+		hour = event.getHour();
+		minute = event.getMinutes();
     }
 
     public void setListeners(final Dialog dialog)
@@ -160,14 +129,14 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.datePickerDialog(dateTextView, my_dialog);
+                activity.datePickerDialog(dateTextView, my_dialog, year, month, day);
             }
         });
 
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.timePickerDialog(timeTextView, my_dialog);
+                activity.timePickerDialog(timeTextView, my_dialog, hour, minute);
             }
         });
 
@@ -213,17 +182,12 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         year = y;
         month = m;
         day = d;
-        MyActivity.debug("SET YEAR: "+year);
-        MyActivity.debug("SET MONTH: "+month);
-        MyActivity.debug("SET DAY: "+day);
     }
 
     @Override
     public void setTime(int h, int min) {
         hour = h;
         minute = min;
-        MyActivity.debug("SET HOUR: "+hour);
-        MyActivity.debug("SET MINUTE: "+minute);
     }
 }
 
