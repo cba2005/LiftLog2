@@ -105,6 +105,7 @@ public class MyAdapter extends BaseAdapter{
                         .setMessage("Pero like.... did you really?")
                         .setPositiveButton("Yaaaaas", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                closeButton(viewHolder.button);
                                 myActivity.completedTask();
                             }
                         })
