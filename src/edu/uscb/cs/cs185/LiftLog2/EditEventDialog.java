@@ -73,10 +73,12 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         className.setThreshold(1);
 
         Spinner dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
-        String[] items = new String[]{"Event Type","Homework","Presentation","Project","Exam"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), android.R.layout.simple_spinner_item, items);
+        String[] items = new String[]{"Homework","Presentation","Project","Exam"};
+        Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item, items);
+        SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, items,pics);
 
-        dropdown.setAdapter(adapter);
+        dropdown.setAdapter(myAdapter);
 
 		// beep boop
 		eNameTextView.setText(event.getName());
@@ -203,3 +205,4 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         MyActivity.debug("SET MINUTE: "+minute);
     }
 }
+

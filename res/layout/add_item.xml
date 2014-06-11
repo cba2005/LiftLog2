@@ -67,8 +67,6 @@
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
 
-
-
             android:layout_weight="1"
             android:textColor="@color/navy"
             android:id="@+id/eventName"/>
@@ -94,7 +92,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:id="@+id/outlineTop"
-                android:background="@color/silver"/>
+                android:background="@color/barblue"/>
 
         <Spinner
                 android:id="@+id/spinner1"
@@ -118,7 +116,7 @@
                 android:layout_marginLeft="51dp"
                 android:layout_marginRight="51dp"
                 android:layout_below="@id/spinner1"
-                android:background="@color/silver"/>
+                android:background="@color/barblue"/>
 
         <ImageView
                 android:layout_width="wrap_content"
