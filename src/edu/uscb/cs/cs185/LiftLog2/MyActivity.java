@@ -65,6 +65,7 @@ public class MyActivity extends ActionBarActivity {
         Drawable background = getResources().getDrawable(R.drawable.logo);
         getSupportActionBar().setBackgroundDrawable(background);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupSelfies();
 		setupSystem();
         setupList();
@@ -104,6 +105,9 @@ public class MyActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
+            case android.R.id.home:
+                vicSelfieDialog();
+                return true;
             case R.id.addEvent:
                 addEventDialog();
                 return true;
@@ -233,6 +237,35 @@ public class MyActivity extends ActionBarActivity {
 
         dialog.show();
 
+    }
+
+    public void vicSelfieDialog()
+    {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.selfie_dialog);
+        ImageView image = (ImageView) dialog.findViewById(R.id.selfie);
+        Button cancelButton  = (Button) dialog.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        //dialog.setTitle("Settings");
+        String path = saveFolder.getAbsolutePath();
+        imgNum = pref.getInt("imgNum", imgNum);
+
+        if(imgNum > 0) {
+            String fileImgNum = new DecimalFormat("000").format(imgNum);
+            Drawable d = Drawable.createFromPath(path + "/selfie_" + fileImgNum + ".jpg");
+            image.setImageDrawable(d);
+        }
+        else
+            image.setImageResource(R.drawable.doge);
+
+        dialog.show();
     }
 
     @Override
