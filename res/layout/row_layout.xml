@@ -19,6 +19,7 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50sp"
@@ -54,16 +55,22 @@
                     android:id="@+id/dateView"
 
                     android:layout_marginLeft="@dimen/abc_dropdownitem_text_padding_left"/>
+            <Button
+                    android:id="@+id/completedButton"
+                    android:layout_width="wrap_content"
+                    android:visibility="invisible"
+                    android:background="@color/lime"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/completed"
+
+                    />
+
         </RelativeLayout>
 
         </LinearLayout>
         </RelativeLayout>
-        <Button
-                android:id="@+id/completedButton"
-                android:layout_width="wrap_content"
-                android:background="@color/lime"
-                android:layout_height="wrap_content"
-                android:text="@string/completed"
-                android:visibility="gone" />
+
     </LinearLayout>
 </LinearLayout>
