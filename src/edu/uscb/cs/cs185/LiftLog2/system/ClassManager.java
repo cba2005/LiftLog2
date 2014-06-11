@@ -12,19 +12,19 @@ import java.util.*;
 public class ClassManager {
     Color c;
 	static int red = 0xFFFF0000;
-
+    static int darkBlue = 0xFF000080;
     static int fuschia = 0xFFFF00FF;
     static int purple = 0xFF660066;
     static int teal = 0xFF008080;
-static int blue = 0xFF0000FF;
+    static int blue = 0xFF0000FF;
    static int violet = 0xFF800080;
     static int lavender = 0xFF9999ff;
     static int salmon = 0xFFff9999;
-    static int darkTurq = 0xFF009999;
-    static int green = 0xFF66cc66;
+    static int darkTurq = 0xFF024234;
+    static int grey = 0xFF808080;
     static int maroon = 0xFF800000;
-    public static final int[] COLORS = {red,blue ,darkTurq, purple, teal, fuschia,violet,lavender,salmon,green,maroon};
-	public static final int NUM_COLORS = 10;
+    public static final int[] COLORS = {red,blue ,darkTurq, purple,grey, teal, fuschia,violet,lavender,salmon,darkBlue,maroon};
+	public static final int NUM_COLORS = 11;
 	
 	// minor change
 	public static final String TAG = "CLASS_MANAGER";
