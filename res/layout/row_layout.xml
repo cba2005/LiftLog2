@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              android:orientation="horizontal"
+
               android:id="@+id/rowView"
               android:longClickable="true"
               android:background="@drawable/list_selector"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent">
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@color/red"
+            android:text="Completed"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            />
 
+<!--
     <LinearLayout
             android:orientation="horizontal"
             android:id="@+id/rview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-
+-->
 
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+            <ImageView
+                    android:layout_width="25sp"
+                    android:layout_height="25sp"
+
+                    android:layout_marginLeft="@dimen/abc_dropdownitem_text_padding_left"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="50sp"
+                    android:alpha="3"
+                    android:layout_alignParentBottom="true"
+                    android:src = "@drawable/homework"
+                    android:id = "@+id/eventIcon"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -29,6 +54,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_horizontal"/>
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -53,24 +79,17 @@
                     android:text="Due"
                     android:textColor="@color/lightblue"
                     android:id="@+id/dateView"
-
                     android:layout_marginLeft="@dimen/abc_dropdownitem_text_padding_left"/>
-            <Button
-                    android:id="@+id/completedButton"
-                    android:layout_width="wrap_content"
-                    android:visibility="invisible"
-                    android:background="@color/lime"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/black"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/completed"
 
-                    />
+
 
         </RelativeLayout>
 
         </LinearLayout>
-        </RelativeLayout>
 
+        </RelativeLayout>
+    </RelativeLayout>
+    <!--
+        </LinearLayout>
+        -->
     </LinearLayout>
-</LinearLayout>
