@@ -50,6 +50,7 @@
 
     <View
             android:layout_width="fill_parent"
+            android:layout_marginTop="20dp"
             android:layout_height="1dp"
             android:paddingBottom="10dp"
             android:background="@color/blue"/>
@@ -85,7 +86,7 @@
             android:layout_height="wrap_content"
             android:text="@string/calendar"
             android:layout_gravity ="bottom|center|end"
-
+            android:layout_marginTop="20dp"
             android:textColor="@color/lightblue"
             android:background="@drawable/btn_blue_glossy"
             android:textStyle="bold"
