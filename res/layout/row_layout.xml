@@ -58,9 +58,17 @@
                 android:textColor="@color/navy"
                 android:paddingBottom="12dp"
                 android:paddingTop = "12dp"
-
                 android:layout_centerInParent="true"
                 android:gravity="center_horizontal"/>
+            <View
+                    android:layout_width="wrap_content"
+                    android:id = "@+id/crossOut"
+                    android:layout_height="3dp"
+                    android:visibility="invisible"
+                    android:layout_marginLeft="200sp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal"
+                    android:background="@color/maroon"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
