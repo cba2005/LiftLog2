@@ -25,7 +25,7 @@ public class MyAdapter extends BaseAdapter{
     private LayoutInflater inflater = null;
 	private MyActivity myActivity;
 	private EventManager eventManager;
-    private ScaleAnimation animOpen, animClose;
+    private ScaleAnimation animOpen, animClose, animStrike;
 	private ImageView eventIcon;
     private LinearLayout linearLayout;
     private MyAdapter myAdapter = this;
@@ -37,6 +37,7 @@ public class MyAdapter extends BaseAdapter{
 		TextView name;
 		TextView className;
         Button button;
+        View crossOut;
 		ImageView eventIcon;
         LinearLayout linearLayout;
 
@@ -52,6 +53,8 @@ public class MyAdapter extends BaseAdapter{
         animOpen.setDuration(200);
         animClose = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
         animClose.setDuration(200);
+        animStrike = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animStrike.setDuration(200);
 		this.events = events;
 
     }
@@ -85,6 +88,7 @@ public class MyAdapter extends BaseAdapter{
 			viewHolder.name = (TextView) view.findViewById(R.id.itemView);
             viewHolder.button = (Button) view.findViewById(R.id.completedButton);
 			viewHolder.eventIcon = (ImageView) view.findViewById(R.id.eventIcon);
+            viewHolder.crossOut = view.findViewById(R.id.crossOut);
             viewHolder.linearLayout = (LinearLayout) view.findViewById(R.id.rowView);
             viewHolder.linearLayout.setBackgroundDrawable(view.getResources().getDrawable(R.drawable.list_selector));
             viewHolder.className = (TextView) view.findViewById(R.id.cName);
@@ -113,6 +117,7 @@ public class MyAdapter extends BaseAdapter{
                         .setPositiveButton("Yaaaaas", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 closeButton(viewHolder.button);
+                                strikeItem(viewHolder.crossOut);
                                 myActivity.completedTask(event, myAdapter);
                             }
                         })
@@ -287,5 +292,25 @@ public class MyAdapter extends BaseAdapter{
                 }
             }
         }
+    }
+
+
+    private void strikeItem(final View line)
+    {
+
+        animStrike.setAnimationListener(new Animation.AnimationListener()
+        {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                line.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) { }
+
+            @Override
+            public void onAnimationEnd(Animation animation) { }
+        });
+
+        line.startAnimation(animStrike);
     }
 }

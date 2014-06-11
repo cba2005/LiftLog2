@@ -8,7 +8,7 @@ import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Window;
+import android.view.*;
 import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,9 +23,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateFormat;
 import android.util.*;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.*;
 import edu.uscb.cs.cs185.LiftLog2.system.*;
 
@@ -49,6 +46,7 @@ public class MyActivity extends ActionBarActivity {
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
     private TextView dateTV,dayTV;
+    private String[] messages = {"Yay! Good job.", "Hey dere"};
 	
 	private EventManager eventManager;
 	
@@ -382,7 +380,7 @@ public class MyActivity extends ActionBarActivity {
     public void completedTask(Event e, MyAdapter adapter)
     {
         //open dialog
-        new AlertDialog.Builder(MyActivity.this)
+       /* new AlertDialog.Builder(MyActivity.this)
                 .setTitle("WOOOOOOOOOOO")
                 .setMessage("Goo jawb, yeah?")
                 .setPositiveButton("Danke", new DialogInterface.OnClickListener() {
@@ -391,9 +389,15 @@ public class MyActivity extends ActionBarActivity {
                     }
                 })
 
-                .show();
+                .show();*/
+        int ranNum = (int)(Math.random() * ((messages.length)));
+        Toast toast = Toast.makeText(MyActivity.this, messages[ranNum], Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+        toast.show();
 
-		debug("\nsetting event completion "+e.getName());
+
+
+        debug("\nsetting event completion " + e.getName());
 		eventManager.completeEvent(e.getName(), e.getClassName());
 		adapter.notifyDataSetChanged();
 		debug("EVENT "+e.getName()+"set to status: "+e.getStatus());
