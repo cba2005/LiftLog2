@@ -1,5 +1,6 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
+import android.annotation.*;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -300,7 +301,9 @@ public class MyActivity extends ActionBarActivity {
 
     }
 
-    public void setupList()
+    @SuppressLint("NewApi")
+	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+	public void setupList()
     {
         //ListView Stuff
         list = (ListView) findViewById(R.id.listView);
@@ -374,7 +377,10 @@ public class MyActivity extends ActionBarActivity {
 
     public void completedTask(Event e, MyAdapter adapter)
     {
-
+		debug("\nsetting event completion "+e.getName());
+		eventManager.completeEvent(e.getName(), e.getClassName());
+		adapter.notifyDataSetChanged();
+		debug("EVENT "+e.getName()+"set to status: "+e.getStatus());
     }
 
     public void deleteEvent(Event e, MyAdapter adapter)
@@ -382,6 +388,9 @@ public class MyActivity extends ActionBarActivity {
         //popup window
         //on positive, delete/update
         //on neg dismiss
+		debug("\nattempting to delete "+e.getName()+"...");
+		eventManager.removeEvent(e.getName(), e.getClassName());
+		adapter.notifyDataSetChanged();
     }
 
 	public Drawable getEventDrawable(Event e) {
@@ -398,9 +407,6 @@ public class MyActivity extends ActionBarActivity {
 				return getResources().getDrawable(R.drawable.homework);
 		}
 	}
-
-
-
 	
 	public EventManager getEventManager() {
 		return eventManager;

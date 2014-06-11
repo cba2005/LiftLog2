@@ -1,7 +1,7 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
-import android.app.Activity;
-import android.app.Dialog;
+import android.app.*;
+import android.content.*;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -103,9 +103,10 @@ public class AddEventDialog extends DialogFragment implements IDialog{
     {
         final Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
+        month = c.get(Calendar.MONTH); // want index
         day = c.get(Calendar.DAY_OF_MONTH);
-		String date = Event.FORMAT_DATE(year, month, day);
+		// hack fix until I can do real fix
+		String date = Event.FORMAT_DATE(year, month+1, day);
 		dateTextView.setText(date);
 
         hour = c.get(Calendar.HOUR_OF_DAY);
@@ -119,8 +120,8 @@ public class AddEventDialog extends DialogFragment implements IDialog{
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-				MyActivity.debug("PASSING TO DATE PICKER "+year+", "+(month-1)+", "+day);
-                activity.datePickerDialog(dateTextView, my_dialog, year, month-1, day);
+				MyActivity.debug("PASSING TO DATE PICKER "+year+", "+(month)+", "+day);
+                activity.datePickerDialog(dateTextView, my_dialog, year, month, day);
             }
         });
 
@@ -154,9 +155,24 @@ public class AddEventDialog extends DialogFragment implements IDialog{
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
-				addEvent();
-                activity.addEvent();
+                
+				if (eNameTextView.getText().toString().length() != 0 && className.getText().toString().length() != 0) {
+					dialog.dismiss();
+					addEvent();
+					activity.addEvent();
+				}
+				else {
+					new AlertDialog.Builder(dialog.getContext())
+							.setTitle("Missing Fields")
+							.setMessage("por favor setting event and course name\nthank")
+							.setNeutralButton("oki doki", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									// bye bye
+								}
+							})
+							.show();
+				}
+				
             }
         });
 

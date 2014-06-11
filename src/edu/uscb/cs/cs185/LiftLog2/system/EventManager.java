@@ -224,6 +224,10 @@ public class EventManager {
 			return;
 		}
 		inactiveEvents.add(e);
+		if (!events.contains(e)) {
+			events.add(e);
+			sortEvents();
+		}
 		numInactiveEvents++;
 		saveActiveEvents();
 	}
@@ -232,7 +236,7 @@ public class EventManager {
 		Event e = getEvent(name, className);
 		if (!events.contains(e))
 			return;
-		if (e.getStatus() == STAT_COMPLETE) 
+		if (e.getStatus() != STAT_COMPLETE) 
 			removeActiveEvent(name, className);
 		else
 			removeInactiveEvent(name, className);	
@@ -265,7 +269,7 @@ public class EventManager {
 	}
 	
 	public void completeEvent(String name, String className) {
-		Event e = getActiveEvent(name, className);
+		Event e = getEvent(name, className);
 		if (e == null) {
 			// exception??? you fucked up, son.
 			return;
