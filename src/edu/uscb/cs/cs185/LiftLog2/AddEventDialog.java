@@ -155,24 +155,52 @@ public class AddEventDialog extends DialogFragment implements IDialog{
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-				if (eNameTextView.getText().toString().length() != 0 && className.getText().toString().length() != 0) {
-					dialog.dismiss();
-					addEvent();
-					activity.addEvent();
-				}
-				else {
+
+				final Calendar c = Calendar.getInstance();
+				int y = c.get(Calendar.YEAR);
+				int m = c.get(Calendar.MONTH); // want index
+				int d = c.get(Calendar.DAY_OF_MONTH);
+				
+				MyActivity.debug("CURR YEAR: "+y);
+				MyActivity.debug("CURR MONTH: "+m);
+				MyActivity.debug("CURR DAY: "+d);
+
+				MyActivity.debug("CHOSEN YEAR: "+year);
+				MyActivity.debug("CHOSEN MONTH: "+month);
+				MyActivity.debug("CHOSEN DAY: "+day);
+				
+				//sweg sweg
+				
+				if (year < y || (year >= y && month < m) || (year >= y && month >= m && day < d))
+				{
 					new AlertDialog.Builder(dialog.getContext())
-							.setTitle("Missing Fields")
-							.setMessage("por favor setting event and course name\nthank")
+							.setTitle("Invalid Date")
+							.setMessage("That date already pass tho!!!")
 							.setNeutralButton("oki doki", new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									// bye bye
 								}
 							})
-							.show();
+							.show();	
 				}
-				
+				else {
+					if (eNameTextView.getText().toString().length() != 0 && className.getText().toString().length() != 0) {
+						dialog.dismiss();
+						addEvent();
+						activity.addEvent();
+					}
+					else {
+						new AlertDialog.Builder(dialog.getContext())
+								.setTitle("Missing Fields")
+								.setMessage("por favor setting event and course name\nthank")
+								.setNeutralButton("oki doki", new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int which) {
+										// bye bye
+									}
+								})
+								.show();
+					}
+				}				
             }
         });
 

@@ -1,6 +1,7 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
-import android.app.Dialog;
+import android.app.*;
+import android.content.*;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -163,10 +164,51 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         editEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
-                editEvent();
-                activity.editEvent();
-            }
+
+				final Calendar c = Calendar.getInstance();
+				int y = c.get(Calendar.YEAR);
+				int m = c.get(Calendar.MONTH); // want index
+				int d = c.get(Calendar.DAY_OF_MONTH);
+
+				MyActivity.debug("CURR YEAR: "+y);
+				MyActivity.debug("CURR MONTH: "+m);
+				MyActivity.debug("CURR DAY: "+d);
+
+				MyActivity.debug("CHOSEN YEAR: "+year);
+				MyActivity.debug("CHOSEN MONTH: "+month);
+				MyActivity.debug("CHOSEN DAY: "+day);
+				
+				if (year < y || (year >= y && month < m) || (year >= y && month >= m && day < d))
+				{
+					new AlertDialog.Builder(dialog.getContext())
+							.setTitle("Invalid Date")
+							.setMessage("That date already pass tho!!!")
+							.setNeutralButton("oki doki", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									// bye bye
+								}
+							})
+							.show();
+				}
+				else {
+					if (eNameTextView.getText().toString().length() != 0 && className.getText().toString().length() != 0) {
+						dialog.dismiss();
+						editEvent();
+						activity.editEvent();
+					}
+					else {
+						new AlertDialog.Builder(dialog.getContext())
+								.setTitle("Missing Fields")
+								.setMessage("por favor setting event and course name\nthank")
+								.setNeutralButton("oki doki", new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int which) {
+										// bye bye
+									}
+								})
+								.show();
+					}
+				}	
+				}
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
