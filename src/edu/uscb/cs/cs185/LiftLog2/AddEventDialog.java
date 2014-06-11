@@ -171,7 +171,7 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 				
 				//sweg sweg
 				
-				if (year < y || (year >= y && month < m) || (year >= y && month >= m && day < d))
+				if (year < y || (year == y && month < m) || (year == y && month == m && day < d))
 				{
 					new AlertDialog.Builder(dialog.getContext())
 							.setTitle("Invalid Date")

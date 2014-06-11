@@ -315,7 +315,7 @@ public class MyActivity extends ActionBarActivity {
         list.setOverscrollFooter(cd);
         list.setOverscrollHeader(cd);
         // Getting adapter by passing xml data ArrayList
-        adapter = new MyAdapter(this);//, songsList);
+        adapter = new MyAdapter(this, eventManager.getEvents());//, songsList);
         list.setAdapter(adapter);
     }
 

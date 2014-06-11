@@ -39,7 +39,7 @@ public class MyAdapter extends BaseAdapter{
 		ImageView eventIcon;
 	}
 
-    public MyAdapter(Activity activity)
+    public MyAdapter(Activity activity, ArrayList<Event> events)
     {
         this.activity = activity;
 		myActivity = (MyActivity) activity;
@@ -49,17 +49,18 @@ public class MyAdapter extends BaseAdapter{
         animOpen.setDuration(200);
         animClose = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
         animClose.setDuration(200);
+		this.events = events;
 
     }
     @Override
     public int getCount() {
         // have it return the number of items we want displayed
-        return eventManager.getNumTotalEvents();
+        return events.size();
     }
 
     @Override
     public Object getItem(int position) {      
-		return eventManager.getEvents().get(position);
+		return events.get(position);//eventManager.getEvents().get(position);
     }
 
     @Override
@@ -189,7 +190,6 @@ public class MyAdapter extends BaseAdapter{
             }
         });
 
-		
 		viewHolder.date.setText(event.getFormattedDate());
 		viewHolder.name.setText(event.getName());
 		viewHolder.eventIcon.setBackgroundDrawable(myActivity.getEventDrawable(event));

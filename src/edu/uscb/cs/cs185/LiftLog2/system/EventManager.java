@@ -64,6 +64,7 @@ public class EventManager {
 				String status = buffer.readLine();
 				String type = buffer.readLine();
 				String date = buffer.readLine();
+				debug("LOADED DATE DUE: "+date);
 				String time = buffer.readLine();
 				line = buffer.readLine();
 				
@@ -71,12 +72,13 @@ public class EventManager {
 				
 				int year = Integer.parseInt(date.substring(0, 4));
 				int month = Integer.parseInt(date.substring(5, 7));
+				debug("LOADED MONTH: "+month);
 				int day = Integer.parseInt(date.substring(8));
 				
 				int hour = Integer.parseInt(time.substring(0,2));
 				int minute = Integer.parseInt(time.substring(3));
 
-				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute));
+				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month-1, day, hour, minute));
 				activeEvents.add(e);
 				events.add(e);
 				sortEvents();
@@ -124,7 +126,7 @@ public class EventManager {
 				int hour = Integer.parseInt(time.substring(0,2));
 				int minute = Integer.parseInt(time.substring(3));
 
-				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month, day, hour, minute));
+				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month-1, day, hour, minute));
 				inactiveEvents.add(e);
 				events.add(e);
 				sortEvents();
@@ -157,6 +159,7 @@ public class EventManager {
 				buffer.write(event.getDescription()+"\n");
 				buffer.write(event.getStatus()+"\n");
 				buffer.write(event.getType()+"\n");
+				debug("WRITING DATE DUE: "+event.getDateDue());
 				buffer.write(event.getDateDue()+"\n");
 				buffer.write(event.getTimeDue()+"\n");
 			}
@@ -347,13 +350,19 @@ public class EventManager {
 	/*
 		will return null if empty, handle accordingly
 	 */
-	public ArrayList<Event> getActiveEventsForDate(Calendar c) {
+	public ArrayList<Event> getEventsForDate(Calendar c) {
 		ArrayList<Event> list = new ArrayList<Event>();
 		String date = Event.DATE_FORMAT.format(c);
-		for (Event e : activeEvents) {
-			if (e.getDateDue().compareTo(date) == 0)
+		debug("TARGET DATE: "+date);
+		for (Event e : events) {
+			debug("NO MATCH EVENT DATE: "+e.getDateDue());
+			if (e.getDateDue().compareTo(date) == 0) {
+				debug("MATCH EVENT DATE: "+e.getDateDue());
 				list.add(e);
+			}
 		}
+		if (list.isEmpty())
+			debug("LIST IS EMPTY");
 		return list;
 	}
 

@@ -178,8 +178,15 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 				MyActivity.debug("CHOSEN MONTH: "+month);
 				MyActivity.debug("CHOSEN DAY: "+day);
 				
-				if (year < y || (year >= y && month < m) || (year >= y && month >= m && day < d))
+				if (year < y || (year == y && month < m) || (year == y && month == m && day < d))
 				{
+					if (year < y)
+						MyActivity.debug("YOUR YEAR");
+					else if ((year >= y && month < m))
+						MyActivity.debug("YOUR MONTH");
+					else
+						MyActivity.debug("YOUR DAY");
+					
 					new AlertDialog.Builder(dialog.getContext())
 							.setTitle("Invalid Date")
 							.setMessage("That date already pass tho!!!")
