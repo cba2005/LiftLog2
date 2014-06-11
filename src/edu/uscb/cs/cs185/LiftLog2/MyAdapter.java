@@ -27,6 +27,7 @@ public class MyAdapter extends BaseAdapter{
 	static class MyViewHolder {
 		TextView date;
 		TextView name;
+
 		TextView className;
 	}
 
