@@ -29,7 +29,7 @@ public class MyAdapter extends BaseAdapter{
 	private ImageView eventIcon;
     private LinearLayout linearLayout;
     private MyAdapter myAdapter = this;
-
+    private TextView className;
     private ArrayList<Event> events;
 	
 	static class MyViewHolder {
@@ -39,6 +39,7 @@ public class MyAdapter extends BaseAdapter{
         Button button;
 		ImageView eventIcon;
         LinearLayout linearLayout;
+
 	}
 
     public MyAdapter(Activity activity, ArrayList<Event> events)
@@ -86,6 +87,7 @@ public class MyAdapter extends BaseAdapter{
 			viewHolder.eventIcon = (ImageView) view.findViewById(R.id.eventIcon);
             viewHolder.linearLayout = (LinearLayout) view.findViewById(R.id.rowView);
             viewHolder.linearLayout.setBackgroundDrawable(view.getResources().getDrawable(R.drawable.list_selector));
+            viewHolder.className = (TextView) view.findViewById(R.id.cName);
 
 			view.setTag(viewHolder);
 		}
@@ -194,6 +196,7 @@ public class MyAdapter extends BaseAdapter{
 
 		viewHolder.date.setText(event.getFormattedDate());
 		viewHolder.name.setText(event.getName());
+        viewHolder.className.setText(event.getClassName());
 		viewHolder.eventIcon.setBackgroundDrawable(myActivity.getEventDrawable(event));
         viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.list_selector));
 
