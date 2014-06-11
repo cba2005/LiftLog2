@@ -372,12 +372,12 @@ public class MyActivity extends ActionBarActivity {
 		adapter.notifyDataSetChanged();
     }
 
-    public void completedTask()
+    public void completedTask(Event e, MyAdapter adapter)
     {
 
     }
 
-    public void deleteEvent(Event e)
+    public void deleteEvent(Event e, MyAdapter adapter)
     {
         //popup window
         //on positive, delete/update

@@ -27,6 +27,7 @@ public class MyAdapter extends BaseAdapter{
 	private EventManager eventManager;
     private ScaleAnimation animOpen, animClose;
 	private ImageView eventIcon;
+    private MyAdapter myAdapter = this;
 
     private ArrayList<Event> events;
 	
@@ -106,7 +107,7 @@ public class MyAdapter extends BaseAdapter{
                         .setPositiveButton("Yaaaaas", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 closeButton(viewHolder.button);
-                                myActivity.completedTask();
+                                myActivity.completedTask(event, myAdapter);
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -135,7 +136,7 @@ public class MyAdapter extends BaseAdapter{
                 Event e = eventManager.getEvents().get(position);
                 myActivity.debug("HEY U R LONGPRESSING ME LOL: " + e.getName());
                 Toast.makeText(myActivity, "You want delete " + e.getName(), Toast.LENGTH_SHORT).show();
-                myActivity.deleteEvent(e);
+                myActivity.deleteEvent(e, myAdapter);
                 longClicked[0] = true;
                 return true;
             }
