@@ -20,19 +20,19 @@ public class TestMain {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2014, 10, 11, 5, 22); // year, month, day, hour, min, sec
 		
-		eventManager.addActiveEvent(new Event(EventManager.TYP_HOMEWORK, "cs185", "hw4", "some shitty app", calendar));
+		//eventManager.addActiveEvent(new Event(EventManager.TYP_HOMEWORK, "cs185", "hw4", "some shitty app", calendar));
 		
 		Calendar cal = Calendar.getInstance();
 		cal.set(2014, 5, 8, 8, 19);
 		
-		eventManager.addActiveEvent(new Event(EventManager.TYP_EXAM, "cs154", "midterm1", "single cycle, washing machines, etc.", cal));
+		//eventManager.addActiveEvent(new Event(EventManager.TYP_EXAM, "cs154", "midterm1", "single cycle, washing machines, etc.", cal));
 		
-		eventManager.addActiveEvent(new Event(EventManager.TYP_PROJECT, "cs162", "assign6", "prolog and scala bullshit", EventManager.NEW_CALENDAR(2014, 3, 20, 11, 59)));
-		eventManager.addActiveEvent(new Event(EventManager.TYP_PROJECT, "cs162", "assign7", "more prolog and scala bullshit smh", EventManager.NEW_CALENDAR(2014, 4, 17, 11, 59)));
+		//eventManager.addActiveEvent(new Event(EventManager.TYP_PROJECT, "cs162", "assign6", "prolog and scala bullshit", EventManager.NEW_CALENDAR(2014, 3, 20, 11, 59)));
+		//eventManager.addActiveEvent(new Event(EventManager.TYP_PROJECT, "cs162", "assign7", "more prolog and scala bullshit smh", EventManager.NEW_CALENDAR(2014, 4, 17, 11, 59)));
 		
 		//eventManager.removeActiveEvent("hw4", "cs185");
 		
-		eventManager.completeEvent("midterm1", "cs154");
+		eventManager.setEventComplete("midterm1", "cs154");
 		
 		debug("removed event and got here");
 	}

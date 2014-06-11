@@ -31,12 +31,12 @@ public class Event {
 	
 	private Calendar calendar;
 	
-	public Event(int type, String className, String name, String description, Calendar c) {
-		status = EventManager.STAT_INCOMPLETE;
+	public Event(int type, int status, String className, String name, String description, Calendar c) {
 		
 		debug("ADDING CALENDAR: "+c.getTime());
 		
 		this.type = type;
+		this.status = status;
 		this.className = className;
 		this.name = name;
 		this.dateDue = DATE_FORMAT.format(c.getTime());

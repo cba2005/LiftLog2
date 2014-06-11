@@ -78,7 +78,7 @@ public class EventManager {
 				int hour = Integer.parseInt(time.substring(0,2));
 				int minute = Integer.parseInt(time.substring(3));
 
-				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month-1, day, hour, minute));
+				Event e = new Event(Integer.parseInt(type), Integer.parseInt(status), className, name, desc, NEW_CALENDAR(year, month-1, day, hour, minute));
 				activeEvents.add(e);
 				events.add(e);
 				sortEvents();
@@ -126,7 +126,10 @@ public class EventManager {
 				int hour = Integer.parseInt(time.substring(0,2));
 				int minute = Integer.parseInt(time.substring(3));
 
-				Event e = new Event(Integer.parseInt(type), className, name, desc, NEW_CALENDAR(year, month-1, day, hour, minute));
+				debug("event type: "+Integer.parseInt(type));
+				Event e = new Event(Integer.parseInt(type), Integer.parseInt(status), className, name, desc, NEW_CALENDAR(year, month-1, day, hour, minute));
+				// WOW IM SO RETARD
+				//e.setStatus(Integer.parseInt(status));
 				inactiveEvents.add(e);
 				events.add(e);
 				sortEvents();
@@ -271,7 +274,7 @@ public class EventManager {
 		saveInactiveEvents();	
 	}
 	
-	public void completeEvent(String name, String className) {
+	public void setEventComplete(String name, String className) {
 		Event e = getEvent(name, className);
 		if (e == null) {
 			// exception??? you fucked up, son.
@@ -280,6 +283,17 @@ public class EventManager {
 		e.setStatus(STAT_COMPLETE);
 		removeActiveEvent(name, className);
 		addInactiveEvent(e);
+		saveActiveEvents();
+		saveInactiveEvents();
+	}
+	
+	public void setEventIncomplete(String name, String className) {
+		Event e = getEvent(name, className);
+		if (e == null)
+			return;
+		e.setStatus(STAT_INCOMPLETE);
+		removeInactiveEvent(name, className);
+		addActiveEvent(e);
 		saveActiveEvents();
 		saveInactiveEvents();
 	}
@@ -352,7 +366,7 @@ public class EventManager {
 	 */
 	public ArrayList<Event> getEventsForDate(Calendar c) {
 		ArrayList<Event> list = new ArrayList<Event>();
-		String date = Event.DATE_FORMAT.format(c);
+		String date = Event.DATE_FORMAT.format(c.getTime());
 		debug("TARGET DATE: "+date);
 		for (Event e : events) {
 			debug("NO MATCH EVENT DATE: "+e.getDateDue());

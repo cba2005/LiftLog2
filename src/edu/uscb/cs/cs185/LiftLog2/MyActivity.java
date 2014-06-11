@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.support.v4.widget.DrawerLayout;
 import android.view.*;
 import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 import android.content.Intent;
@@ -25,7 +24,6 @@ import android.text.format.DateFormat;
 import android.util.*;
 import android.widget.*;
 import edu.uscb.cs.cs185.LiftLog2.system.*;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -396,7 +394,7 @@ public class MyActivity extends ActionBarActivity {
 		adapter.notifyDataSetChanged();
     }
 
-    public void completedTask(Event e, MyAdapter adapter)
+    public void setEventComplete(Event e, MyAdapter adapter)
     {
         //open dialog
        /* new AlertDialog.Builder(MyActivity.this)
@@ -417,10 +415,17 @@ public class MyActivity extends ActionBarActivity {
 
 
         debug("\nsetting event completion " + e.getName());
-		eventManager.completeEvent(e.getName(), e.getClassName());
-		adapter.notifyDataSetChanged();
-		debug("EVENT "+e.getName()+"set to status: "+e.getStatus());
+		eventManager.setEventComplete(e.getName(), e.getClassName());
+		//adapter.notifyDataSetChanged();
+		debug("EVENT "+e.getName()+" set to status: "+e.getStatus());
     }
+	
+	public void setEventIncomplete(Event e, MyAdapter adapter) {
+		debug("\nsetting event incompletion "+e.getName());
+		eventManager.setEventIncomplete(e.getName(), e.getClassName());
+		//adapter.notifyDataSetChanged();
+		debug("EVENT "+e.getName() + " set to status: "+e.getStatus());
+	}
 
     public void deleteEvent(final Event e, final MyAdapter adapter)
     {

@@ -96,7 +96,7 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 		String desc = DEF_DESC;
 		int type = dropdown.getSelectedItemPosition();
 		Calendar cal = EventManager.NEW_CALENDAR(year, month, day, hour, minute);
-		Event e = new Event(type, cName, name, desc, cal);
+		Event e = new Event(type, EventManager.STAT_INCOMPLETE, cName, name, desc, cal);
 		activity.getEventManager().addActiveEvent(e);
 	}
 

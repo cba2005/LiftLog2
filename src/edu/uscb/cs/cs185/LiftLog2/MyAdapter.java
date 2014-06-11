@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.graphics.drawable.*;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,7 @@ public class MyAdapter extends BaseAdapter{
     private LayoutInflater inflater = null;
 	private MyActivity myActivity;
 	private EventManager eventManager;
-    private ScaleAnimation animOpen, animClose, animStrike;
+    private ScaleAnimation animOpen, animClose, animStrikeComplete, animStrikeIncomplete, animStrike;
 	private ImageView eventIcon;
     private LinearLayout linearLayout;
     private MyAdapter myAdapter = this;
@@ -55,8 +54,12 @@ public class MyAdapter extends BaseAdapter{
         animOpen.setDuration(200);
         animClose = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
         animClose.setDuration(200);
-        animStrike = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animStrike.setDuration(200);
+        animStrikeComplete = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animStrikeComplete.setDuration(200);
+		animStrikeIncomplete = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+		animStrikeIncomplete.setDuration(200);
+		animStrike = new ScaleAnimation(1.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+		animStrike.setDuration(200);
 		this.events = events;
 
     }
@@ -138,41 +141,26 @@ public class MyAdapter extends BaseAdapter{
                 done.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        closeButton(viewHolder.button);
-                        strikeItem(viewHolder.crossOut);
-                        myActivity.completedTask(event, myAdapter);
+						closeButton(viewHolder.button);
+						if (event.getStatus() == EventManager.STAT_INCOMPLETE) {
+							strikeItem(viewHolder.crossOut);
+							myActivity.setEventComplete(event, myAdapter);
+						}
                         dialog2.dismiss();
                     }
                 });
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+						closeButton(viewHolder.button);
+						if (event.getStatus() == EventManager.STAT_COMPLETE) {
+							undoStrikeItem(viewHolder.crossOut);
+							myActivity.setEventIncomplete(event, myAdapter);
+						}
                         dialog2.dismiss();
                     }
                 });
                 dialog2.show();
-
-
-                //open dialog
-              /*  new AlertDialog.Builder(myActivity)
-                        .setTitle("You Finished?!?")
-                        .setMessage("Pero like.... did you really?")
-                        .setPositiveButton("Yaaaaas", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                closeButton(viewHolder.button);
-                                strikeItem(viewHolder.crossOut);
-                                myActivity.completedTask(event, myAdapter);
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                closeButton(viewHolder.button);
-                                //closeButton(viewGroup);
-
-                            }
-                        })
-                        .show();*/
-
             }
         });
 
@@ -247,6 +235,13 @@ public class MyAdapter extends BaseAdapter{
         viewHolder.className.setText(event.getClassName());
 		viewHolder.eventIcon.setBackgroundDrawable(myActivity.getEventDrawable(event));
         viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.list_selector));
+		if (event.getStatus() == EventManager.STAT_COMPLETE) {
+			MyActivity.debug(event.getName() + " is complete");
+			viewHolder.crossOut.setVisibility(View.VISIBLE);
+		}
+		else {
+			MyActivity.debug(event.getName() + "is not complete. status: "+event.getStatus());
+		}
 
         int dueDay = event.getDay();
         int dueMonth = event.getMonth();
@@ -341,19 +336,59 @@ public class MyAdapter extends BaseAdapter{
     private void strikeItem(final View line)
     {
 
-        animStrike.setAnimationListener(new Animation.AnimationListener()
-        {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                line.setVisibility(View.VISIBLE);
-            }
-            @Override
-            public void onAnimationRepeat(Animation animation) { }
+        animStrikeComplete.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+				line.setVisibility(View.VISIBLE);
+			}
 
-            @Override
-            public void onAnimationEnd(Animation animation) { }
-        });
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
 
-        line.startAnimation(animStrike);
+			@Override
+			public void onAnimationEnd(Animation animation) {
+			}
+		});
+
+        line.startAnimation(animStrikeComplete);
     }
+	
+	private void undoStrikeItem(final View line) {
+		animStrikeIncomplete.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+				line.setVisibility(View.INVISIBLE);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+			}
+		});
+
+		line.startAnimation(animStrikeIncomplete);	
+	}
+
+	private void noAnimStrikeItem(final View line) {
+		animStrike.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+				line.setVisibility(View.VISIBLE);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+			}
+		});
+
+		line.startAnimation(animStrike);
+	}
 }

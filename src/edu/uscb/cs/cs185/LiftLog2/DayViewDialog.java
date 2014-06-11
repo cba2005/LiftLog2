@@ -7,8 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.*;
+import edu.uscb.cs.cs185.LiftLog2.system.*;
 
-import java.util.Calendar;
+import java.util.*;
 
 /**
  * Created by bronhuston on 6/8/14.
@@ -37,7 +38,6 @@ public class DayViewDialog extends DialogFragment {
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-
         // creating the fullscreen dialog
         final Dialog dialog = new Dialog(getActivity());
       //  Toast.makeText(dialog.getContext(),"got here",Toast.LENGTH_LONG).show();
@@ -47,7 +47,6 @@ public class DayViewDialog extends DialogFragment {
         dialog.setTitle(date);
         dialog.setContentView(R.layout.day_view);
 
-
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         list = (ListView) dialog.findViewById(R.id.listViewD);
@@ -55,10 +54,15 @@ public class DayViewDialog extends DialogFragment {
 
         // Getting adapter by passing xml data ArrayList
 		Calendar cal = Calendar.getInstance();
+		cal.set(year, month, day);
 /*		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
 		int day = cal.get(Calendar.DAY_OF_MONTH);*/
-        adapter = new MyAdapter(activity, activity.getEventManager().getEvents());//activity.getEventManager().getEventsForDate(cal));//, songsList);activity.getEventManager().getEvents()
+		ArrayList<Event> testList = new ArrayList<Event>();
+		testList.add(new Event(0, 0, "test", "testtest", "boo", Calendar.getInstance()));
+/*		if (activity.getEventManager().getEventsForDate(cal).size() == 0)
+			MyActivity.debug("no events for "+cal.getTime());*/
+        adapter = new MyAdapter(activity, activity.getEventManager().getEventsForDate(cal));//activity.getEventManager().getEvents());//activity.getEventManager().getEventsForDate(cal));//, songsList);activity.getEventManager().getEvents()
         list.setAdapter(adapter);
 
         // Click event for single list row
