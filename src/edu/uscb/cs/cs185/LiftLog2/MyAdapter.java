@@ -143,8 +143,8 @@ public class MyAdapter extends BaseAdapter{
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                closeButton(viewHolder.button);
-                //closeButton(viewGroup);
+                //closeButton(viewHolder.button);
+                closeButton(viewGroup);
 
                 if(!longClicked[0]) {
                     finalView.setPressed(true);
@@ -162,6 +162,8 @@ public class MyAdapter extends BaseAdapter{
             @Override
             public void onSwipeLeft() {
                 openButton(viewHolder.button);
+                closeButton(viewGroup);
+
             }
 
             @Override
