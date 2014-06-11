@@ -20,6 +20,7 @@ public class MyTouchView implements OnTouchListener {
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+
         return gestureDetector.onTouchEvent(motionEvent);
     }
 
@@ -67,6 +68,11 @@ public class MyTouchView implements OnTouchListener {
             singleTap();
             return super.onSingleTapConfirmed(e);
         }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            longPress();
+        }
     }
 
     public void onSwipeRight() {
@@ -84,4 +90,6 @@ public class MyTouchView implements OnTouchListener {
 
     public void singleTap()
     {}
+
+    public void longPress(){}
 }

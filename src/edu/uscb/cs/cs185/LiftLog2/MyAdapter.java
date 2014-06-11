@@ -55,7 +55,7 @@ public class MyAdapter extends BaseAdapter{
     }
 	
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
 		MyViewHolder viewHolder;
 	
         if(view == null) {
@@ -74,9 +74,8 @@ public class MyAdapter extends BaseAdapter{
 			viewHolder = (MyViewHolder) view.getTag();
 		}
 
-		//LinearLayout rowLayout = (LinearLayout) view.findViewById(R.id.rowView);
 		View rect = view.findViewById(R.id.myRectangleView);
-		Event event = (Event) getItem(i);
+		final Event event = (Event) getItem(position);
 		if (event.getClass_() == null)
 			MyActivity.debug("EVENT CLASS IS NULL");
 		else {
@@ -84,8 +83,63 @@ public class MyAdapter extends BaseAdapter{
 			((GradientDrawable) rect.getBackground()).setColor(event.getClass_().getClassColor());
 		}
 
-		//rowLayout.setBackgroundColor(event.getClass_().getClassColor());
-		
+        final View finalView = view;
+        final boolean[] longClicked = {false};
+
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                finalView.setPressed(true);
+                Event e = eventManager.getEvents().get(position);
+                myActivity.debug("HEY U R LONGPRESSING ME LOL: " + e.getName());
+                Toast.makeText(myActivity, "You want delete " + e.getName(), Toast.LENGTH_SHORT).show();
+                myActivity.deleteEvent(e);
+                longClicked[0] = true;
+                return true;
+            }
+        });
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!longClicked[0]) {
+                    finalView.setPressed(true);
+                    myActivity.debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName() + " AT POSITION " + position);
+                    Event e = eventManager.getEvents().get(position);
+                    myActivity.editEventDialog(e);
+                }
+                longClicked[0] = false;
+
+
+            }
+        });
+
+        view.setOnTouchListener(new MyTouchView(myActivity) {
+            @Override
+            public void onSwipeLeft() {
+                //View view = getCurrentFocus();
+                //int position = (Integer) view.getTag();
+                Event e = eventManager.getEvents().get(position);
+                Toast.makeText(myActivity, "left on " + e.getName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void singleTap()
+            {
+                    finalView.performClick();
+            }
+
+            @Override
+            public void longPress()
+            {
+                finalView.performLongClick();
+
+            }
+
+
+        });
+
+
 		viewHolder.date.setText(event.getDateDue());
 		viewHolder.name.setText(event.getName());
 

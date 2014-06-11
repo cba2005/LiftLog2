@@ -309,39 +309,6 @@ public class MyActivity extends ActionBarActivity {
         // Getting adapter by passing xml data ArrayList
         adapter = new MyAdapter(this);//, songsList);
         list.setAdapter(adapter);
-		
-		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName() + " AT POSITION " + position);
-                Event e = eventManager.getEvents().get(position);
-                debug("HERE");
-                editEventDialog(e);
-            }
-        });
-		
-		list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Event e = eventManager.getEvents().get(position);
-                debug("HEY U R LONGPRESSING ME LOL: " + e.getName());
-                return false;
-            }
-        });
-
-        list.setOnTouchListener(new MyTouchView(MyActivity.this) {
-            @Override
-            public void onSwipeLeft() {
-                Toast.makeText(MyActivity.this, "left", Toast.LENGTH_SHORT).show();
-            }
-
-/*            @Override
-            public void singleTap()
-            {
-                editEventDialog();
-            }*/
-        });
-
     }
 
 
@@ -405,6 +372,13 @@ public class MyActivity extends ActionBarActivity {
     public void completedTask()
     {
 
+    }
+
+    public void deleteEvent(Event e)
+    {
+        //popup window
+        //on positive, delete/update
+        //on neg dismiss
     }
 
 
