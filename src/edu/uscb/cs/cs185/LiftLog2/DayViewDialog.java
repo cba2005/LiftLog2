@@ -58,7 +58,7 @@ public class DayViewDialog extends DialogFragment {
 /*		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
 		int day = cal.get(Calendar.DAY_OF_MONTH);*/
-        adapter = new MyAdapter(activity, activity.getEventManager().getEventsForDate(cal));//activity.getEventManager().getEventsForDate(cal));//, songsList);activity.getEventManager().getEvents()
+        adapter = new MyAdapter(activity, activity.getEventManager().getEvents());//activity.getEventManager().getEventsForDate(cal));//, songsList);activity.getEventManager().getEvents()
         list.setAdapter(adapter);
 
         // Click event for single list row
