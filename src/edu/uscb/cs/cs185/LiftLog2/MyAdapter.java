@@ -65,7 +65,7 @@ public class MyAdapter extends BaseAdapter{
     }
 	
     @Override
-    public View getView(final int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, final ViewGroup viewGroup) {
         final MyViewHolder viewHolder;
 
         if(view == null) {
@@ -109,6 +109,8 @@ public class MyAdapter extends BaseAdapter{
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 closeButton(viewHolder.button);
+                                //closeButton(viewGroup);
+
                             }
                         })
                         .show();
@@ -124,6 +126,8 @@ public class MyAdapter extends BaseAdapter{
             @Override
             public boolean onLongClick(View view) {
                 closeButton(viewHolder.button);
+                //closeButton(viewGroup);
+
                 finalView.setPressed(true);
                 Event e = eventManager.getEvents().get(position);
                 myActivity.debug("HEY U R LONGPRESSING ME LOL: " + e.getName());
@@ -138,6 +142,8 @@ public class MyAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 closeButton(viewHolder.button);
+                //closeButton(viewGroup);
+
                 if(!longClicked[0]) {
                     finalView.setPressed(true);
                     myActivity.debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName() + " AT POSITION " + position);
@@ -159,6 +165,8 @@ public class MyAdapter extends BaseAdapter{
             @Override
             public void onSwipeRight() {
                 closeButton(viewHolder.button);
+                //closeButton(viewGroup);
+
             }
 
             @Override
@@ -225,5 +233,24 @@ public class MyAdapter extends BaseAdapter{
                 }
             });
             completedButton.startAnimation(animClose);
+    }
+
+    private void closeButton(ViewGroup parent)
+    {
+        for(int i = 0; i < parent.getChildCount(); i++)
+        {
+            View child = parent.getChildAt(i);
+            if(child instanceof ViewGroup)
+            {
+                closeButton((ViewGroup)child);
+            }
+            else if(child != null)
+            {
+                if(child.getClass() == Button.class)
+                {
+                    closeButton((Button) child);
+                }
+            }
+        }
     }
 }
