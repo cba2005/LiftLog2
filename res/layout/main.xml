@@ -91,13 +91,7 @@
             android:background="@drawable/btn_blue_glossy"
             android:textStyle="bold"
             android:id="@+id/calendarButton"/>
-    <TextView
-            android:layout_width="404dp"
-            android:layout_height="54dp"
-            android:textStyle="bold"
-            android:fontFamily="Arial,Helvetica,sans-serif"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView"/>
+
 
 </LinearLayout>
 
