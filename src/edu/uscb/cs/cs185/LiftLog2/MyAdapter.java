@@ -114,15 +114,17 @@ public class MyAdapter extends BaseAdapter{
             public void onClick(View view) {
                 final Dialog dialog2 = new Dialog(view.getContext());
                 dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog2.setContentView(R.layout.custom_dialog);
+                dialog2.setContentView(R.layout.completed_dialog);
                 CheckBox checkBox = (CheckBox) dialog2.findViewById(R.id.checkbox);
                 TextView title = (TextView) dialog2.findViewById(R.id.titleName);
                 TextView textytext = (TextView) dialog2.findViewById(R.id.textDialog);
                 Button cancelButton  = (Button) dialog2.findViewById(R.id.cancelButton);
                 Button done = (Button) dialog2.findViewById(R.id.button);
+                Button no = (Button) dialog2.findViewById(R.id.buttonNo);
                 title.setText("Completed!");
                 textytext.setText("\n\n Did you really finish ?! ");
                 done.setText(" YES! ");
+                no.setText(" No ");
                 checkBox.setVisibility(View.INVISIBLE);
                 cancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -136,10 +138,18 @@ public class MyAdapter extends BaseAdapter{
                 done.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        closeButton(viewHolder.button);
+                        strikeItem(viewHolder.crossOut);
+                        myActivity.completedTask(event, myAdapter);
                         dialog2.dismiss();
                     }
                 });
-
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog2.dismiss();
+                    }
+                });
                 dialog2.show();
 
 
