@@ -83,14 +83,24 @@
     <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+        <ImageView
+                android:layout_width="35dip"
+                android:layout_height="35dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+
+                android:id = "@+id/eventIcon"/>
         <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="center"
                 android:gravity="center_vertical|right"
+                android:layout_toRightOf="@id/eventIcon"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
+                android:layout_marginLeft="31dp"
+                android:layout_marginRight="21dp"
                 android:id="@+id/outlineTop"
                 android:background="@color/barblue"/>
 
@@ -103,18 +113,19 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_below="@id/outlineTop"
+                android:layout_toRightOf="@id/eventIcon"
                 android:background = "@drawable/btn_white_glossy"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
                 android:spinnerMode="dropdown" />
         <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:layout_gravity="center"
                 android:gravity="center_vertical|right"
-
-                android:layout_marginLeft="51dp"
-                android:layout_marginRight="51dp"
+                android:layout_toRightOf="@id/eventIcon"
+                android:layout_marginLeft="31dp"
+                android:layout_marginRight="21dp"
                 android:layout_below="@id/spinner1"
                 android:background="@color/barblue"/>
 
@@ -122,8 +133,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="40dp"
                 android:layout_marginTop="23dp"
-                android:layout_marginRight = "60dp"
+
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:layout_alignParentRight="true"

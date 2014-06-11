@@ -32,6 +32,7 @@ public class EditEventDialog extends DialogFragment implements IDialog{
     private Button timeButton, dateButton, cancelButton, editEventButton;
     private TextView timeTextView, dateTextView,eNameTextView;
     private AutoCompleteTextView className;
+    private ImageView eventIcon;
 	private Spinner dropdown;
 	public static final String[] MONTHS = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
@@ -69,6 +70,7 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
         eNameTextView = (TextView) dialog.findViewById(R.id.eventEditText);
         className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
+        eventIcon = (ImageView) dialog.findViewById(R.id.eventIcon);
         className.setThreshold(1);
         dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
 		Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
@@ -166,6 +168,26 @@ public class EditEventDialog extends DialogFragment implements IDialog{
             @Override
             public void onClick(View v) {
                 activity.timePickerDialog(timeTextView, my_dialog);
+            }
+        });
+
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                switch (position){
+                    case 0: eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.homework));
+                        break;
+                    case 1: eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.presentation));
+                        break;
+                    case 2: eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.project));
+                        break;
+                    case 3: eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.exam));
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
             }
         });
 

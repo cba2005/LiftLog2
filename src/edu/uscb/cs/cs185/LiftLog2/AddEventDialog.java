@@ -23,16 +23,20 @@ import edu.uscb.cs.cs185.LiftLog2.system.*;
 
 import java.util.Calendar;
 
+import static android.widget.AdapterView.OnItemSelectedListener;
+
 
 /**
  * Created by Caressa on 6/6/2014.
  */
 public class AddEventDialog extends DialogFragment implements IDialog{
-    private MyActivity activity;
+    public static MyActivity activity;
     private Button timeButton, dateButton, cancelButton, addEventButton;
     private TextView timeTextView, dateTextView,eNameTextView;
     private AutoCompleteTextView className;
+    private ImageView eventIcon;
 	private Spinner dropdown;
+
 	private String[] items = new String[]{"Event Type","Homework","Presentation","Project","Exam"};
     public static final String[] MONTHS ={"January","February","March","April","May","June","July","August","September","October","November","December"};
 
@@ -66,20 +70,24 @@ public class AddEventDialog extends DialogFragment implements IDialog{
         timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
         dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
 		eNameTextView = (TextView) dialog.findViewById(R.id.eventEditText);
+        eventIcon = (ImageView) dialog.findViewById(R.id.eventIcon);
         className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
         className.setThreshold(1);
 		dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
+       //eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.homework));
 		Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
 		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item, items);
-		SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, items,pics);
+		SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, EventManager.EVENT_TYPES,pics);
 
 		dropdown.setAdapter(myAdapter);
-		
+
 		MyActivity.debug("ADAPTER SET");
 
         setDateTime();
         setListeners(dialog);
         startAutoComplete();
+
+
 
         return dialog;
     }
@@ -95,6 +103,7 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 		String name = eNameTextView.getText().toString();
 		String desc = DEF_DESC;
 		int type = dropdown.getSelectedItemPosition();
+
 		Calendar cal = EventManager.NEW_CALENDAR(year, month, day, hour, minute);
 		activity.getEventManager().addActiveEvent(new Event(type, cName, name, desc, cal));
 	}
@@ -135,6 +144,26 @@ public class AddEventDialog extends DialogFragment implements IDialog{
             @Override
             public void onClick(View v) {
                 activity.timePickerDialog(timeTextView, my_dialog);
+            }
+        });
+
+        dropdown.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                switch (position){
+                    case 0: eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.homework));
+                        break;
+                    case 1: eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.presentation));
+                        break;
+                    case 2: eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.project));
+                        break;
+                    case 3: eventIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.exam));
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
             }
         });
 
