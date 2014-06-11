@@ -1,10 +1,8 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
 import android.annotation.*;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.view.*;
@@ -25,10 +23,9 @@ import android.util.*;
 import android.widget.*;
 import edu.uscb.cs.cs185.LiftLog2.system.*;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.text.DecimalFormat;
-import java.util.Calendar;
+import java.util.*;
 
 public class MyActivity extends ActionBarActivity {
 	public static final String TAG = "MAIN_ACTIVITY";
@@ -45,7 +42,12 @@ public class MyActivity extends ActionBarActivity {
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
     private TextView dateTV,dayTV;
-    private String[] messages = {"Yay! Good job.", "Hey dere"};
+	
+	private File completionMessagesFile;
+	private String[] defaultMessages = {"Congratulation. Lettuce celebrate.", "Nice one, friend.", "u r cool maybe", "wow so hot, so cool, so doge.",
+	"maybe ur barn with it. maybe its neighbelline."};
+    private ArrayList<String> completionMessages; //= {"Yay! Good job.", "Hey dere"};
+	private int numCompletionMessages;
 	
 	private EventManager eventManager;
 	
@@ -69,6 +71,8 @@ public class MyActivity extends ActionBarActivity {
         setupSelfies();
 		setupSystem();
         setupList();
+		loadCompletionMessages();
+		//setupCompletionMessages();
 
         String delegate ="EEEE, MMMM dd";//, yyyy";
         java.util.Date noteTS = Calendar.getInstance().getTime();
@@ -217,13 +221,13 @@ public class MyActivity extends ActionBarActivity {
 
 
         title.setText("Help");
-        textytext.setText(version+authors);
+        textytext.setText(version + authors);
         cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
         checkBox.setVisibility(View.INVISIBLE);
         ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
         image.setImageResource(R.drawable.doge);
@@ -440,8 +444,8 @@ public class MyActivity extends ActionBarActivity {
                 })
 
                 .show();*/
-        int ranNum = (int)(Math.random() * ((messages.length)));
-        Toast toast = Toast.makeText(MyActivity.this, messages[ranNum], Toast.LENGTH_SHORT);
+        int ranNum = (int)(Math.random() * ((completionMessages.size())));
+        Toast toast = Toast.makeText(MyActivity.this, completionMessages.get(ranNum), Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
         toast.show();
 
@@ -486,6 +490,8 @@ public class MyActivity extends ActionBarActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+				eventManager.removeEvent(e.getName(), e.getClassName());
+				adapter.notifyDataSetChanged();
                 dialog2.dismiss();
             }
         });
@@ -508,6 +514,45 @@ public class MyActivity extends ActionBarActivity {
 			default:
 				return getResources().getDrawable(R.drawable.homework);
 		}
+	}
+	
+	private void loadCompletionMessages() {
+		debug("loading up messages...");
+		File saveFolder1;
+		boolean sdCardExists = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+		if (sdCardExists) {
+			saveFolder1 = new File(Environment.getExternalStorageDirectory(), "/YouCSMe");
+		} else {
+			saveFolder1 = getBaseContext().getDir("/YouCSMe", Context.MODE_PRIVATE);
+		}
+		String path = saveFolder1.getAbsolutePath();
+
+		completionMessages = new ArrayList<String>();
+		for (String m : defaultMessages) {
+			completionMessages.add(m);
+		}
+
+		completionMessagesFile = new File(path+"/"+"messages.txt");
+		
+		if (!completionMessagesFile.exists())
+			return;
+		
+		try {
+			FileInputStream fileInputStream = new FileInputStream(completionMessagesFile);
+			BufferedReader buffer = new BufferedReader(new InputStreamReader(fileInputStream));
+			String line = buffer.readLine();
+			numCompletionMessages = Integer.parseInt(line);
+			line = buffer.readLine();
+			while (line != null) {
+				completionMessages.add(line);
+				debug("read the line: "+line);
+				line = buffer.readLine();
+			}
+		}
+		catch (Exception e) {
+			debug("exception loading messages: "+e);
+		}		
+		debug("message setup complete!");
 	}
 	
 	public EventManager getEventManager() {

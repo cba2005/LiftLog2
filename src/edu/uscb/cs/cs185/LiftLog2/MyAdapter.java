@@ -1,7 +1,6 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,7 +26,7 @@ public class MyAdapter extends BaseAdapter{
     private LayoutInflater inflater = null;
 	private MyActivity myActivity;
 	private EventManager eventManager;
-    private ScaleAnimation animOpen, animClose, animStrikeComplete, animStrikeIncomplete, animStrike;
+    private ScaleAnimation animOpen, animClose, animStrikeComplete, animStrikeIncomplete;
 	private ImageView eventIcon;
     private LinearLayout linearLayout;
     private MyAdapter myAdapter = this;
@@ -59,8 +58,6 @@ public class MyAdapter extends BaseAdapter{
         animStrikeComplete.setDuration(200);
 		animStrikeIncomplete = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
 		animStrikeIncomplete.setDuration(200);
-		animStrike = new ScaleAnimation(1.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
-		animStrike.setDuration(200);
 		this.events = events;
 
     }
@@ -283,7 +280,6 @@ public class MyAdapter extends BaseAdapter{
         return view;
     }
 
-
     private void openButton(final Button completedButton)
     {
         if(completedButton.getVisibility() == View.VISIBLE)
@@ -345,7 +341,6 @@ public class MyAdapter extends BaseAdapter{
         }
     }
 
-
     private void strikeItem(final View line)
     {
 
@@ -384,24 +379,5 @@ public class MyAdapter extends BaseAdapter{
 		});
 
 		line.startAnimation(animStrikeIncomplete);	
-	}
-
-	private void noAnimStrikeItem(final View line) {
-		animStrike.setAnimationListener(new Animation.AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-				line.setVisibility(View.VISIBLE);
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-			}
-		});
-
-		line.startAnimation(animStrike);
 	}
 }
