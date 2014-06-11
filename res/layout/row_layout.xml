@@ -75,9 +75,13 @@
                     android:layout_width="wrap_content"
                     android:id = "@+id/crossOut"
                     android:layout_height="3dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="20dp"
+                    android:layout_alignBottom="@id/cName"
+                    android:layout_marginBottom="30dp"
+                    android:layout_centerHorizontal="true"
                     android:visibility="invisible"
                     android:layout_marginLeft="200sp"
-                    android:layout_centerInParent="true"
                     android:gravity="center_horizontal"
                     android:background="@color/maroon"/>
 
