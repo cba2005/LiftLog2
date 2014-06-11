@@ -381,10 +381,6 @@ public class MyActivity extends ActionBarActivity {
 
     public void completedTask(Event e, MyAdapter adapter)
     {
-		debug("\nsetting event completion "+e.getName());
-		eventManager.completeEvent(e.getName(), e.getClassName());
-		adapter.notifyDataSetChanged();
-		debug("EVENT "+e.getName()+"set to status: "+e.getStatus());
         //open dialog
         new AlertDialog.Builder(MyActivity.this)
                 .setTitle("WOOOOOOOOOOO")
@@ -396,16 +392,32 @@ public class MyActivity extends ActionBarActivity {
                 })
 
                 .show();
+
+		debug("\nsetting event completion "+e.getName());
+		eventManager.completeEvent(e.getName(), e.getClassName());
+		adapter.notifyDataSetChanged();
+		debug("EVENT "+e.getName()+"set to status: "+e.getStatus());
     }
 
-    public void deleteEvent(Event e, MyAdapter adapter)
+    public void deleteEvent(final Event e, final MyAdapter adapter)
     {
-        //popup window
-        //on positive, delete/update
-        //on neg dismiss
-		debug("\nattempting to delete "+e.getName()+"...");
-		eventManager.removeEvent(e.getName(), e.getClassName());
-		adapter.notifyDataSetChanged();
+
+        //open dialog
+        new AlertDialog.Builder(MyActivity.this)
+                .setTitle("Trashy Trash?")
+                .setMessage("Do you want to delete \"" + e.getName()+"\"?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        debug("\nattempting to delete " + e.getName() + "...");
+                        eventManager.removeEvent(e.getName(), e.getClassName());
+                        adapter.notifyDataSetChanged();                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                         }
+                })
+
+                .show();
     }
 
 	public Drawable getEventDrawable(Event e) {

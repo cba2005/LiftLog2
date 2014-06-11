@@ -139,7 +139,6 @@ public class MyAdapter extends BaseAdapter{
                 finalView.setPressed(true);
                 Event e = eventManager.getEvents().get(position);
                 myActivity.debug("HEY U R LONGPRESSING ME LOL: " + e.getName());
-                Toast.makeText(myActivity, "You want delete " + e.getName(), Toast.LENGTH_SHORT).show();
                 myActivity.deleteEvent(e, myAdapter);
                 longClicked[0] = true;
                 return true;
