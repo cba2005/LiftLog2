@@ -3,10 +3,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:id="@+id/rowView"
+              android:longClickable="true"
               android:background="@drawable/list_selector"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-<!--((GradientDrawable)someView.getBackground()).setColor(someColor);-->
+
     <LinearLayout
             android:orientation="horizontal"
             android:id="@+id/rview"
