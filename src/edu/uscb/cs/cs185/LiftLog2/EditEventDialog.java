@@ -186,16 +186,38 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 						MyActivity.debug("YOUR MONTH");
 					else
 						MyActivity.debug("YOUR DAY");
-					
-					new AlertDialog.Builder(dialog.getContext())
-							.setTitle("Invalid Date")
-							.setMessage("That date already pass tho!!!")
-							.setNeutralButton("oki doki", new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-									// bye bye
-								}
-							})
-							.show();
+
+                    final Dialog dialog2 = new Dialog(dialog.getContext());
+                    dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog2.setContentView(R.layout.custom_dialog);
+                    CheckBox checkBox = (CheckBox) dialog2.findViewById(R.id.checkbox);
+                    TextView title = (TextView) dialog2.findViewById(R.id.titleName);
+                    TextView textytext = (TextView) dialog2.findViewById(R.id.textDialog);
+                    Button cancelButton  = (Button) dialog2.findViewById(R.id.cancelButton);
+                    Button done = (Button) dialog2.findViewById(R.id.button);
+                    title.setText("Invalid Date");
+                    textytext.setText("\n\n Inputted Date passed! \n Please select new date");
+                    done.setText("Ok");
+                    checkBox.setVisibility(View.INVISIBLE);
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog2.dismiss();
+                        }
+                    });
+                    ImageView image = (ImageView) dialog2.findViewById(R.id.imageDialog);
+                    image.setBackgroundDrawable(getResources().getDrawable(R.drawable.error));
+                    // if button is clicked, close the custom dialog
+                    done.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog2.dismiss();
+                        }
+                    });
+
+                    dialog2.show();
+
+
 				}
 				else {
 					if (eNameTextView.getText().toString().length() != 0 && className.getText().toString().length() != 0) {
@@ -204,16 +226,38 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 						activity.editEvent();
 					}
 					else {
-						new AlertDialog.Builder(dialog.getContext())
-								.setTitle("Missing Fields")
-								.setMessage("por favor setting event and course name\nthank")
-								.setNeutralButton("oki doki", new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog, int which) {
-										// bye bye
-									}
-								})
-								.show();
-					}
+                        final Dialog dialog2 = new Dialog(dialog.getContext());
+                        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog2.setContentView(R.layout.custom_dialog);
+                        CheckBox checkBox = (CheckBox) dialog2.findViewById(R.id.checkbox);
+                        TextView title = (TextView) dialog2.findViewById(R.id.titleName);
+                        TextView textytext = (TextView) dialog2.findViewById(R.id.textDialog);
+                        Button cancelButton  = (Button) dialog2.findViewById(R.id.cancelButton);
+                        Button done = (Button) dialog2.findViewById(R.id.button);
+                        title.setText("Missing Fields");
+                        textytext.setText("\n\n Please input course name and event name!");
+                        done.setText("Ok");
+                        checkBox.setVisibility(View.INVISIBLE);
+                        cancelButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog2.dismiss();
+                            }
+                        });
+                        ImageView image = (ImageView) dialog2.findViewById(R.id.imageDialog);
+                        image.setBackgroundDrawable(getResources().getDrawable(R.drawable.error));
+                        // if button is clicked, close the custom dialog
+                        done.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog2.dismiss();
+                            }
+                        });
+
+                        dialog2.show();
+
+
+                    }
 				}	
 				}
         });
