@@ -468,15 +468,17 @@ public class MyActivity extends ActionBarActivity {
     {
         final Dialog dialog2 = new Dialog(this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog2.setContentView(R.layout.custom_dialog);
+        dialog2.setContentView(R.layout.completed_dialog);
         CheckBox checkBox = (CheckBox) dialog2.findViewById(R.id.checkbox);
         TextView title = (TextView) dialog2.findViewById(R.id.titleName);
         TextView textytext = (TextView) dialog2.findViewById(R.id.textDialog);
         Button cancelButton  = (Button) dialog2.findViewById(R.id.cancelButton);
         Button done = (Button) dialog2.findViewById(R.id.button);
+        Button no = (Button) dialog2.findViewById(R.id.buttonNo);
         title.setText("Trash");
         textytext.setText("\n\n Are you sure you want to delete this item?");
         done.setText("Yes");
+        no.setText("Cancel");
         checkBox.setVisibility(View.INVISIBLE);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -495,7 +497,12 @@ public class MyActivity extends ActionBarActivity {
                 dialog2.dismiss();
             }
         });
-
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();
+            }
+        });
         dialog2.show();
 
 
