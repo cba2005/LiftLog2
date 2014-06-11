@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Window;
 import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 import android.content.Intent;

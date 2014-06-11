@@ -1,12 +1,16 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.*;
 import edu.uscb.cs.cs185.LiftLog2.system.*;
 
@@ -21,13 +25,15 @@ public class MyAdapter extends BaseAdapter{
     private LayoutInflater inflater = null;
 	private MyActivity myActivity;
 	private EventManager eventManager;
+    private ScaleAnimation animOpen, animClose;
 
-	private ArrayList<Event> events;
+    private ArrayList<Event> events;
 	
 	static class MyViewHolder {
 		TextView date;
 		TextView name;
 		TextView className;
+        Button button;
 	}
 
     public MyAdapter(Activity activity)
@@ -36,6 +42,10 @@ public class MyAdapter extends BaseAdapter{
 		myActivity = (MyActivity) activity;
 		eventManager = myActivity.getEventManager();
         inflater = activity.getLayoutInflater();
+        animOpen = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animOpen.setDuration(200);
+        animClose = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animClose.setDuration(200);
 
     }
     @Override
@@ -56,9 +66,10 @@ public class MyAdapter extends BaseAdapter{
 	
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
-		MyViewHolder viewHolder;
-	
+        final MyViewHolder viewHolder;
+
         if(view == null) {
+
 
 			view = inflater.inflate(R.layout.row_layout, viewGroup, false);
 			viewHolder = new MyViewHolder();
@@ -66,6 +77,7 @@ public class MyAdapter extends BaseAdapter{
 			//set textViews here
 			viewHolder.date = (TextView) view.findViewById(R.id.dateView);
 			viewHolder.name = (TextView) view.findViewById(R.id.itemView);
+            viewHolder.button = (Button) view.findViewById(R.id.completedButton);
 
 			view.setTag(viewHolder);
 		}
@@ -73,7 +85,8 @@ public class MyAdapter extends BaseAdapter{
 			viewHolder = (MyViewHolder) view.getTag();
 		}
 
-		View rect = view.findViewById(R.id.myRectangleView);
+
+        View rect = view.findViewById(R.id.myRectangleView);
 		final Event event = (Event) getItem(position);
 		if (event.getClass_() == null)
 			MyActivity.debug("EVENT CLASS IS NULL");
@@ -81,12 +94,36 @@ public class MyAdapter extends BaseAdapter{
 			((GradientDrawable) rect.getBackground()).setColor(event.getClass_().getClassColor());
 		}
 
+        viewHolder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //open dialog
+                new AlertDialog.Builder(myActivity)
+                        .setTitle("You Finished?!?")
+                        .setMessage("Pero like.... did you really?")
+                        .setPositiveButton("Yaaaaas", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                myActivity.completedTask();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                closeButton(viewHolder.button);
+                            }
+                        })
+                        .show();
+
+            }
+        });
+
+
         final View finalView = view;
         final boolean[] longClicked = {false};
 
         view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                closeButton(viewHolder.button);
                 finalView.setPressed(true);
                 Event e = eventManager.getEvents().get(position);
                 myActivity.debug("HEY U R LONGPRESSING ME LOL: " + e.getName());
@@ -100,6 +137,7 @@ public class MyAdapter extends BaseAdapter{
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeButton(viewHolder.button);
                 if(!longClicked[0]) {
                     finalView.setPressed(true);
                     myActivity.debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName() + " AT POSITION " + position);
@@ -115,10 +153,12 @@ public class MyAdapter extends BaseAdapter{
         view.setOnTouchListener(new MyTouchView(myActivity) {
             @Override
             public void onSwipeLeft() {
-                //View view = getCurrentFocus();
-                //int position = (Integer) view.getTag();
-                Event e = eventManager.getEvents().get(position);
-                Toast.makeText(myActivity, "left on " + e.getName(), Toast.LENGTH_SHORT).show();
+                openButton(viewHolder.button);
+            }
+
+            @Override
+            public void onSwipeRight() {
+                closeButton(viewHolder.button);
             }
 
             @Override
@@ -144,4 +184,46 @@ public class MyAdapter extends BaseAdapter{
         return view;
     }
 
+
+    private void openButton(final Button completedButton)
+    {
+        if(completedButton.getVisibility() == View.VISIBLE)
+            return;
+
+        animOpen.setAnimationListener(new Animation.AnimationListener()
+        {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                completedButton.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) { }
+
+            @Override
+            public void onAnimationEnd(Animation animation) { }
+        });
+
+        completedButton.startAnimation(animOpen);
+    }
+    private void closeButton(final Button completedButton)
+    {
+        if(completedButton.getVisibility() != View.VISIBLE)
+            return;
+
+            animClose.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    completedButton.setVisibility(View.INVISIBLE);
+                }
+            });
+            completedButton.startAnimation(animClose);
+    }
 }
