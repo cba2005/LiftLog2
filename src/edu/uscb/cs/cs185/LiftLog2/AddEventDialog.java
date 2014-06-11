@@ -171,7 +171,7 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 				MyActivity.debug("CHOSEN DAY: "+day);
 				
 				//sweg sweg
-				
+
 				if (year < y || (year == y && month < m) || (year == y && month == m && day < d))
 				{
                     final Dialog dialog2 = new Dialog(dialog.getContext());

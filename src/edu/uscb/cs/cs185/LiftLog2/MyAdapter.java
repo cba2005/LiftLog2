@@ -263,9 +263,11 @@ public class MyAdapter extends BaseAdapter{
             viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.late));
         else if (dueYear < year)
             viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.late));
+        else if ((dueMonth == (month+1)) && (dueDay < day))
+            viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.late));
         else
             viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.list_selector));
-                viewHolder.name.setText(event.getName());
+        viewHolder.name.setText(event.getName());
 		viewHolder.eventIcon.setBackgroundDrawable(myActivity.getEventDrawable(event));
 
         return view;
