@@ -1,8 +1,10 @@
 package edu.uscb.cs.cs185.LiftLog2;
 
 import android.annotation.*;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
@@ -46,7 +48,6 @@ public class MyActivity extends ActionBarActivity {
     private int imgNum = 0;
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
-    private String path;
     private TextView dateTV,dayTV;
 	
 	private EventManager eventManager;
@@ -64,7 +65,7 @@ public class MyActivity extends ActionBarActivity {
         setContentView(R.layout.main);
         dateTV = (TextView) findViewById(R.id.date);
         dayTV = (TextView) findViewById(R.id.day);
-        Drawable background = getResources().getDrawable(R.drawable.ucsbwave_144);
+        Drawable background = getResources().getDrawable(R.drawable.logo);
         getSupportActionBar().setBackgroundDrawable(background);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         setupSelfies();
@@ -162,9 +163,12 @@ public class MyActivity extends ActionBarActivity {
         //TextView text = (TextView) dialog.findViewById(R.id.textDialog);
 
 
+
         ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
-        if(imgNum > 0)
-        {
+        String path = saveFolder.getAbsolutePath();
+        imgNum = pref.getInt("imgNum", imgNum);
+
+        if(imgNum > 0) {
             String fileImgNum = new DecimalFormat("000").format(imgNum);
             Drawable d = Drawable.createFromPath(path + "/selfie_" + fileImgNum + ".jpg");
             image.setImageDrawable(d);
@@ -247,13 +251,14 @@ public class MyActivity extends ActionBarActivity {
 	
 	public void setupSystem() {
 		debug("setting up system...");
+        File saveFolder1;
 		boolean sdCardExists = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 		if (sdCardExists) {
-			saveFolder = new File(Environment.getExternalStorageDirectory(), "/YouCSMe");
+			saveFolder1 = new File(Environment.getExternalStorageDirectory(), "/YouCSMe");
 		} else {
-			saveFolder = getBaseContext().getDir("/YouCSMe", Context.MODE_PRIVATE);
+			saveFolder1 = getBaseContext().getDir("/YouCSMe", Context.MODE_PRIVATE);
 		}
-		String path = saveFolder.getAbsolutePath();
+		String path = saveFolder1.getAbsolutePath();
 		
 		eventManager = new EventManager(path);
 		debug("system setup complete!");
@@ -272,7 +277,7 @@ public class MyActivity extends ActionBarActivity {
         if (!saveFolder.exists())
             saveFolder.mkdirs();
 
-        path = saveFolder.getAbsolutePath();
+        String path = saveFolder.getAbsolutePath();
 
 
         pref =  this.getPreferences(Context.MODE_PRIVATE);
@@ -292,8 +297,7 @@ public class MyActivity extends ActionBarActivity {
         else
             vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
 
-        if(imgNum > 0)
-        {
+        if(imgNum > 0) {
             String fileImgNum = new DecimalFormat("000").format(imgNum);
             Drawable d = Drawable.createFromPath(path + "/selfie_" + fileImgNum + ".jpg");
             getSupportActionBar().setIcon(d);
@@ -381,6 +385,17 @@ public class MyActivity extends ActionBarActivity {
 		eventManager.completeEvent(e.getName(), e.getClassName());
 		adapter.notifyDataSetChanged();
 		debug("EVENT "+e.getName()+"set to status: "+e.getStatus());
+        //open dialog
+        new AlertDialog.Builder(MyActivity.this)
+                .setTitle("WOOOOOOOOOOO")
+                .setMessage("Goo jawb, yeah?")
+                .setPositiveButton("Danke", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        takePhoto();
+                    }
+                })
+
+                .show();
     }
 
     public void deleteEvent(Event e, MyAdapter adapter)
