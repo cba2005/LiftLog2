@@ -15,6 +15,7 @@ public class Event {
 	
 	public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	public static final DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm");
+	public static final String[] MONTHS = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 	
 	private int type;
 	private Class class_;
@@ -24,6 +25,8 @@ public class Event {
 	private int status;
 	private String dateDue;
 	private String timeDue;
+	private String formattedDate;
+	private String formattedTime;
 	
 	private Calendar calendar;
 	
@@ -37,6 +40,9 @@ public class Event {
 		this.timeDue = TIME_FORMAT.format(c.getTime());
 		this.description = description;
 		this.calendar = c;
+		this.formattedDate = MONTHS[getMonth()-1]+" "+getDay()+", "+getYear();
+		debug("DATE: "+MONTHS[getMonth()-1]+" "+getDay()+", "+getYear());
+		
 
 		debug("CREATING EVENT...");
 		debug("class: "+getClassName());
@@ -77,6 +83,7 @@ public class Event {
 		calendar = c;
 		dateDue = DATE_FORMAT.format(calendar.getTime());
 		timeDue = TIME_FORMAT.format(calendar.getTime());
+		formattedDate = MONTHS[getMonth()-1]+" "+getDay()+", "+getYear();
 	}
 	
 	public void setClassName(String n) {
@@ -143,6 +150,19 @@ public class Event {
 	
 	public Class getClass_() {
 		return class_;
+	}
+	
+	public String getFormattedDate() {
+		return formattedDate;
+	}
+	
+	public String getFormattedTime() {
+		int hour = getHour();
+		int day = getMinutes();
+		if (hour < 12) {
+			hour = hour % 13;
+		}
+		return "";
 	}
 
 	public void debug(String msg) {

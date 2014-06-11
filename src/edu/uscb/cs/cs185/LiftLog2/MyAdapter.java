@@ -27,7 +27,6 @@ public class MyAdapter extends BaseAdapter{
 	static class MyViewHolder {
 		TextView date;
 		TextView name;
-
 		TextView className;
 	}
 
@@ -61,8 +60,7 @@ public class MyAdapter extends BaseAdapter{
 	
         if(view == null) {
 
-			    view = inflater.inflate(R.layout.row_layout, viewGroup, false);
-
+			view = inflater.inflate(R.layout.row_layout, viewGroup, false);
 			viewHolder = new MyViewHolder();
 
 			//set textViews here
@@ -80,7 +78,6 @@ public class MyAdapter extends BaseAdapter{
 		if (event.getClass_() == null)
 			MyActivity.debug("EVENT CLASS IS NULL");
 		else {
-			MyActivity.debug("attempting to color squares");
 			((GradientDrawable) rect.getBackground()).setColor(event.getClass_().getClassColor());
 		}
 
@@ -141,15 +138,10 @@ public class MyAdapter extends BaseAdapter{
         });
 
 
-		viewHolder.date.setText(event.getDateDue());
+		viewHolder.date.setText(event.getFormattedDate());
 		viewHolder.name.setText(event.getName());
-
-
-
-
 
         return view;
     }
-
 
 }

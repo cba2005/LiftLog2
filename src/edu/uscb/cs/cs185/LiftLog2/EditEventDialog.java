@@ -32,7 +32,8 @@ public class EditEventDialog extends DialogFragment implements IDialog{
     private Button timeButton, dateButton, cancelButton, editEventButton;
     private TextView timeTextView, dateTextView,eNameTextView;
     private AutoCompleteTextView className;
-    public static final String[] MONTHS ={"January","February","March","April","May","June","July","August","September","October","November","December"};
+	private Spinner dropdown;
+	public static final String[] MONTHS = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
     private int year, month, day, hour, minute;
     private EditEventDialog my_dialog;
@@ -67,22 +68,19 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
         dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
         eNameTextView = (TextView) dialog.findViewById(R.id.eventEditText);
-
-
         className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
         className.setThreshold(1);
+        dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
+		Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
+		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item, items);
+		SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, EventManager.EVENT_TYPES,pics);
 
-        Spinner dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
-        String[] items = new String[]{"Homework","Presentation","Project","Exam"};
-        Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item, items);
-        SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, items,pics);
-
-        dropdown.setAdapter(myAdapter);
+		dropdown.setAdapter(myAdapter);
 
 		// beep boop
 		eNameTextView.setText(event.getName());
 		className.setText(event.getClassName());
+		dropdown.setSelection(event.getType());
 		
 		MyActivity.debug("CHECK1");
 
@@ -119,7 +117,7 @@ public class EditEventDialog extends DialogFragment implements IDialog{
 		
 		event.setCalendar(EventManager.NEW_CALENDAR(year, month, day, hour, minute));
 		event.setDescription(DEF_DESC);
-		event.setType(DEF_TYPE);
+		event.setType(dropdown.getSelectedItemPosition());
 		event.setStatus(EventManager.STAT_INCOMPLETE);
 		activity.getEventManager().sortEvents();
 		activity.getEventManager().saveActiveEvents();
@@ -135,7 +133,8 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         day = event.getDay();
 		MyActivity.debug("AHOY THERE 1");
         String date = "";
-        date = MONTHS[month];
+		MyActivity.debug("MONTH: "+month);
+        date = Event.MONTHS[month-1];
         date+= " " + String.valueOf(day);
         date += ", " + year;
         dateTextView.setText(date);

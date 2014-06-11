@@ -15,8 +15,9 @@ public class EventManager {
 	
 	public static final int TYP_HOMEWORK = 0;
 	public static final int TYP_PRESENTATION = 1;
-	public static final int TYP_PROJECT = 3;
-	public static final int TYP_EXAM = 4;
+	public static final int TYP_PROJECT = 2;
+	public static final int TYP_EXAM = 3;
+	public static final String[] EVENT_TYPES = {"Homework", "Presentation", "Project", "Exam"};
 	
 	public static String EVENT_FILE_PATH;
 	public static final String ACTIVE_EVENT_FILE_NAME = "activeEvents.txt";
@@ -28,7 +29,6 @@ public class EventManager {
 	private ArrayList<Event> inactiveEvents;
 	private File activeEventFile;
 	private File inactiveEventFile;
-	private int numTotalEvents;
 	private ArrayList<Event> events;
 	private ClassManager classManager;
 	
@@ -44,10 +44,6 @@ public class EventManager {
 		numInactiveEvents = 0;
 		loadActiveEvents();
 		loadInactiveEvents();
-	}
-	
-	public void editEvent(String name, String className) {
-		
 	}
 	
 	public void loadActiveEvents() {

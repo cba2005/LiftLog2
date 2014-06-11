@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -21,9 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 import edu.uscb.cs.cs185.LiftLog2.system.*;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -35,6 +32,8 @@ public class AddEventDialog extends DialogFragment implements IDialog{
     private Button timeButton, dateButton, cancelButton, addEventButton;
     private TextView timeTextView, dateTextView,eNameTextView;
     private AutoCompleteTextView className;
+	private Spinner dropdown;
+	private String[] items = new String[]{"Event Type","Homework","Presentation","Project","Exam"};
     public static final String[] MONTHS ={"January","February","March","April","May","June","July","August","September","October","November","December"};
 
 	private int year, month, day, hour, minute;
@@ -52,60 +51,50 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 
     @Override
         public Dialog onCreateDialog(final Bundle savedInstanceState) {
-            super.onCreateDialog(savedInstanceState);
-           // classesArray = getResources().getStringArray(R.array.classList);
-
-
-
-            // creating the fullscreen dialog
-            final Dialog dialog = new Dialog(getActivity());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.add_item);
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-            timeButton = (Button) dialog.findViewById(R.id.timeButton);
-            dateButton = (Button) dialog.findViewById(R.id.dateButton);
-            cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
-            addEventButton = (Button) dialog.findViewById(R.id.addEventButton);
-            timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
-            dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
-			eNameTextView = (TextView) dialog.findViewById(R.id.eventEditText);
-
+        super.onCreateDialog(savedInstanceState);
 		
-            className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
-            className.setThreshold(1);
+        // creating the fullscreen dialog
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.add_item);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        Spinner dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
+        timeButton = (Button) dialog.findViewById(R.id.timeButton);
+        dateButton = (Button) dialog.findViewById(R.id.dateButton);
+        cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+        addEventButton = (Button) dialog.findViewById(R.id.addEventButton);
+        timeTextView = (TextView) dialog.findViewById(R.id.eventTime);
+        dateTextView = (TextView) dialog.findViewById(R.id.eventDate);
+		eNameTextView = (TextView) dialog.findViewById(R.id.eventEditText);
+        className = (AutoCompleteTextView) dialog.findViewById(R.id.acCourseName);
+        className.setThreshold(1);
+		dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
+		Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
+		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item, items);
+		SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, items,pics);
 
-        String[] items = new String[]{"Homework","Presentation","Project","Exam"};
-        Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item, items);
-        SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, items,pics);
+		dropdown.setAdapter(myAdapter);
+		
+		MyActivity.debug("ADAPTER SET");
 
-        dropdown.setAdapter(myAdapter);
-       // dropdown.setAdapter(adapter);
+        setDateTime();
+        setListeners(dialog);
+        startAutoComplete();
 
-            setDateTime();
-            setListeners(dialog);
-            startAutoComplete();
-       //     setSpinnerView(items,c);
-            return dialog;
-        }
-
-
+        return dialog;
+    }
 
     public void startAutoComplete() {
-            //make autocomplere adapter
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.classList));
-            className.setAdapter(adapter);
-
-        }
+    	//make autocomplere adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.classList));
+        className.setAdapter(adapter);
+    }
 	
 	public void addEvent() {
 		String cName = className.getText().toString();
 		String name = eNameTextView.getText().toString();
 		String desc = DEF_DESC;
-		int type = DEF_TYPE;
+		int type = dropdown.getSelectedItemPosition();
 		Calendar cal = EventManager.NEW_CALENDAR(year, month, day, hour, minute);
 		activity.getEventManager().addActiveEvent(new Event(type, cName, name, desc, cal));
 	}
@@ -117,7 +106,7 @@ public class AddEventDialog extends DialogFragment implements IDialog{
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         String date = "";
-        date = MONTHS[month];
+        date = MONTHS[month-1];
         date+= " " + String.valueOf(day);
         date += " " + year;
         dateTextView.setText(date);
@@ -164,6 +153,7 @@ public class AddEventDialog extends DialogFragment implements IDialog{
                dialog.dismiss();
             }
         });
+		MyActivity.debug("SET LISTENERS");
     }
 
 	@Override
