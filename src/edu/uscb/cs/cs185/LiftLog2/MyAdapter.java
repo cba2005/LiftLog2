@@ -2,6 +2,7 @@ package edu.uscb.cs.cs185.LiftLog2;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.graphics.drawable.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.*;
@@ -110,8 +112,39 @@ public class MyAdapter extends BaseAdapter{
         viewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final Dialog dialog2 = new Dialog(view.getContext());
+                dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog2.setContentView(R.layout.custom_dialog);
+                CheckBox checkBox = (CheckBox) dialog2.findViewById(R.id.checkbox);
+                TextView title = (TextView) dialog2.findViewById(R.id.titleName);
+                TextView textytext = (TextView) dialog2.findViewById(R.id.textDialog);
+                Button cancelButton  = (Button) dialog2.findViewById(R.id.cancelButton);
+                Button done = (Button) dialog2.findViewById(R.id.button);
+                title.setText("Completed!");
+                textytext.setText("\n\n Did you really finish ?! ");
+                done.setText(" YES! ");
+                checkBox.setVisibility(View.INVISIBLE);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog2.dismiss();
+                    }
+                });
+                ImageView image = (ImageView) dialog2.findViewById(R.id.imageDialog);
+                image.setBackgroundDrawable(view.getResources().getDrawable(R.drawable.error));
+                // if button is clicked, close the custom dialog
+                done.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog2.dismiss();
+                    }
+                });
+
+                dialog2.show();
+
+
                 //open dialog
-                new AlertDialog.Builder(myActivity)
+              /*  new AlertDialog.Builder(myActivity)
                         .setTitle("You Finished?!?")
                         .setMessage("Pero like.... did you really?")
                         .setPositiveButton("Yaaaaas", new DialogInterface.OnClickListener() {
@@ -128,7 +161,7 @@ public class MyAdapter extends BaseAdapter{
 
                             }
                         })
-                        .show();
+                        .show();*/
 
             }
         });

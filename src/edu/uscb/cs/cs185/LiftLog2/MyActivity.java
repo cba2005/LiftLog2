@@ -424,23 +424,37 @@ public class MyActivity extends ActionBarActivity {
 
     public void deleteEvent(final Event e, final MyAdapter adapter)
     {
+        final Dialog dialog2 = new Dialog(this);
+        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog2.setContentView(R.layout.custom_dialog);
+        CheckBox checkBox = (CheckBox) dialog2.findViewById(R.id.checkbox);
+        TextView title = (TextView) dialog2.findViewById(R.id.titleName);
+        TextView textytext = (TextView) dialog2.findViewById(R.id.textDialog);
+        Button cancelButton  = (Button) dialog2.findViewById(R.id.cancelButton);
+        Button done = (Button) dialog2.findViewById(R.id.button);
+        title.setText("Trash");
+        textytext.setText("\n\n Are you sure you want to delete this item?");
+        done.setText("Yes");
+        checkBox.setVisibility(View.INVISIBLE);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();
+            }
+        });
+        ImageView image = (ImageView) dialog2.findViewById(R.id.imageDialog);
+        image.setBackgroundDrawable(getResources().getDrawable(R.drawable.trash));
+        // if button is clicked, close the custom dialog
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();
+            }
+        });
 
-        //open dialog
-        new AlertDialog.Builder(MyActivity.this)
-                .setTitle("Trashy Trash?")
-                .setMessage("Do you want to delete \"" + e.getName()+"\"?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        debug("\nattempting to delete " + e.getName() + "...");
-                        eventManager.removeEvent(e.getName(), e.getClassName());
-                        adapter.notifyDataSetChanged();                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                         }
-                })
+        dialog2.show();
 
-                .show();
+
     }
 
 	public Drawable getEventDrawable(Event e) {
