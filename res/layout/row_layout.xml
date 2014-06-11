@@ -11,20 +11,31 @@
     <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="fill_parent">
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:background="@drawable/completed_btn"
-            android:text="Completed"
-            android:id = "@+id/completedButton"
-            android:visibility="invisible"
-            android:paddingLeft="7dp"
-            android:paddingRight="7dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_alignParentRight="true"
-            />
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Alert"
+                android:id="@+id/alert"
+                android:textColor="@color/maroon"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="7dp"
+                android:gravity="center_horizontal"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@drawable/completed_btn"
+                android:text="Completed"
+                android:id = "@+id/completedButton"
+                android:visibility="invisible"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                />
 <!--
     <LinearLayout
             android:orientation="horizontal"

@@ -42,7 +42,7 @@ public class MyAdapter extends BaseAdapter{
         View crossOut;
 		ImageView eventIcon;
         LinearLayout linearLayout;
-
+        TextView alert;
 	}
 
     public MyAdapter(Activity activity, ArrayList<Event> events)
@@ -98,6 +98,7 @@ public class MyAdapter extends BaseAdapter{
             viewHolder.linearLayout = (LinearLayout) view.findViewById(R.id.rowView);
             viewHolder.linearLayout.setBackgroundDrawable(view.getResources().getDrawable(R.drawable.list_selector));
             viewHolder.className = (TextView) view.findViewById(R.id.cName);
+            viewHolder.alert = (TextView) view.findViewById(R.id.alert);
 
 			view.setTag(viewHolder);
 		}
@@ -257,16 +258,25 @@ public class MyAdapter extends BaseAdapter{
         if (((dueDay == day) && (dueMonth == (month+1))) && (dueYear == year)) {
 
                 viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.due_today));
-
+                viewHolder.alert.setText("DUE TODAY");
         }
-        else if ((dueMonth < (month+1)) && (dueYear == year))
+        else if ((dueMonth < (month+1)) && (dueYear == year)) {
             viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.late));
+            viewHolder.alert.setText("LATE");
+        }
         else if (dueYear < year)
+        {
             viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.late));
-        else if ((dueMonth == (month+1)) && (dueDay < day))
+            viewHolder.alert.setText("LATE");
+        }
+        else if ((dueMonth == (month+1)) && (dueDay < day)){
+            viewHolder.alert.setText("LATE");
             viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.late));
-        else
+        }
+        else {
+            viewHolder.alert.setText("");
             viewHolder.linearLayout.setBackgroundDrawable(myActivity.getResources().getDrawable(R.drawable.list_selector));
+        }
         viewHolder.name.setText(event.getName());
 		viewHolder.eventIcon.setBackgroundDrawable(myActivity.getEventDrawable(event));
 
