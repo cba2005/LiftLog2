@@ -25,6 +25,7 @@ import android.text.format.DateFormat;
 import android.util.*;
 import android.widget.*;
 import edu.uscb.cs.cs185.LiftLog2.system.*;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -138,9 +139,20 @@ public class MyActivity extends ActionBarActivity {
     public void settingsDialog()
     {
         final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_dialog);
         CheckBox checkBox = (CheckBox) dialog.findViewById(R.id.checkbox);
-
+        TextView title = (TextView) dialog.findViewById(R.id.titleName);
+        TextView textytext = (TextView) dialog.findViewById(R.id.textDialog);
+        Button cancelButton  = (Button) dialog.findViewById(R.id.cancelButton);
+        title.setText("Settings");
+        textytext.setVisibility(View.INVISIBLE);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         checkBox.setChecked(vicSelfie);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -156,7 +168,7 @@ public class MyActivity extends ActionBarActivity {
        checkBox.setText("Victory Selfie");
 
 
-        dialog.setTitle("Settings");
+        //dialog.setTitle("Settings");
         // set the custom dialog components - text, image and button
         //TextView text = (TextView) dialog.findViewById(R.id.textDialog);
 
@@ -189,24 +201,31 @@ public class MyActivity extends ActionBarActivity {
 
     public void helpDialog()
     {
+
         final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_dialog);
-
-        // final RelativeLayout dialogLayout = (RelativeLayout) findViewById(R.id.relLayout);
-
-
-        dialog.setTitle("Help");
         CheckBox checkBox = (CheckBox) dialog.findViewById(R.id.checkbox);
+        TextView title = (TextView) dialog.findViewById(R.id.titleName);
+        TextView textytext = (TextView) dialog.findViewById(R.id.textDialog);
+        Button cancelButton  = (Button) dialog.findViewById(R.id.cancelButton);
+        String version = "\t\tYouCSMe 1.0\n\n";
+        String authors = "\tCARESSA, ARLENE, \n BRONWYN, IRIS-ELENI\n";
+
+
+
+        title.setText("Help");
+        textytext.setText(version+authors);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         checkBox.setVisibility(View.INVISIBLE);
-        // set the custom dialog components - text, image and button
-        //TextView text = (TextView) dialog.findViewById(R.id.textDialog);
-
-
         ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
         image.setImageResource(R.drawable.doge);
-
         Button dialogButton = (Button) dialog.findViewById(R.id.button);
-        // if button is clicked, close the custom dialog
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

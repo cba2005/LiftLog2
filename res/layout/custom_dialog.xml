@@ -3,31 +3,67 @@
                 android:layout_width="fill_parent"
                 android:id="@+id/relLayout"
                 android:background="@drawable/alert_rectangle"
-                android:layout_height="fill_parent" >
+                android:layout_height="wrap_content" >
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/title"
+            android:background="@color/barblue">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:id="@+id/cancelButton"
+
+                android:background="@drawable/button_image"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/navy"
+                android:gravity="center_horizontal"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                android:id="@+id/titleName"/>
+    </RelativeLayout>
+
 
     <ImageView
             android:id="@+id/imageDialog"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="4dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/title"
             android:layout_marginRight="6dp" />
 
     <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/navy"
             android:textStyle="bold"
             android:text = "@string/victorySelfie"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@id/imageDialog"
+            android:layout_below="@id/title"
+            android:layout_marginTop="30dp"
             android:layout_margin="5dp" />
-    <!--<TextView
+   <TextView
             android:id="@+id/textDialog"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFF"
-            android:layout_toRightOf="@+id/imageDialog"/>-->
+            android:textColor="@color/navy"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:layout_below="@id/title"
+            android:layout_toRightOf="@+id/imageDialog"/>
 
     <Button
             android:id="@+id/button"
@@ -37,14 +73,16 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="30dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:background="@drawable/btn_blue_glossy"
             android:textColor="@color/lightblue"
+            android:layout_below="@id/imageDialog"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/imageDialog"
+
             />
 
 

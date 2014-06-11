@@ -56,9 +56,10 @@
                 android:text="Item"
                 android:id="@+id/itemView"
                 android:textColor="@color/navy"
-                android:paddingBottom="12dp"
-                android:paddingTop = "10dp"
-                android:layout_centerInParent="true"
+                android:paddingTop="5dp"
+                android:paddingBottom="20dp"
+
+                android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"/>
             <TextView
                     android:layout_width="wrap_content"
