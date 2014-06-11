@@ -303,7 +303,9 @@ public class MyActivity extends ActionBarActivity {
     {
         //ListView Stuff
         list = (ListView) findViewById(R.id.listView);
-
+        ColorDrawable cd = new ColorDrawable(0x00007fff);
+        list.setOverscrollFooter(cd);
+        list.setOverscrollHeader(cd);
         // Getting adapter by passing xml data ArrayList
         adapter = new MyAdapter(this);//, songsList);
         list.setAdapter(adapter);

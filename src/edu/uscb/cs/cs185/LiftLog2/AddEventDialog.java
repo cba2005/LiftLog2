@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -20,7 +21,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 import edu.uscb.cs.cs185.LiftLog2.system.*;
+import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -33,7 +36,7 @@ public class AddEventDialog extends DialogFragment implements IDialog{
     private TextView timeTextView, dateTextView,eNameTextView;
     private AutoCompleteTextView className;
     public static final String[] MONTHS ={"January","February","March","April","May","June","July","August","September","October","November","December"};
-	
+
 	private int year, month, day, hour, minute;
 	private AddEventDialog my_dialog;
 
@@ -73,19 +76,25 @@ public class AddEventDialog extends DialogFragment implements IDialog{
             className.setThreshold(1);
 
         Spinner dropdown = (Spinner) dialog.findViewById(R.id.spinner1);
-        String[] items = new String[]{"Event Type","Homework","Presentation","Project","Exam"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), android.R.layout.simple_spinner_item, items);
 
-        dropdown.setAdapter(adapter);
+        String[] items = new String[]{"Homework","Presentation","Project","Exam"};
+        Drawable[] pics = new Drawable[]{getResources().getDrawable(R.drawable.homework),getResources().getDrawable(R.drawable.presentation), getResources().getDrawable(R.drawable.project),getResources().getDrawable(R.drawable.exam)};
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(), R.layout.support_simple_spinner_dropdown_item, items);
+        SpinnerAdapter myAdapter = new SpinnerAdapter(activity, android.R.layout.simple_spinner_item, items,pics);
+
+        dropdown.setAdapter(myAdapter);
+       // dropdown.setAdapter(adapter);
 
             setDateTime();
             setListeners(dialog);
             startAutoComplete();
-
+       //     setSpinnerView(items,c);
             return dialog;
         }
 
-         public void startAutoComplete() {
+
+
+    public void startAutoComplete() {
             //make autocomplere adapter
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.classList));
             className.setAdapter(adapter);
@@ -174,4 +183,54 @@ public class AddEventDialog extends DialogFragment implements IDialog{
 		MyActivity.debug("SET HOUR: "+hour);
 		MyActivity.debug("SET MINUTE: "+minute);
 	}
+}
+
+class SpinnerAdapter extends ArrayAdapter<String>
+{
+    private Activity context;
+    String[] data = null;
+    Drawable[] pics = null;
+    public SpinnerAdapter(Activity context, int resource, String[] data, Drawable[] pics)
+    {
+        super(context, resource, data);
+        this.context = context;
+        this.data = data;
+        this.pics = pics;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent)
+    {   // Ordinary view in Spinner, we use android.R.layout.simple_spinner_item
+        return super.getView(position, convertView, parent);
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent)
+    {   // This view starts when we click the spinner.
+        View row = convertView;
+        if(row == null)
+        {
+            LayoutInflater inflater = context.getLayoutInflater();
+            row = inflater.inflate(R.layout.spinner_options, parent, false);
+        }
+
+       String item = data[position];
+        Drawable pic = pics[position];
+        if(item != null)
+        {   // Parse the data from each object and set it.
+            ImageView myIcon = (ImageView) row.findViewById(R.id.imageIcon);
+            TextView myEvent = (TextView) row.findViewById(R.id.hwText);
+            if(myIcon != null)
+            {
+                myIcon.setBackgroundDrawable(pic);
+               // myFlag.setBackgroundDrawable(getResources().getDrawable(item.getCountryFlag()));
+            }
+            if(myEvent != null)
+                myEvent.setText(item);
+
+        }
+
+        return row;
+    }
+
 }

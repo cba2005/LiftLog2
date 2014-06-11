@@ -89,7 +89,12 @@ public class MyAdapter extends BaseAdapter{
 		viewHolder.date.setText(event.getDateDue());
 		viewHolder.name.setText(event.getName());
 
+
+
+
+
         return view;
     }
+
 
 }

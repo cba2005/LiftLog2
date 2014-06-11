@@ -15,7 +15,6 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:id="@+id/cancelButton"
-
             android:background="@drawable/button_image"/>
 
     <TextView
@@ -66,6 +65,10 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/eventName"
             android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+
+
+
             android:layout_weight="1"
             android:textColor="@color/navy"
             android:id="@+id/eventName"/>
@@ -74,29 +77,60 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:id="@+id/eventEditText"
+
+
             android:layout_weight="1"
             android:layout_gravity="center_horizontal|left"/>
         </LinearLayout>
     <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_white_glossy"
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
                 android:layout_gravity="center"
                 android:gravity="center_vertical|right"
-                android:paddingLeft="50dp"
-                android:paddingRight="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:id="@+id/outlineTop"
+                android:background="@color/silver"/>
+
+        <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_below="@id/outlineTop"
+                android:background = "@drawable/btn_white_glossy"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 android:spinnerMode="dropdown" />
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|right"
+
+                android:layout_marginLeft="51dp"
+                android:layout_marginRight="51dp"
+                android:layout_below="@id/spinner1"
+                android:background="@color/silver"/>
+
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight = "60dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_alignParentRight="true"
                 android:src="@android:drawable/ic_menu_more"/>
+
     </RelativeLayout>
     <RelativeLayout
 
@@ -137,14 +171,7 @@
             android:textStyle="bold"
             android:gravity="center_vertical|right"
             android:id="@+id/dateButton"/>
-<!--
 
-    </LinearLayout>
-    <RelativeLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-            -->
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -185,6 +212,7 @@
             android:id="@+id/timeButton"/>
 
     </RelativeLayout>
+
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
