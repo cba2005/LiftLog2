@@ -45,7 +45,8 @@ public class MyActivity extends ActionBarActivity {
 	
 	private File completionMessagesFile;
 	private String[] defaultMessages = {"Congratulation. Lettuce celebrate.", "Nice one, friend.", "u r cool maybe", "wow so hot, so cool, so doge.",
-	"maybe ur barn with it. maybe its neighbelline."};
+	"maybe ur barn with it. maybe its neighbelline.", "nice gains bro, lookin' big", "hot. like something hot", "wow, so model."};
+	private String[] smileMessages = {"smile!", "sorriso!", "Улыбочку!", "senyum!", "sourire!", "sonrisa!", "Řekni!", "lächeln", "웃다", "χαμόγελο!", "微笑!", "微笑む!"};
     private ArrayList<String> completionMessages; //= {"Yay! Good job.", "Hey dere"};
 	private int numCompletionMessages;
 	
