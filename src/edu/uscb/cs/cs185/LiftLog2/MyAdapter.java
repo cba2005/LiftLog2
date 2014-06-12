@@ -55,9 +55,9 @@ public class MyAdapter extends BaseAdapter{
         animClose = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
         animClose.setDuration(200);
         animStrikeComplete = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF,1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animStrikeComplete.setDuration(200);
+        animStrikeComplete.setDuration(600);
 		animStrikeIncomplete = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f);
-		animStrikeIncomplete.setDuration(200);
+		animStrikeIncomplete.setDuration(600);
 		this.events = events;
 
     }
