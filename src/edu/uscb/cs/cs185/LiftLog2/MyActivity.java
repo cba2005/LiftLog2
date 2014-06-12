@@ -417,9 +417,14 @@ public class MyActivity extends ActionBarActivity {
         list.setOverscrollFooter(cd);
         list.setOverscrollHeader(cd);
         // Getting adapter by passing xml data ArrayList
-        adapter = new MyAdapter(this, eventManager.getEvents());//, songsList);
+        adapter = new MyAdapter(this, eventManager.getEvents(), null, false);//, songsList);
+		//
         list.setAdapter(adapter);
     }
+	
+	public MyAdapter getAdapter() {
+		return adapter;
+	}
 
 
     public void addEventKnownDateDialog(Calendar c)
@@ -429,8 +434,10 @@ public class MyActivity extends ActionBarActivity {
     }
 
 
-    public void editEventKnownDateDialog(Calendar c, Event e)
+    public void editEventKnownDateDialog(Calendar c, Event e, ArrayList<Event> events)
     {
+		debug("HELLO FRIENDS");
+		//adapter = new MyAdapter(this, events);
         EditEventDialog newEvent = new EditEventDialog(this, e);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }

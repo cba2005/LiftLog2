@@ -40,6 +40,7 @@ public class EditEventDialog extends DialogFragment implements IDialog{
         this.activity = activity;
         this.my_dialog = this;
 		this.event = e;
+		MyActivity.debug("DIALOG GOT EVENT ---------- "+e.getName());
     }
 
     private static String[] classesArray;

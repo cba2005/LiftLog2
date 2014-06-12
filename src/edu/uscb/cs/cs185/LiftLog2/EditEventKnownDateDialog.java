@@ -67,18 +67,6 @@ public class EditEventKnownDateDialog extends DialogFragment {
 
     public void setDateTime()
     {
-        //pull from text file
-
-        /*String date = "";
-        date = MONTHS[month];
-        date+= " " + String.valueOf(day);
-        date += " " + year;
-        dateTextView.setText(date);
-
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        String time = hour + ":"+"00";
-        timeTextView.setText(time);*/
-
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);

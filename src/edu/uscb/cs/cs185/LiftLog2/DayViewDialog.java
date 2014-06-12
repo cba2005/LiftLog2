@@ -22,16 +22,13 @@ public class DayViewDialog extends DialogFragment {
     private MyAdapter adapter;
     private MyActivity activity;
     private Button addEventButton;
-
-
-
+	private ArrayList<Event> events;
 
     public DayViewDialog(int Month, int Day, int Year, MyActivity activity){
         this.month = Month;
         this.day = Day;
         this.year = Year;
         this.activity = activity;
-
     }
 
     @Override
@@ -55,14 +52,8 @@ public class DayViewDialog extends DialogFragment {
         // Getting adapter by passing xml data ArrayList
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month, day);
-/*		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH);
-		int day = cal.get(Calendar.DAY_OF_MONTH);*/
-		ArrayList<Event> testList = new ArrayList<Event>();
-		testList.add(new Event(0, 0, "test", "testtest", "boo", Calendar.getInstance()));
-/*		if (activity.getEventManager().getEventsForDate(cal).size() == 0)
-			MyActivity.debug("no events for "+cal.getTime());*/
-        adapter = new MyAdapter(activity, activity.getEventManager().getEventsForDate(cal));//activity.getEventManager().getEvents());//activity.getEventManager().getEventsForDate(cal));//, songsList);activity.getEventManager().getEvents()
+		events = activity.getEventManager().getEventsForDate(cal);
+        adapter = new MyAdapter(activity, events, cal, true);//activity.getEventManager().getEvents());//activity.getEventManager().getEventsForDate(cal));//, songsList);activity.getEventManager().getEvents()
         list.setAdapter(adapter);
 
         // Click event for single list row
@@ -74,7 +65,14 @@ public class DayViewDialog extends DialogFragment {
                 c.set(year,month,day);
                 Event e = activity.getEventManager().getEventsForDate(c).get(position);
                 MyActivity.debug("GRABBED EVENT: "+e.getName());
-                activity.editEventKnownDateDialog(c, e);
+                activity.editEventKnownDateDialog(c, e, activity.getEventManager().getEventsForDate(c));
+				events = activity.getEventManager().getEventsForDate(c);
+				if (events.isEmpty())
+					MyActivity.debug("FUCKING EMPTY LIKE IT SOULD BE OMG WTF");
+				for (Event event : events)
+					MyActivity.debug("FUCKING EVENT: --------- "+event.getName());
+				//adapter = new MyAdapter(activity, activity.getEventManager().getEventsForDate(c));
+				adapter.notifyDataSetChanged();
             }
         });
 

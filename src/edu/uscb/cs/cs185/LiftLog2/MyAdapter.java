@@ -30,6 +30,8 @@ public class MyAdapter extends BaseAdapter{
     private MyAdapter myAdapter = this;
     private TextView className;
     private ArrayList<Event> events;
+	private Calendar calendar;
+	private boolean useCalendar;
 	
 	static class MyViewHolder {
 		TextView date;
@@ -42,8 +44,10 @@ public class MyAdapter extends BaseAdapter{
         TextView alert;
 	}
 
-    public MyAdapter(Activity activity, ArrayList<Event> events)
+    public MyAdapter(Activity activity, ArrayList<Event> events, Calendar calendar, boolean useCalendar)
     {
+		this.useCalendar = useCalendar;
+		this.calendar = calendar;
         this.activity = activity;
 		myActivity = (MyActivity) activity;
 		eventManager = myActivity.getEventManager();
@@ -187,9 +191,17 @@ public class MyAdapter extends BaseAdapter{
 
                 if(!longClicked[0]) {
                     finalView.setPressed(true);
-                    myActivity.debug("YOU CLICKED: " + eventManager.getEvents().get(position).getName() + " AT POSITION " + position);
-                    Event e = eventManager.getEvents().get(position);
+                    myActivity.debug("YOU CLICKED: " + events.get(position).getName() + " AT POSITION " + position);
+                    Event e = events.get(position);
                     myActivity.editEventDialog(e);
+					myActivity.debug("CALENDAR IS NULL");
+					if (useCalendar) {
+						myActivity.debug("USING CALENDAR");
+						events = myActivity.getEventManager().getEventsForDate(calendar);
+						notifyDataSetChanged();
+					}
+/*					events = myActivity.getEventManager().getEvents();//getEventsForDate();
+					notifyDataSetChanged();*/
                 }
                 longClicked[0] = false;
 
@@ -274,7 +286,9 @@ public class MyAdapter extends BaseAdapter{
         }
         viewHolder.name.setText(event.getName());
 		viewHolder.eventIcon.setBackgroundDrawable(myActivity.getEventDrawable(event));
-
+		
+		notifyDataSetChanged();
+		
         return view;
     }
 
