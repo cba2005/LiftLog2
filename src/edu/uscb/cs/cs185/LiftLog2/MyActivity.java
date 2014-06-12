@@ -491,8 +491,6 @@ public class MyActivity extends ActionBarActivity {
             }
         });
         dialog2.show();
-
-
     }
 
 	public Drawable getEventDrawable(Event e) {
@@ -556,6 +554,5 @@ public class MyActivity extends ActionBarActivity {
 	public static void debug(String msg) {
 		if (DEBUG_MODE)
 			Log.i("log", TAG + ": " + msg);
-        //ljijijioj
 	}
 }

@@ -239,7 +239,8 @@ public class MyAdapter extends BaseAdapter{
 			viewHolder.crossOut.setVisibility(View.VISIBLE);
 		}
 		else {
-			MyActivity.debug(event.getName() + "is not complete. status: "+event.getStatus());
+			MyActivity.debug(event.getName() + " is not complete. status: "+event.getStatus());
+			viewHolder.crossOut.setVisibility(View.INVISIBLE);
 		}
 
         int dueDay = event.getDay();
