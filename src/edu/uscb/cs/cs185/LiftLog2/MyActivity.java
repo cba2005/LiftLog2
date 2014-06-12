@@ -4,7 +4,7 @@ import android.annotation.*;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
+import android.os.*;
 import android.view.*;
 import edu.uscb.cs.cs185.LiftLog2.interfaces.*;
 import android.content.Intent;
@@ -13,8 +13,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
@@ -42,6 +40,7 @@ public class MyActivity extends ActionBarActivity {
     private boolean vicSelfie = true;
     private SharedPreferences.Editor editor;
     private TextView dateTV,dayTV;
+    private Event compEvent;
 	
 	private File completionMessagesFile;
 	private String[] defaultMessages = {"Congratulation. Lettuce celebrate.", "Nice one, friend.", "u r cool maybe", "wow so hot, so cool, so doge.",
@@ -127,12 +126,38 @@ public class MyActivity extends ActionBarActivity {
         }
     }
 
-    public void takePhoto()
+    public void completeEvent(final Event event)
     {
         if(vicSelfie)
         {
+            int ranNum = (int)(Math.random() * ((smileMessages.length)));
+            final Toast toast = Toast.makeText(this, smileMessages[ranNum], Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            new CountDownTimer(250, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                public void onFinish() {
+                    toast.cancel();
+                    takePhoto(event);
+                }
+            }.start();
+        }
+        else
+            setEventComplete(event);
+
+    }
+    public void takePhoto(Event event)
+    {
+        if(vicSelfie)
+        {
+            compEvent = event;
             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, 100);
+
         }
     }
 
@@ -300,6 +325,8 @@ public class MyActivity extends ActionBarActivity {
                 e.printStackTrace();
             }
         }
+        setEventComplete(compEvent);
+        compEvent = null;
     }
 	
 	public void setupSystem() {
@@ -432,7 +459,7 @@ public class MyActivity extends ActionBarActivity {
 		adapter.notifyDataSetChanged();
     }
 
-    public void setEventComplete(Event e, MyAdapter adapter)
+    public void setEventComplete(Event e)
     {
         int ranNum = (int)(Math.random() * ((completionMessages.size())));
         Toast toast = Toast.makeText(MyActivity.this, completionMessages.get(ranNum), Toast.LENGTH_SHORT);

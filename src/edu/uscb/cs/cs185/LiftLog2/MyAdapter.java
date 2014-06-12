@@ -6,10 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.*;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
+import android.os.CountDownTimer;
+import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.*;
@@ -142,8 +140,7 @@ public class MyAdapter extends BaseAdapter{
                     public void onClick(View v) {
 						closeButton(viewHolder.button);
 						if (event.getStatus() == EventManager.STAT_INCOMPLETE) {
-							strikeItem(viewHolder.crossOut);
-							myActivity.setEventComplete(event, myAdapter);
+							strikeItem(viewHolder.crossOut, event);
 						}
                         dialog2.dismiss();
                     }
@@ -342,7 +339,7 @@ public class MyAdapter extends BaseAdapter{
         }
     }
 
-    private void strikeItem(final View line)
+    private void strikeItem(final View line, final Event event)
     {
 
         animStrikeComplete.setAnimationListener(new Animation.AnimationListener() {
@@ -357,6 +354,7 @@ public class MyAdapter extends BaseAdapter{
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
+                myActivity.completeEvent(event);
 			}
 		});
 

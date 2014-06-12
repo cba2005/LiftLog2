@@ -76,7 +76,7 @@ public class CalendarDialog extends DialogFragment {
                     mMonth = month;
                     mYear = year;
                     mDay = dayOfMonth;
-                    dialog.dismiss();
+                    //dialog.dismiss();
                     activity.openDayViewDialog(mMonth, mDay, mYear);
                 }
 
