@@ -124,7 +124,7 @@ public class MyAdapter extends BaseAdapter{
                 Button done = (Button) dialog2.findViewById(R.id.button);
                 Button no = (Button) dialog2.findViewById(R.id.buttonNo);
                 title.setText("Completed!");
-                textytext.setText("\n\n Did you really finish ?! ");
+                textytext.setText("\n\n Did you really finish?! ");
                 done.setText(" YES! ");
                 no.setText(" No ");
                 checkBox.setVisibility(View.INVISIBLE);

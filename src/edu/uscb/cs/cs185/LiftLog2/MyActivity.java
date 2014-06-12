@@ -374,14 +374,14 @@ public class MyActivity extends ActionBarActivity {
 
     public void addEventKnownDateDialog(Calendar c)
     {
-        AddEventKnownDateDialog newEvent = new AddEventKnownDateDialog(this, c);
+        AddEventDialog newEvent = new AddEventDialog(this);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
 
-    public void editEventKnownDateDialog(Calendar c)
+    public void editEventKnownDateDialog(Calendar c, Event e)
     {
-        EditEventKnownDateDialog newEvent = new EditEventKnownDateDialog(this, c);
+        EditEventDialog newEvent = new EditEventDialog(this, e);
         newEvent.show(getSupportFragmentManager(), "newEvent");
     }
 
@@ -433,23 +433,10 @@ public class MyActivity extends ActionBarActivity {
 
     public void setEventComplete(Event e, MyAdapter adapter)
     {
-        //open dialog
-       /* new AlertDialog.Builder(MyActivity.this)
-                .setTitle("WOOOOOOOOOOO")
-                .setMessage("Goo jawb, yeah?")
-                .setPositiveButton("Danke", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        takePhoto();
-                    }
-                })
-
-                .show();*/
         int ranNum = (int)(Math.random() * ((completionMessages.size())));
         Toast toast = Toast.makeText(MyActivity.this, completionMessages.get(ranNum), Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
-
-
 
         debug("\nsetting event completion " + e.getName());
 		eventManager.setEventComplete(e.getName(), e.getClassName());
@@ -569,5 +556,6 @@ public class MyActivity extends ActionBarActivity {
 	public static void debug(String msg) {
 		if (DEBUG_MODE)
 			Log.i("log", TAG + ": " + msg);
+        //ljijijioj
 	}
 }

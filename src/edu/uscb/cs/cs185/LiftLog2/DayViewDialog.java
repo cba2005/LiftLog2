@@ -72,7 +72,9 @@ public class DayViewDialog extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Calendar c = Calendar.getInstance();
                 c.set(year,month,day);
-                activity.editEventKnownDateDialog(c);
+                Event e = activity.getEventManager().getEventsForDate(c).get(position);
+                MyActivity.debug("GRABBED EVENT: "+e.getName());
+                activity.editEventKnownDateDialog(c, e);
             }
         });
 
