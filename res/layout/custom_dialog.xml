@@ -52,6 +52,18 @@
             android:layout_below="@id/title"
             android:layout_marginTop="30dp"
             android:layout_margin="5dp" />
+    <CheckBox
+            android:id="@+id/checkbox2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/navy"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/imageDialog"
+            android:layout_below="@id/checkbox"
+            android:layout_marginTop="10dp"
+            android:layout_margin="5dp" />
    <TextView
             android:id="@+id/textDialog"
             android:layout_width="fill_parent"
