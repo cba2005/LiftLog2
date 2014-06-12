@@ -38,6 +38,7 @@ public class MyActivity extends ActionBarActivity {
     private SharedPreferences pref;
     private int imgNum = 0;
     private boolean vicSelfie = true;
+    private boolean encourage = true;
     private SharedPreferences.Editor editor;
     private TextView dateTV,dayTV;
     private Event compEvent;
@@ -174,6 +175,7 @@ public class MyActivity extends ActionBarActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_dialog);
         CheckBox checkBox = (CheckBox) dialog.findViewById(R.id.checkbox);
+        CheckBox checkBox2 = (CheckBox) dialog.findViewById(R.id.checkbox2);
         TextView title = (TextView) dialog.findViewById(R.id.titleName);
         TextView textytext = (TextView) dialog.findViewById(R.id.textDialog);
         Button cancelButton  = (Button) dialog.findViewById(R.id.cancelButton);
@@ -196,9 +198,21 @@ public class MyActivity extends ActionBarActivity {
             }
         });
 
+        checkBox.setText("Victory Selfie");
 
-       checkBox.setText("Victory Selfie");
+        checkBox2.setVisibility(View.VISIBLE);
+        checkBox2.setChecked(encourage);
+        checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                encourage = !encourage;
+                editor.putBoolean("encourage", encourage);
+                editor.commit();
+            }
+        });
+
+        checkBox2.setText("Fun Messages");
 
         //dialog.setTitle("Settings");
         // set the custom dialog components - text, image and button
@@ -377,6 +391,14 @@ public class MyActivity extends ActionBarActivity {
         else
             vicSelfie = pref.getBoolean("vicSelfie", vicSelfie);
 
+        if(!pref.contains("encourage"))
+        {
+            editor.putBoolean("encourage", encourage);
+            editor.commit();
+        }
+        else
+            encourage = pref.getBoolean("encourage", encourage);
+
         if(imgNum > 0) {
             String fileImgNum = new DecimalFormat("000").format(imgNum);
             Drawable d = Drawable.createFromPath(path + "/selfie_" + fileImgNum + ".jpg");
@@ -461,10 +483,13 @@ public class MyActivity extends ActionBarActivity {
 
     public void setEventComplete(Event e)
     {
-        int ranNum = (int)(Math.random() * ((completionMessages.size())));
-        Toast toast = Toast.makeText(MyActivity.this, completionMessages.get(ranNum), Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        if(encourage)
+        {
+            int ranNum = (int) (Math.random() * ((completionMessages.size())));
+            Toast toast = Toast.makeText(MyActivity.this, completionMessages.get(ranNum), Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
 
         debug("\nsetting event completion " + e.getName());
 		eventManager.setEventComplete(e.getName(), e.getClassName());
